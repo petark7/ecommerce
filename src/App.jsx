@@ -1,10 +1,24 @@
-import './App.css';
+import { useRoutes, Link } from 'react-router-dom';
+import router from './router';
 
-const App = () => (
-	<h1 className="text-3xl font-poppins font-[400]">
-		Hello world!
-	</h1>
+const App = () => {
+	const routeResult = useRoutes(router);
 
-);
+	return (
+		<div>
+			<nav>
+				<ul>
+					<li>
+						<Link to="/">Home</Link>
+					</li>
+					<li>
+						<Link to="/team">Team</Link>
+					</li>
+				</ul>
+			</nav>
+			{routeResult}
+		</div>
+	);
+};
 
 export default App;
