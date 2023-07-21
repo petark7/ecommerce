@@ -11,9 +11,6 @@ const App = () => {
 					<li>
 						<Link to="/">Home</Link>
 					</li>
-					<li>
-						<Link to="/team">Team</Link>
-					</li>
 				</ul>
 			</nav>
 			{routeResult}

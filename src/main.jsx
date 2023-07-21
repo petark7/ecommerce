@@ -4,11 +4,14 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import router from './router';
 import './index.css';
+import ProductProvider from './contexts/ProductContext';
 
 ReactDOM.createRoot(document.querySelector('#root')).render(
 	<React.StrictMode>
-		<RouterProvider router={router}>
-			<App />
-		</RouterProvider>
+		<ProductProvider>
+			<RouterProvider router={router}>
+				<App />
+			</RouterProvider>
+		</ProductProvider>
 	</React.StrictMode>
 );
