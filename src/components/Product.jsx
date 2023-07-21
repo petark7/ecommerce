@@ -1,5 +1,6 @@
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faEye } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 
 const Product = ({ product }) => {
 	const { id, image, category, title, price } = product;
@@ -19,9 +20,21 @@ const Product = ({ product }) => {
 				</div>
 
 				{/* Buttons */}
-				<div className="absolute top-0 right-0 bg-red-500/40 p-2
-				flex flex-column
-						" />
+				<div className="absolute top-6 -right-11 group-hover:right-2 p-2
+				flex flex-col gap-2 opacity-0 group-hover:opacity-100
+				transition-all duration-300"
+				>
+					<button className="w-10 h-10 bg-red-500 shadow-md">
+						<FontAwesomeIcon className="text-white" icon={faPlus} />
+					</button>
+
+					<Link
+						to={`/product-details/${id}`} className="w-10 h-10 flex justify-center
+					items-center bg-white shadow-md"
+					>
+						<FontAwesomeIcon className="text-gray" icon={faEye} />
+					</Link>
+				</div>
 			</div>
 			<div className="product-title">
 				{title}
