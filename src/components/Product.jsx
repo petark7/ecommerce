@@ -41,6 +41,7 @@ const Product = ({ product }) => {
 					<div className="text-sm capitalize text-gray-500">
 						{category}
 					</div>
+
 					<Link
 						className="font-semibold mb-1"
 						to={`/product-details/${id}`}
