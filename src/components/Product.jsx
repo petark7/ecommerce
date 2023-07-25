@@ -1,4 +1,4 @@
-import { faPlus, faEye } from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 
@@ -11,33 +11,47 @@ const Product = ({ product }) => {
 			relative overflow-hidden group transition"
 			>
 				{/* Image */}
-				<div className="w-full h-full flex justify-center
-					items-center "
+				<div
+					className="w-full h-full flex justify-center
+					items-center cursor-pointer"
 				>
-					<img
-						className="w-[120px] group-hover:scale-110 mx-auto flex justify-center
+					<Link
+						to={`/product-details/${id}`}
+					>
+						<img
+							className="w-[120px] group-hover:scale-110 mx-auto flex justify-center
 						items-center transition duration-300" src={image} />
+					</Link>
 				</div>
 
 				{/* Buttons */}
-				<div className="absolute top-6 -right-11 group-hover:right-2 p-2
+				<div className="absolute top-2 -right-0 group-hover:right-2 p-2
 				flex flex-col gap-2 opacity-0 group-hover:opacity-100
-				transition-all duration-300"
+				transition-all duration-200"
 				>
-					<button className="w-10 h-10 bg-red-500 shadow-md">
-						<FontAwesomeIcon className="text-white" icon={faPlus} />
+					<button type="button" className="hover:scale-110 transition duration-200 w-10 h-10 bg-red-500 shadow-md">
+						<FontAwesomeIcon className="text-white" icon={faCartShopping} />
 					</button>
-
-					<Link
-						to={`/product-details/${id}`} className="w-10 h-10 flex justify-center
-					items-center bg-white shadow-md"
-					>
-						<FontAwesomeIcon className="text-gray" icon={faEye} />
-					</Link>
 				</div>
 			</div>
-			<div className="product-title">
-				{title}
+
+			{/* Category title and price */}
+			<div>
+				<div>
+					<div className="text-sm capitalize text-gray-500">
+						{category}
+					</div>
+					<Link
+						className="font-semibold mb-1"
+						to={`/product-details/${id}`}
+					>
+						{title}
+					</Link>
+
+					<div className="font-bold text-red-400">
+						${price}
+					</div>
+				</div>
 			</div>
 		</div>
 	);
