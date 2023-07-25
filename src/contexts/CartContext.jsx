@@ -23,8 +23,17 @@ const CartProvider = ({ children }) => {
 		}
 	};
 
+	const decrementProductAmount = product => {
+		// Find item and decrement amount by 1
+		const cartItem = cart.find(item => item.id === product.id);
+		const updatedCart = [...cart].map(item => item.id === product.id
+			?				{ ...item, amount: cartItem.amount - 1 }
+			:				item);
+		setCart(updatedCart);
+	};
+
 	return (
-		<CartContext.Provider value={{ cart, addToCart }}>
+		<CartContext.Provider value={{ cart, addToCart, decrementProductAmount }}>
 			{children}
 		</CartContext.Provider>
 	);

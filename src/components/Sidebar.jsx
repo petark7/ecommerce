@@ -30,7 +30,7 @@ const Sidebar = () => {
 						}} />
 				</div>
 
-				{cart.map(product => <CartItem />)}
+				{cart.map(product => <CartItem key={product.id} product={product} />)}
 			</div>
 
 		</>
