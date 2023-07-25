@@ -6,9 +6,8 @@ import CartItem from './CartItem';
 
 const Sidebar = () => {
 	const [isOpen, setIsOpen] = useState(false);
-	const cartContext = useContext(CartContext);
+	const { cart } = useContext(CartContext);
 
-	console.log(cartContext);
 	return (
 		<>
 			<div onClick={() => {
@@ -17,7 +16,7 @@ const Sidebar = () => {
 			> <FontAwesomeIcon className="text-red text-2xl text-red-400 cursor-pointer" icon={faShoppingCart} />
 			</div>
 
-			<div className={`${isOpen ? 'right-0' : '-right-full'} p-5 w-full fixed top-0 right-0 h-full
+			<div className={`${isOpen ? 'right-0' : '-right-full'} p-5 w-full fixed top-0 h-full
         bg-white z-20 md:w-[450px] md:min-w-[350px] xl:max-w-[25vw] transition-all duration-300 shadow-2xl`}
 			>
 				<div className="flex justify-between py-4 border-b">
@@ -26,12 +25,12 @@ const Sidebar = () => {
 					</div>
 
 					<FontAwesomeIcon
-						className="text-xl cursor-pointer" icon={faArrowRight} onClick={() => {
+						className="text-xl text-gray-500 cursor-pointer" icon={faArrowRight} onClick={() => {
 							setIsOpen(false);
 						}} />
 				</div>
 
-				<CartItem />
+				{cart.map(product => <CartItem />)}
 			</div>
 
 		</>

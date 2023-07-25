@@ -21,7 +21,7 @@ const CartItem = () => {
 				{/* title & close btn */}
 				<div className="flex items-center justify-between mb-2">
 					<div className="uppercase font-bold max-w-[220px]">Very nice handbag here</div>
-					<FontAwesomeIcon icon={faClose} />
+					<FontAwesomeIcon className="text-xl text-gray-600 cursor-pointer" icon={faClose} />
 				</div>
 
 				{/* counter (item quantity) */}
