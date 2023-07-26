@@ -44,7 +44,7 @@ const Sidebar = () => {
 
 							<button
 								type="button"
-								className="w-full border p-5 px-8 mt-10 bg-gray-800 font-bold text-white"
+								className="w-full border p-5 px-8 mt-10 bg-gray-700 font-bold text-white"
 							>
 								Checkout
 							</button>

@@ -16,7 +16,7 @@ const Product = ({ product }) => {
 				{/* Image */}
 				<div
 					className="w-full h-full flex justify-center
-					items-center cursor-pointer"
+					items-center"
 				>
 					<Link
 						to={`/product-details/${id}`}

@@ -9,7 +9,6 @@ const Navbar = () => {
 	const sidebarContext = useContext(SidebarContext);
 	const { numberOfProducts } = useContext(CartContext);
 
-	console.log(numberOfProducts);
 	return (
 		<div className="flex items-center justify-between p-3 w-full h-14 shadow-md select-none">
 			<Link className="uppercase font-bold text-2xl text-red-400" to="/">Bluzify</Link>

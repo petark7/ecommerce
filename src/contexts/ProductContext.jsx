@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import axios from 'axios';
 import { createContext, useEffect, useState } from 'react';
 
@@ -19,11 +20,17 @@ const ProductProvider = ({ children }) => {
 		getProducts();
 	}, []);
 
+	const getProduct = id => products.find(product => id == product.id);
+
 	return (
-		<ProductContext.Provider value={products}>
+		<ProductContext.Provider value={{ products, getProduct }}>
 			{children}
 		</ProductContext.Provider>
 	);
+};
+
+ProductProvider.propTypes = {
+	children: PropTypes.node
 };
 
 export default ProductProvider;
