@@ -15,7 +15,7 @@ const Sidebar = () => {
 		>
 			<div className="flex justify-between py-4 border-b">
 				<div className="uppercase font-semibold">
-					Shopping bag ({numberOfProducts})
+					Shopping cart ({numberOfProducts})
 				</div>
 
 				<FontAwesomeIcon

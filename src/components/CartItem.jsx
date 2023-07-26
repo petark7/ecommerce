@@ -19,7 +19,7 @@ const CartItem = ({ product }) => {
 	};
 
 	return (
-		<div className="flex items-center my-5 border-b pb-5 gap-3 p-5">
+		<div className="flex items-center my-5 border-b pb-5 gap-3 p-5 select-none">
 			{/* image */}
 			<div>
 				<img src={image} className="w-28" />
