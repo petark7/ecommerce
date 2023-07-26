@@ -6,7 +6,7 @@ import CartItem from './CartItem';
 
 const Sidebar = () => {
 	const [isOpen, setIsOpen] = useState(false);
-	const { cart } = useContext(CartContext);
+	const { cart, cartTotal, numberOfProducts } = useContext(CartContext);
 
 	return (
 		<>
@@ -21,16 +21,42 @@ const Sidebar = () => {
 			>
 				<div className="flex justify-between py-4 border-b">
 					<div className="uppercase font-semibold">
-						Shopping bag (0)
+						Shopping bag ({numberOfProducts})
 					</div>
 
 					<FontAwesomeIcon
-						className="text-xl text-gray-500 cursor-pointer" icon={faArrowRight} onClick={() => {
+						className="text-xl text-gray-500 cursor-pointer  hover:text-red-400" icon={faArrowRight} onClick={() => {
 							setIsOpen(false);
 						}} />
 				</div>
 
+				{/* cart items */}
 				{cart.map(product => <CartItem key={product.id} product={product} />)}
+
+				{/* cart total and place order */}
+				<div className="flex gap-1 mt-5 justify-end select-none font-bold
+				 text-gray-700 uppercase"
+				>
+					{cartTotal == 0
+						?						<div className="flex w-full font-semibold text-lg">No items added yet!</div>
+						:					 (
+							<div className="flex flex-col w-full">
+
+								<div className="flex gap-2 justify-end text-xl">
+									Total: <div className="text-red-400 font-bold">${cartTotal}</div>
+								</div>
+
+								<button
+									type="button"
+									className="w-full border p-5 px-8 mt-10 bg-red-200 uppercase
+									font-bold text-gray-700"
+								>
+									Place order
+								</button>
+
+							</div>
+						)}
+				</div>
 			</div>
 
 		</>
