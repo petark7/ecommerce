@@ -19,7 +19,7 @@ const CartItem = ({ product }) => {
 	};
 
 	return (
-		<div className="flex items-center my-5 border-b pb-5 gap-3">
+		<div className="flex items-center my-5 border-b pb-5 gap-3 p-5">
 			{/* image */}
 			<div>
 				<img src={image} className="w-28" />
@@ -30,7 +30,7 @@ const CartItem = ({ product }) => {
 
 				{/* title & close btn */}
 				<div className="flex  justify-between mb-2">
-					<Link className="uppercase font-bold max-w-[240px] hover:text-red-400" to={`product-details/${product.id}`}>{title}</Link>
+					<Link className="uppercase font-semibold max-w-[240px] hover:text-red-400" to={`product-details/${product.id}`}>{title}</Link>
 					<FontAwesomeIcon
 						className="text-xl text-gray-600 cursor-pointer hover:text-red-400"
 						icon={faClose}

@@ -17,7 +17,7 @@ const Sidebar = () => {
 			</div>
 
 			<div className={`${isOpen ? 'right-0' : '-right-full'} p-5 w-full fixed top-0 h-full
-        bg-white z-20 md:w-[450px] md:min-w-[350px] xl:max-w-[25vw] transition-all duration-300 shadow-2xl`}
+        bg-white z-20 md:w-[450px] md:min-w-[350px] xl:max-w-[26vw] transition-all duration-300 shadow-2xl`}
 			>
 				<div className="flex justify-between py-4 border-b">
 					<div className="uppercase font-semibold">
@@ -31,7 +31,9 @@ const Sidebar = () => {
 				</div>
 
 				{/* cart items */}
-				{cart.map(product => <CartItem key={product.id} product={product} />)}
+				<div className="max-h-[60vh] overflow-y-auto">
+					{cart.map(product => <CartItem key={product.id} product={product} />)}
+				</div>
 
 				{/* cart total and place order */}
 				<div className="flex gap-1 mt-5 justify-end select-none font-bold
@@ -48,10 +50,9 @@ const Sidebar = () => {
 
 								<button
 									type="button"
-									className="w-full border p-5 px-8 mt-10 bg-red-200 uppercase
-									font-bold text-gray-700"
+									className="w-full border p-5 px-8 mt-10 bg-gray-800 font-bold text-white"
 								>
-									Place order
+									Checkout
 								</button>
 
 							</div>
