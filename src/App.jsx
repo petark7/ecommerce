@@ -1,21 +1,17 @@
-import { useRoutes, Link } from 'react-router-dom';
+import { RouterProvider } from 'react-router-dom';
+import ProductProvider from './contexts/ProductContext';
+import CartProvider from './contexts/CartContext';
 import router from './router';
+import SidebarProvider from './contexts/SidebarContext';
 
-const App = () => {
-	const routeResult = useRoutes(router);
-
-	return (
-		<div>
-			<nav>
-				<ul>
-					<li>
-						<Link to="/">Home</Link>
-					</li>
-				</ul>
-			</nav>
-			{routeResult}
-		</div>
-	);
-};
+const App = () => (
+	<CartProvider>
+		<ProductProvider>
+			<SidebarProvider>
+				<RouterProvider router={router} />
+			</SidebarProvider>
+		</ProductProvider>
+	</CartProvider>
+);
 
 export default App;

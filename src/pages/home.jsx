@@ -1,14 +1,12 @@
-import { useContext } from 'react';
-import { ProductContext } from '../contexts/ProductContext';
-import Product from '../components/Product';
 import Sidebar from '../components/Sidebar';
 import ProductList from '../components/ProductList';
+import Layout from '../components/Layout';
 
 const Home = () => (
-	<>
+	<Layout>
 		<Sidebar />
 		<ProductList />
-	</>
+	</Layout>
 );
 
 export default Home;

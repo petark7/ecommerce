@@ -29,7 +29,7 @@ const CartItem = ({ product }) => {
 			<div className="w-full flex flex-col py-2 column">
 
 				{/* title & close btn */}
-				<div className="flex  justify-between mb-2">
+				<div className="flex justify-between mb-2">
 					<Link className="uppercase font-semibold max-w-[240px] hover:text-red-400" to={`product-details/${product.id}`}>{title}</Link>
 					<FontAwesomeIcon
 						className="text-xl text-gray-600 cursor-pointer hover:text-red-400"
