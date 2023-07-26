@@ -12,6 +12,7 @@ const ProductDetails = () => {
 
 	useEffect(() => {
 		setProduct(getProduct(id));
+		window.scrollTo({ top: 0 });
 	}, []);
 
 	return (
