@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { toast } from 'react-toastify';
 import { firebaseConfig } from '../firebaseConfig';
 // Follow this pattern to import other Firebase services
@@ -22,6 +22,16 @@ export const loginUser = async (email, password) => {
 		const errorMessage = error.message;
 		return (errorMessage);
 	}
+};
+
+const isUserLoggedIn = () => {
+	onAuthStateChanged(auth, user => {
+		if (user) {
+			return true;
+		}
+
+		return false;
+	});
 };
 
 // TODO: create user

@@ -15,18 +15,43 @@ const Navbar = () => {
 				{/* LOGO */}
 				<Link className="uppercase font-bold text-2xl text-red-400" to="/">Bluzify</Link>
 
-				{/* OPEN CART */}
-				<div
-					className="relative m-2 cursor-pointer" onClick={() => {
-						sidebarContext.setIsOpen(previousValue => !previousValue);
-					}}
-				>
-					{/* CART ICON */}
-					<FontAwesomeIcon className="text-red text-2xl text-gray-600 cursor-pointer" icon={faShoppingCart} />
-					<div className="flex justify-center items-center absolute -right-3 -bottom-2
-        bg-red-400 rounded-full text-white w-[20px] h-[20px] text-xs"
+				<div className="flex w-[250px] gap-2">
+
+					{/* login or create account */}
+					<div className="flex font-light justify-center items-center">
+						<div className="flex gap-1">
+							<Link
+								className="font-semibold hover:text-red-500 cursor-pointer"
+								to="/login"
+							>
+								Login
+							</Link>
+							or
+							<Link
+								className="font-semibold hover:text-red-500 cursor-pointer"
+								to="/register"
+							>
+								create account
+							</Link>
+						</div>
+					</div>
+
+					{/* OPEN CART */}
+					<div
+						className="relative m-2 cursor-pointer" onClick={() => {
+							sidebarContext.setIsOpen(previousValue => !previousValue);
+						}}
 					>
-						<div>{numberOfProducts}</div>
+						{/* CART ICON */}
+						<FontAwesomeIcon className="text-red text-2xl text-gray-600 cursor-pointer" icon={faShoppingCart} />
+
+						{/* number of products indicator */}
+						<div className="flex justify-center items-center absolute -right-3 -bottom-2
+        bg-red-400 rounded-full text-white w-[20px] h-[20px] text-xs"
+						>
+							<div>{numberOfProducts}</div>
+
+						</div>
 					</div>
 				</div>
 			</div>
