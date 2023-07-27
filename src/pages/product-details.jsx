@@ -10,6 +10,7 @@ const ProductDetails = () => {
 	const [product, setProduct] = useState({});
 	const { addToCart } = useContext(CartContext);
 
+	// Scroll to top on page load
 	useEffect(() => {
 		setProduct(getProduct(id));
 		window.scrollTo({ top: 0 });
