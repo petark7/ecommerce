@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
@@ -9,7 +9,7 @@ import { UserContext } from '../contexts/UserContext';
 const Navbar = () => {
 	const sidebarContext = useContext(SidebarContext);
 	const { numberOfProducts } = useContext(CartContext);
-	const { isLoggedIn } = useContext(UserContext);
+	const { isLoggedIn, logUserOut } = useContext(UserContext);
 
 	return (
 		<div className="flex h-14 shadow-md select-none">
@@ -23,14 +23,24 @@ const Navbar = () => {
 						? 						(
 							<div className="dropdown dropdown-end">
 								<label tabIndex="0" className="m-1">
-									<FontAwesomeIcon className="text-3xl text-gray-600 cursor-pointer" icon={faUserCircle} />
+									<FontAwesomeIcon
+										className="text-3xl text-gray-600 cursor-pointer"
+										icon={faUserCircle}
+									/>
 								</label>
 								<ul
 									tabIndex="0"
-									className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+									className="dropdown-content z-[1] menu p-2 shadow bg-base-100
+									rounded-box w-52"
 								>
 									<li><a>Account settings</a></li>
-									<li><a>Logout</a></li>
+									<li><a onClick={() => {
+										logUserOut();
+									}}
+									    >
+										Logout
+             </a>
+									</li>
 								</ul>
 							</div>
 						)
@@ -62,7 +72,10 @@ const Navbar = () => {
 						}}
 					>
 						{/* CART ICON */}
-						<FontAwesomeIcon className="text-2xl text-gray-600 cursor-pointer" icon={faShoppingCart} />
+						<FontAwesomeIcon
+							className="text-2xl text-gray-600 cursor-pointer"
+							icon={faShoppingCart}
+						/>
 
 						{/* number of products indicator */}
 						<div className="flex justify-center items-center absolute -right-3 -bottom-2

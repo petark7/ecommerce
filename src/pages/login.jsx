@@ -1,11 +1,19 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { loginUser } from '../firebase/utils';
 
 const Login = () => {
-	console.log();
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const navigate = useNavigate();
+
+	const handleLogin = async (email, password) => {
+		const user = await loginUser(email, password);
+		if (user) {
+			navigate('/');
+		}
+	};
 
 	return (
 		<Layout>
@@ -21,7 +29,7 @@ const Login = () => {
 						className="flex flex-col w-full gap-3"
 						onSubmit={event => {
 							event.preventDefault();
-							loginUser(email, password);
+							handleLogin(email, password);
 						}}
 					>
 						<input

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { createContext, useEffect, useState } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../firebase/utils';
+import { auth, logout } from '../firebase/utils';
 
 export const UserContext = createContext();
 
@@ -18,12 +18,16 @@ const UserProvider = ({ children }) => {
 		});
 	};
 
+	const logUserOut = () => {
+		logout();
+	};
+
 	useEffect(() => {
 		checkIfLoggedIn();
 	}, []);
 
 	return (
-		<UserContext.Provider value={{ isLoggedIn }}>
+		<UserContext.Provider value={{ isLoggedIn, logUserOut }}>
 			{children}
 		</UserContext.Provider>
 	);
