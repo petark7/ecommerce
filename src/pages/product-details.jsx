@@ -10,18 +10,19 @@ const ProductDetails = () => {
 	const [product, setProduct] = useState({});
 	const { addToCart } = useContext(CartContext);
 
-	// Scroll to top on page load
+	// Get product and scroll to top
 	useEffect(() => {
 		setProduct(getProduct(id));
 		window.scrollTo({ top: 0 });
-	}, []);
+	}, [id, getProduct]);
 
 	return (
 		<Layout>
-			<section className="py-20 min-h-screen">
+			<section className="py-20 min-h-screen flex">
 				{/* container for all elements */}
 				<div className="container mx-auto flex flex-col lg:flex-row items-center justify-center">
 					<img className="mb-8 lb:mb-0 pb-4 max-w-[200px] lg:max-w-sm lg:mr-20" src={product.image} />
+
 					{/* title, price, description, add to cart button */}
 					<div className="flex flex-col gap-4 max-w-[700px]">
 						<div className="text-2xl font-semibold text-center lg:text-left">{product.title} </div>

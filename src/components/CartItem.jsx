@@ -30,7 +30,11 @@ const CartItem = ({ product }) => {
 
 				{/* title & close btn */}
 				<div className="flex justify-between mb-2">
-					<Link className="uppercase font-semibold max-w-[240px] hover:text-red-400" to={`product-details/${product.id}`}>{title}</Link>
+					<Link
+						className="uppercase font-semibold max-w-[240px] hover:text-red-400"
+						to={`/product-details/${product.id}`}
+					>{title}
+					</Link>
 					<FontAwesomeIcon
 						className="text-xl text-gray-600 cursor-pointer hover:text-red-400"
 						icon={faClose}
@@ -39,7 +43,11 @@ const CartItem = ({ product }) => {
 
 				{/* counter (item quantity) */}
 				<div className="flex gap-3">
-					<QuantityCounter quantity={amount} incrementAction={incrementProduct} decrementAction={decrementProduct} />
+					<QuantityCounter
+						quantity={amount}
+						incrementAction={incrementProduct}
+						ecrementAction={decrementProduct}
+					/>
 					<div className="flex w-full justify-between items-center">
 						{/* item price */}
 						<div className="select-none">
