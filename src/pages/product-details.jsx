@@ -17,7 +17,7 @@ const ProductDetails = () => {
 
 	return (
 		<Layout>
-			<section className="pt-32 pb-12 lg:py-32 h-screen">
+			<section className="py-20 min-h-screen">
 				{/* container for all elements */}
 				<div className="container mx-auto flex flex-col lg:flex-row items-center justify-center">
 					<img className="mb-8 lb:mb-0 pb-4 max-w-[200px] lg:max-w-sm lg:mr-20" src={product.image} />
@@ -29,8 +29,8 @@ const ProductDetails = () => {
 						<div>
 							<button
 								type="button"
-								className="flex font-semibold justify-center p-4 lg:mt-5 border w-[200px]
-								bg-gray-700 text-white"
+								className="flex font-semibold justify-center p-4 mt-4 lg:mt-5 border w-full lg:w-[200px]
+								 bg-gray-700 text-white"
 								onClick={() => {
 									addToCart(product);
 								}}
