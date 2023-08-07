@@ -8,16 +8,16 @@ import UserProvider from './contexts/UserContext';
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => (
-	<CartProvider>
-		<ProductProvider>
-			<SidebarProvider>
-				<UserProvider>
+	<UserProvider>
+		<CartProvider>
+			<ProductProvider>
+				<SidebarProvider>
 					<ToastContainer />
 					<RouterProvider router={router} />
-				</UserProvider>
-			</SidebarProvider>
-		</ProductProvider>
-	</CartProvider>
+				</SidebarProvider>
+			</ProductProvider>
+		</CartProvider>
+	</UserProvider>
 );
 
 export default App;

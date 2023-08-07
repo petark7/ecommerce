@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { CartContext } from '../contexts/CartContext';
 import QuantityCounter from './QuantityCounter';
 
-const CartItem = ({ product }) => {
+const CartItem = ({ product, setIsOpen }) => {
 	const { id, image, title, price, amount } = product;
 	const totalPrice = (amount * price);
 	const { addToCart, decrementProductAmount, removeFromCart } = useContext(CartContext);
@@ -33,6 +33,7 @@ const CartItem = ({ product }) => {
 					<Link
 						className="uppercase font-semibold max-w-[240px] hover:text-red-400"
 						to={`/product-details/${product.id}`}
+						onClick={() => setIsOpen(false)}
 					>{title}
 					</Link>
 					<FontAwesomeIcon

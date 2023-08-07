@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { doc, setDoc, getDoc, getFirestore } from 'firebase/firestore';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
 import { firebaseConfig } from '../firebaseConfig';
 // Follow this pattern to import other Firebase services
 // import { } from 'firebase/<service>';
@@ -9,6 +9,7 @@ import { firebaseConfig } from '../firebaseConfig';
 // Firebase project configuration
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
+export const db = getFirestore(app);
 
 export const loginUser = async (email, password) => {
 	try {
@@ -35,5 +36,16 @@ export const logout = async () => {
 	}
 };
 
+export const updateCartFirestore = async (userID, data) => {
+	await setDoc(doc(db, 'users', userID), { data });
+};
+
+export const getCartFirestore = async userID => {
+	const docRef = doc(db, 'users', userID);
+	const docSnap = await getDoc(docRef);
+
+	return docSnap.data().data;
+};
+
 // TODO: create user
-const createUser = async (email, password) => {};
+// const createUser = async (email, password) => {};

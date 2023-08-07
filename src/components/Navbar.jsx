@@ -9,7 +9,7 @@ import { UserContext } from '../contexts/UserContext';
 const Navbar = () => {
 	const sidebarContext = useContext(SidebarContext);
 	const { numberOfProducts } = useContext(CartContext);
-	const { isLoggedIn, logUserOut } = useContext(UserContext);
+	const { user, logUserOut } = useContext(UserContext);
 
 	return (
 		<div className="flex h-14 shadow-md select-none">
@@ -19,7 +19,7 @@ const Navbar = () => {
 
 				<div className="flex w-[250px] gap-2 justify-end items-center">
 					{/* logged in -> show icon */}
-					{isLoggedIn
+					{user
 						? 						(
 							<div className="dropdown dropdown-end">
 								<label tabIndex="0" className="m-1">
@@ -34,12 +34,13 @@ const Navbar = () => {
 									rounded-box w-52"
 								>
 									<li><a>Account settings</a></li>
-									<li><a onClick={() => {
-										logUserOut();
-									}}
-									    >
-										Logout
-             </a>
+									<li>
+										<a onClick={() => {
+											logUserOut();
+										}}
+										>
+											Logout
+										</a>
 									</li>
 								</ul>
 							</div>

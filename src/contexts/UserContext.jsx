@@ -6,20 +6,20 @@ import { auth, logout } from '../firebase/utils';
 export const UserContext = createContext();
 
 const UserProvider = ({ children }) => {
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+	const [user, setUser] = useState(null);
 	const checkIfLoggedIn = async () => {
 		onAuthStateChanged(auth, user => {
 			if (user) {
-				setIsLoggedIn(true);
+				setUser(user);
 			} else {
-				setIsLoggedIn(false);
+				setUser(null);
 			}
 		});
 	};
 
 	const logUserOut = () => {
 		logout();
+		setUser(null);
 	};
 
 	useEffect(() => {
@@ -27,7 +27,7 @@ const UserProvider = ({ children }) => {
 	}, []);
 
 	return (
-		<UserContext.Provider value={{ isLoggedIn, logUserOut }}>
+		<UserContext.Provider value={{ user, logUserOut }}>
 			{children}
 		</UserContext.Provider>
 	);
