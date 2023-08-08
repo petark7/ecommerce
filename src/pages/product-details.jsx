@@ -6,26 +6,43 @@ import { CartContext } from '../contexts/CartContext';
 
 const ProductDetails = () => {
 	const { id } = useParams();
-	const { getProduct } = useContext(ProductContext);
 	const [product, setProduct] = useState({});
+	const { getProduct } = useContext(ProductContext);
 	const { addToCart } = useContext(CartContext);
 
+	// Get product and scroll to top
 	useEffect(() => {
 		setProduct(getProduct(id));
 		window.scrollTo({ top: 0 });
-	}, []);
+	}, [id, getProduct]);
 
 	return (
 		<Layout>
-			<section className="py-20 min-h-screen">
+			<section className="py-20 min-h-screen flex">
 				{/* container for all elements */}
-				<div className="container mx-auto flex flex-col lg:flex-row items-center justify-center">
-					<img className="mb-8 lb:mb-0 pb-4 max-w-[200px] lg:max-w-sm lg:mr-20" src={product.image} />
+				<div className="container mx-auto flex flex-col
+				lg:flex-row items-center justify-center"
+				>
+					<img
+						className="mb-8 lb:mb-0 pb-4 max-w-[200px] lg:max-w-sm lg:mr-20"
+						src={product?.image}
+					/>
+
 					{/* title, price, description, add to cart button */}
 					<div className="flex flex-col gap-4 max-w-[700px]">
-						<div className="text-2xl font-semibold text-center lg:text-left">{product.title} </div>
-						<div className="text-red-400 text-2xl">${product.price}</div>
-						<div className="text-xl">{product.description}</div>
+
+						{/* title */}
+						<div className="text-2xl font-semibold text-center lg:text-left">
+							{product?.title}
+						</div>
+
+						{/* price */}
+						<div className="text-red-400 text-2xl">${product?.price}</div>
+
+						{/* description */}
+						<div className="text-xl">{product?.description}</div>
+
+						{/* add to cart button */}
 						<div>
 							<button
 								type="button"
@@ -36,6 +53,7 @@ const ProductDetails = () => {
 								}}
 							>	Add to cart
 							</button>
+
 						</div>
 					</div>
 				</div>

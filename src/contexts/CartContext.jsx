@@ -1,10 +1,14 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState, useContext } from 'react';
+import { getCartFirestore, updateCartFirestore } from '../firebase/utils';
+import { UserContext } from './UserContext';
 
 export const CartContext = createContext();
 
 const CartProvider = ({ children }) => {
 	const [cart, setCart] = useState([]);
 	const [cartTotal, setCartTotal] = useState(null);
+	const { user } = useContext(UserContext);
+	const [syncedWithFirestore, setSyncedWithFirestore] = useState(false);
 	const [numberOfProducts, setNumberOfProducts] = useState(0);
 	const addToCart = product => {
 		const newItem = { ...product, amount: 1 };
@@ -33,6 +37,12 @@ const CartProvider = ({ children }) => {
 		setCart(updatedCart);
 	};
 
+	const syncWithFirestore = async () => {
+		setSyncedWithFirestore(true);
+		const firebaseCart = await getCartFirestore(user?.uid);
+		setCart(firebaseCart);
+	};
+
 	const removeFromCart = id => {
 		const newCart = cart.filter(product => product.id !== id);
 		setCart(newCart);
@@ -49,7 +59,15 @@ const CartProvider = ({ children }) => {
 		});
 		setCartTotal(Number.parseFloat(total).toFixed(2));
 		setNumberOfProducts(numberOfProducts);
+
+		(syncedWithFirestore && updateCartFirestore(user?.uid, cart));
 	}, [cart]);
+
+	useEffect(() => {
+		if (user) {
+			syncWithFirestore();
+		}
+	}, [user]);
 
 	return (
 		<CartContext.Provider value={{ cart,

@@ -32,14 +32,16 @@ const Product = ({ product }) => {
 				flex flex-col gap-2 opacity-0 group-hover:opacity-100
 				transition-all duration-200"
 				>
-					<button
-						type="button" className="hover:scale-110 transition duration-200 w-10 h-10 bg-red-500 shadow-md" onClick={() => {
-							console.log(product);
-							addToCart(product);
-						}}
-					>
-						<FontAwesomeIcon className="text-white" icon={faCartShopping} />
-					</button>
+					<div className="relative">
+						<button
+							type="button" className="hover:scale-110 transition duration-200 w-10 h-10 bg-red-500 shadow-md" onClick={() => {
+								console.log(product);
+								addToCart(product);
+							}}
+						>
+							<FontAwesomeIcon className="text-white" icon={faCartShopping} />
+						</button>
+					</div>
 				</div>
 			</div>
 

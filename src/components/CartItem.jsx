@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { CartContext } from '../contexts/CartContext';
 import QuantityCounter from './QuantityCounter';
 
-const CartItem = ({ product }) => {
+const CartItem = ({ product, setIsOpen }) => {
 	const { id, image, title, price, amount } = product;
 	const totalPrice = (amount * price);
 	const { addToCart, decrementProductAmount, removeFromCart } = useContext(CartContext);
@@ -30,7 +30,12 @@ const CartItem = ({ product }) => {
 
 				{/* title & close btn */}
 				<div className="flex justify-between mb-2">
-					<Link className="uppercase font-semibold max-w-[240px] hover:text-red-400" to={`product-details/${product.id}`}>{title}</Link>
+					<Link
+						className="uppercase font-semibold max-w-[240px] hover:text-red-400"
+						to={`/product-details/${product.id}`}
+						onClick={() => setIsOpen(false)}
+					>{title}
+					</Link>
 					<FontAwesomeIcon
 						className="text-xl text-gray-600 cursor-pointer hover:text-red-400"
 						icon={faClose}
@@ -39,7 +44,11 @@ const CartItem = ({ product }) => {
 
 				{/* counter (item quantity) */}
 				<div className="flex gap-3">
-					<QuantityCounter quantity={amount} incrementAction={incrementProduct} decrementAction={decrementProduct} />
+					<QuantityCounter
+						quantity={amount}
+						incrementAction={incrementProduct}
+						ecrementAction={decrementProduct}
+					/>
 					<div className="flex w-full justify-between items-center">
 						{/* item price */}
 						<div className="select-none">

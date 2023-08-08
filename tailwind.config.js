@@ -4,6 +4,9 @@ export default {
 		'./index.html',
 		'./src/**/*.{js,ts,jsx,tsx}'
 	],
+	daisyui: {
+		themes: ['light']
+	},
 	theme: {
 		fontFamily: {
 			primary: 'Poppins'
@@ -30,5 +33,5 @@ export default {
 			}
 		}
 	},
-	plugins: []
+	plugins: [require('daisyui')]
 };
