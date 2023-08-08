@@ -38,9 +38,9 @@ const CartProvider = ({ children }) => {
 	};
 
 	const syncWithFirestore = async () => {
+		setSyncedWithFirestore(true);
 		const firebaseCart = await getCartFirestore(user?.uid);
 		setCart(firebaseCart);
-		setSyncedWithFirestore(true);
 	};
 
 	const removeFromCart = id => {

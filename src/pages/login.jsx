@@ -1,16 +1,19 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
 import { loginUser } from '../firebase/utils';
+import { UserContext } from '../contexts/UserContext';
 
 const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const { user } = useContext(UserContext);
 	const navigate = useNavigate();
 
 	const handleLogin = async (email, password) => {
-		const user = await loginUser(email, password);
-		if (user) {
+		const result = await loginUser(email, password);
+		console.log(result);
+		if (result !== 'auth/invalid-email') {
 			navigate('/');
 		}
 	};

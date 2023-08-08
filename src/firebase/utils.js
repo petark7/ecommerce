@@ -3,6 +3,7 @@ import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import { doc, setDoc, getDoc, getFirestore } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import { firebaseConfig } from '../firebaseConfig';
+import showToast from '../utils/toast';
 // Follow this pattern to import other Firebase services
 // import { } from 'firebase/<service>';
 
@@ -15,13 +16,12 @@ export const loginUser = async (email, password) => {
 	try {
 		const userCredential = await signInWithEmailAndPassword(auth, email, password);
 		const user = userCredential.user;
-		toast.success('User logged in successfully.');
+		showToast('User logged in successfully.');
 		return (user);
 	} catch (error) {
-		toast.error('You entered incorrect credentials');
+		showToast('You entered incorrect credentials.', false, true);
 		const errorCode = error.code;
-		const errorMessage = error.message;
-		return (errorMessage);
+		return (errorCode);
 	}
 };
 
@@ -31,20 +31,20 @@ export const logout = async () => {
 	try {
 		const result = await signOut(auth);
 		toast.success(result);
-	} catch (error) {
-		console.log(error);
+	} catch {
+		toast.error('Something happened and your logout was not successfull');
 	}
 };
 
-export const updateCartFirestore = async (userID, data) => {
-	await setDoc(doc(db, 'users', userID), { data });
+export const updateCartFirestore = async (userID, cart) => {
+	await setDoc(doc(db, 'users', userID), { cart });
 };
 
 export const getCartFirestore = async userID => {
 	const docRef = doc(db, 'users', userID);
 	const docSnap = await getDoc(docRef);
-
-	return docSnap.data().data;
+	console.log(docSnap.data().cart);
+	return docSnap.data().cart;
 };
 
 // TODO: create user

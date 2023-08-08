@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
@@ -7,9 +7,17 @@ import { CartContext } from '../contexts/CartContext';
 import { UserContext } from '../contexts/UserContext';
 
 const Navbar = () => {
+	const [animate, setAnimate] = useState(false);
 	const sidebarContext = useContext(SidebarContext);
 	const { numberOfProducts } = useContext(CartContext);
 	const { user, logUserOut } = useContext(UserContext);
+
+	useEffect(() => {
+		if (numberOfProducts > 0) {
+			setAnimate(true);
+			setTimeout(() => setAnimate(false), 100); // Reset animation after 1 second
+		}
+	}, [numberOfProducts]);
 
 	return (
 		<div className="flex h-14 shadow-md select-none">
@@ -79,11 +87,12 @@ const Navbar = () => {
 						/>
 
 						{/* number of products indicator */}
-						<div className="flex justify-center items-center absolute -right-3 -bottom-2
-        bg-red-400 rounded-full text-white w-[20px] h-[20px] text-xs"
+						<div className={`flex justify-center items-center absolute -right-3 -bottom-2
+        bg-red-400 rounded-full text-white w-[20px] h-[20px] text-xs transition-all duration-200 ${animate ? 'scale-[1.75]' : ''}`}
 						>
-							<div>{numberOfProducts}</div>
-
+							<div>
+								{numberOfProducts}
+							</div>
 						</div>
 					</div>
 				</div>
