@@ -1,20 +1,33 @@
 import { useParams } from 'react-router';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Layout from '../components/Layout';
 import { ProductContext } from '../contexts/ProductContext';
-import { CartContext } from '../contexts/CartContext';
+// Import { CartContext } from '../contexts/CartContext';
+import { getProducts } from '../redux/slices/ProductSlice';
+import { addToCart, selectCart } from '../redux/slices/cartSlice';
 
 const ProductDetails = () => {
 	const { id } = useParams();
+	const dispatch = useDispatch();
+	const products = useSelector(state => state.product);
 	const [product, setProduct] = useState({});
-	const { getProduct } = useContext(ProductContext);
-	const { addToCart } = useContext(CartContext);
+	// Const { addToCart } = useContext(CartContext);
 
-	// Get product and scroll to top
+	const getProduct = id => products.find(product => id == product.id);
+
+	// Set product and scroll to top
 	useEffect(() => {
-		setProduct(getProduct(id));
+		if (products) {
+			setProduct(getProduct(id));
+		}
+
 		window.scrollTo({ top: 0 });
-	}, [id, getProduct]);
+	}, []);
+
+	useEffect(() => {
+		dispatch(getProducts());
+	}, []);
 
 	return (
 		<Layout>
@@ -49,7 +62,8 @@ const ProductDetails = () => {
 								className="flex font-semibold justify-center p-4 mt-4 lg:mt-5 border w-full lg:w-[200px]
 								 bg-gray-700 text-white"
 								onClick={() => {
-									addToCart(product);
+									dispatch(addToCart(product));
+									// AddToCart(product);
 								}}
 							>	Add to cart
 							</button>

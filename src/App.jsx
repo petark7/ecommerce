@@ -1,17 +1,20 @@
 import { ToastContainer } from 'react-toastify';
-import SidebarProvider from './contexts/SidebarContext';
-import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setUser } from './redux/slices/UserSlice';
+import 'react-toastify/dist/ReactToastify.css';
+import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase/utils';
+import { setUser } from './redux/slices/UserSlice';
+import { syncWithFirestore } from './redux/slices/cartSlice';
 import Routes from './router';
 
 const App = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	// Const syncCartWithFirestore = (userId) => {
+
+	// }
 
 	useEffect(() => {
 		onAuthStateChanged(auth, user => {
@@ -20,16 +23,17 @@ const App = () => {
 					uid: user.uid,
 					accessToken: user.accessToken
 				}));
+				dispatch(syncWithFirestore(user.uid));
 				navigate('/');
 			}
 		});
-	}, [navigate, dispatch]);
+	}, []);
 
 	return (
-		<SidebarProvider>
+		<>
 			<ToastContainer />
 			<Routes />
-		</SidebarProvider>
+		</>
 	);
 };
 

@@ -5,7 +5,7 @@ import Sidebar from './Sidebar';
 const Layout = ({ children }) => (
 	<>
 		<Navbar />
-
+		<Sidebar />
 		<div className="min-h-screen">
 			{children}
 		</div>

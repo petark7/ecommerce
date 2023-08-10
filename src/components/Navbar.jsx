@@ -9,7 +9,7 @@ import { setSidebarOpen } from '../redux/slices/SidebarSlice';
 const Navbar = () => {
 	const dispatch = useDispatch();
 	const [animate, setAnimate] = useState(false);
-	const numberOfProducts = useSelector(state => state.cart.numberOfProducts);
+	const numberOfProducts = useSelector(state => state.cart.cart.reduce((total, product) => total + product.amount, 0));
 	const user = useSelector(state => state.user);
 
 	useEffect(() => {
