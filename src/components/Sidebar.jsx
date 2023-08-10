@@ -5,11 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CartContext } from '../contexts/CartContext';
 import { SidebarContext } from '../contexts/SidebarContext';
 import { setSidebarOpen } from '../redux/slices/SidebarSlice';
-import { selectCart } from '../redux/slices/cartSlice';
+import { selectCart, selectCartTotal, selectNumberOfProducts } from '../redux/slices/cartSlice';
 import CartItem from './CartItem';
 
 const Sidebar = () => {
 	const dispatch = useDispatch();
+	const cartNumberOfProducts = useSelector(selectNumberOfProducts);
+	const cartTotal = useSelector(selectCartTotal);
 	const sidebarIsOpen = useSelector(state => state.sidebar.isOpen);
 	const cart = useSelector(selectCart);
 	// Const { isOpen, setIsOpen } = useContext(SidebarContext);
@@ -21,7 +23,7 @@ const Sidebar = () => {
 		>
 			<div className="flex justify-between py-4 border-b">
 				<div className="uppercase font-semibold">
-					{/* Shopping cart ({numberOfProducts}) */}
+					Shopping cart ({cartNumberOfProducts})
 				</div>
 
 				<FontAwesomeIcon
@@ -41,13 +43,13 @@ const Sidebar = () => {
 			<div className="flex gap-1 mt-5 justify-end select-none font-bold
 				 text-gray-700 uppercase"
 			>
-				{0 === 0
+				{cartNumberOfProducts === 0
 					?						<div className="flex w-full font-semibold text-lg">No items added yet!</div>
 					:					 (
 						<div className="flex flex-col w-full">
 
 							<div className="flex gap-2 justify-end text-xl">
-								Total: <div className="text-red-400 font-bold">${() => {}}</div>
+								Total: <div className="text-red-400 font-bold">${cartTotal.toFixed(2)}</div>
 							</div>
 
 							<button

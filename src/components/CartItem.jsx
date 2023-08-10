@@ -11,7 +11,6 @@ const CartItem = ({ product, setIsOpen }) => {
 	const dispatch = useDispatch();
 	const { id, image, title, price, amount } = product;
 	const totalPrice = (amount * price);
-	// Const { addToCart, decrementProductAmount, removeFromCart } = useContext(CartContext);
 
 	const incrementProduct = () => {
 		dispatch(addToCart(product));
@@ -42,7 +41,7 @@ const CartItem = ({ product, setIsOpen }) => {
 					<FontAwesomeIcon
 						className="text-xl text-gray-600 cursor-pointer hover:text-red-400"
 						icon={faClose}
-						onClick={() => removeFromCart(product.id)} />
+						onClick={() => dispatch(removeFromCart(product.id))} />
 				</div>
 
 				{/* counter (item quantity) */}
@@ -50,7 +49,7 @@ const CartItem = ({ product, setIsOpen }) => {
 					<QuantityCounter
 						quantity={amount}
 						incrementAction={incrementProduct}
-						ecrementAction={decrementProduct}
+						decrementAction={decrementProduct}
 					/>
 					<div className="flex w-full justify-between items-center">
 						{/* item price */}
