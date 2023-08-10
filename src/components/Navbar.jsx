@@ -1,16 +1,16 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
-import { SidebarContext } from '../contexts/SidebarContext';
-import { CartContext } from '../contexts/CartContext';
-import { UserContext } from '../contexts/UserContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { logUserOut } from '../redux/slices/UserSlice';
+import { setSidebarOpen } from '../redux/slices/SidebarSlice';
 
 const Navbar = () => {
+	const dispatch = useDispatch();
 	const [animate, setAnimate] = useState(false);
-	const sidebarContext = useContext(SidebarContext);
-	const { numberOfProducts } = useContext(CartContext);
-	const { user, logUserOut } = useContext(UserContext);
+	const numberOfProducts = useSelector(state => state.cart.numberOfProducts);
+	const user = useSelector(state => state.user);
 
 	useEffect(() => {
 		if (numberOfProducts > 0) {
@@ -27,7 +27,7 @@ const Navbar = () => {
 
 				<div className="flex w-[250px] gap-2 justify-end items-center">
 					{/* logged in -> show icon */}
-					{user
+					{user.user?.uid
 						? 						(
 							<div className="dropdown dropdown-end">
 								<label tabIndex="0" className="m-1">
@@ -44,7 +44,7 @@ const Navbar = () => {
 									<li><a>Account settings</a></li>
 									<li>
 										<a onClick={() => {
-											logUserOut();
+											dispatch(logUserOut());
 										}}
 										>
 											Logout
@@ -77,7 +77,8 @@ const Navbar = () => {
 					{/* OPEN CART */}
 					<div
 						className="relative m-2 cursor-pointer" onClick={() => {
-							sidebarContext.setIsOpen(previousValue => !previousValue);
+							// SidebarContext.setIsOpen(previousValue => !previousValue);
+							dispatch(setSidebarOpen(true));
 						}}
 					>
 						{/* CART ICON */}

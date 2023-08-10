@@ -17,11 +17,15 @@ export const loginUser = async (email, password) => {
 		const userCredential = await signInWithEmailAndPassword(auth, email, password);
 		const user = userCredential.user;
 		showToast('User logged in successfully.');
-		return (user);
+		return ({
+			uid: user.uid,
+			accessToken: user.accessToken
+		});
 	} catch (error) {
 		showToast('You entered incorrect credentials.', false, true);
 		const errorCode = error.code;
-		return (errorCode);
+		// TODO: implement better handling
+		return ('error');
 	}
 };
 

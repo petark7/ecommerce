@@ -1,23 +1,36 @@
-import { RouterProvider } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import ProductProvider from './contexts/ProductContext';
-import CartProvider from './contexts/CartContext';
-import router from './router';
 import SidebarProvider from './contexts/SidebarContext';
-import UserProvider from './contexts/UserContext';
 import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from 'react';
+import { onAuthStateChanged } from 'firebase/auth';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { setUser } from './redux/slices/UserSlice';
+import { auth } from './firebase/utils';
+import Routes from './router';
 
-const App = () => (
-	<UserProvider>
-		<CartProvider>
-			<ProductProvider>
-				<SidebarProvider>
-					<ToastContainer />
-					<RouterProvider router={router} />
-				</SidebarProvider>
-			</ProductProvider>
-		</CartProvider>
-	</UserProvider>
-);
+const App = () => {
+	const dispatch = useDispatch();
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		onAuthStateChanged(auth, user => {
+			if (user) {
+				dispatch(setUser({
+					uid: user.uid,
+					accessToken: user.accessToken
+				}));
+				navigate('/');
+			}
+		});
+	}, [navigate, dispatch]);
+
+	return (
+		<SidebarProvider>
+			<ToastContainer />
+			<Routes />
+		</SidebarProvider>
+	);
+};
 
 export default App;

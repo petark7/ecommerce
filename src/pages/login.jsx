@@ -1,29 +1,39 @@
-import { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+// Import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { redirect, useNavigate } from 'react-router-dom';
 import Layout from '../components/Layout';
-import { loginUser } from '../firebase/utils';
-import { UserContext } from '../contexts/UserContext';
+// Import { loginUser } from '../firebase/utils';
+import { login } from '../redux/slices/UserSlice';
 
 const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const { user } = useContext(UserContext);
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
+	const user = useSelector(state => state.user);
 
-	const handleLogin = async (email, password) => {
-		const result = await loginUser(email, password);
-		console.log(result);
-		if (result !== 'auth/invalid-email') {
-			navigate('/');
+	const handleLogin = () => {
+		try {
+			dispatch(login({ email, password }));
+			if (user.uid) {
+				navigate('/');
+			}
+		} catch {
+			// Handle error
 		}
 	};
+
+	useEffect(() => {
+		console.log(user);
+	}, [user]);
 
 	return (
 		<Layout>
 			<section className="flex items-center justify-center min-h-screen">
 				<div className="flex flex-col gap-7 items-center shadow-lg h-fit p-14 m-10">
 
-					{/* helping text at top */}
+					{/* descriptive text at top */}
 					<div className="font-light text-4xl">Welcome!</div>
 					<div className="text-lg text-center">Glad to see you here. Enter your credentials to login</div>
 
@@ -32,7 +42,7 @@ const Login = () => {
 						className="flex flex-col w-full gap-3"
 						onSubmit={event => {
 							event.preventDefault();
-							handleLogin(email, password);
+							handleLogin();
 						}}
 					>
 						<input
