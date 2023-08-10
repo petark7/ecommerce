@@ -5,11 +5,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CartContext } from '../contexts/CartContext';
 import { SidebarContext } from '../contexts/SidebarContext';
 import { setSidebarOpen } from '../redux/slices/SidebarSlice';
+import { selectCart } from '../redux/slices/cartSlice';
 import CartItem from './CartItem';
 
 const Sidebar = () => {
 	const dispatch = useDispatch();
 	const sidebarIsOpen = useSelector(state => state.sidebar.isOpen);
+	const cart = useSelector(selectCart);
 	// Const { isOpen, setIsOpen } = useContext(SidebarContext);
 	// const { cart, cartTotal, numberOfProducts } = useContext(CartContext);
 
@@ -32,7 +34,7 @@ const Sidebar = () => {
 
 			{/* cart items */}
 			<div className="max-h-[60vh] overflow-y-auto">
-				{/* {cart.map(product => <CartItem key={product.id} product={product} setIsOpen={setIsOpen} />)} */}
+				{cart.map(product => <CartItem key={product.id} product={product} setIsOpen={setSidebarOpen} />)}
 			</div>
 
 			{/* cart total and place order */}

@@ -23,7 +23,7 @@ const ProductDetails = () => {
 		}
 
 		window.scrollTo({ top: 0 });
-	}, [products]);
+	}, [id, products]);
 
 	useEffect(() => {
 		console.log(products);
