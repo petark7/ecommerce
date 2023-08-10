@@ -23,10 +23,13 @@ const ProductDetails = () => {
 		}
 
 		window.scrollTo({ top: 0 });
-	}, []);
+	}, [products]);
 
 	useEffect(() => {
-		dispatch(getProducts());
+		console.log(products);
+		if (products.length === 0) {
+			dispatch(getProducts());
+		}
 	}, []);
 
 	return (

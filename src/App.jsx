@@ -24,7 +24,6 @@ const App = () => {
 					accessToken: user.accessToken
 				}));
 				dispatch(syncWithFirestore(user.uid));
-				navigate('/');
 			}
 		});
 	}, []);
