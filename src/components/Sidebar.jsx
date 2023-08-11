@@ -1,9 +1,6 @@
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { CartContext } from '../contexts/CartContext';
-import { SidebarContext } from '../contexts/SidebarContext';
 import { setSidebarOpen } from '../redux/slices/SidebarSlice';
 import { selectCart, selectCartTotal, selectNumberOfProducts } from '../redux/slices/cartSlice';
 import CartItem from './CartItem';
@@ -14,8 +11,6 @@ const Sidebar = () => {
 	const cartTotal = useSelector(selectCartTotal);
 	const sidebarIsOpen = useSelector(state => state.sidebar.isOpen);
 	const cart = useSelector(selectCart);
-	// Const { isOpen, setIsOpen } = useContext(SidebarContext);
-	// const { cart, cartTotal, numberOfProducts } = useContext(CartContext);
 
 	return (
 		<div className={`${sidebarIsOpen ? 'right-0' : '-right-full'} p-5 w-full fixed top-0 h-full

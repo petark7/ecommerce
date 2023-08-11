@@ -1,10 +1,8 @@
-import { useContext, useEffect, useMemo, useState } from 'react';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { CartContext } from '../contexts/CartContext';
-import { addToCart, decrementProductAmount, removeFromCart, selectCart } from '../redux/slices/CartSlice';
+import { addToCart, decrementProductAmount, removeFromCart } from '../redux/slices/CartSlice';
 import QuantityCounter from './QuantityCounter';
 
 const CartItem = ({ product, setIsOpen }) => {

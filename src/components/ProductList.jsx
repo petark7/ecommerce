@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// Import { ProductContext } from '../contexts/ProductContext';
 import Product from '../components/Product';
 import { getProducts } from '../redux/slices/ProductSlice';
 

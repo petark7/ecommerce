@@ -78,7 +78,6 @@ const Navbar = () => {
 					{/* OPEN CART */}
 					<div
 						className="relative m-2 cursor-pointer" onClick={() => {
-							// SidebarContext.setIsOpen(previousValue => !previousValue);
 							dispatch(setSidebarOpen(true));
 						}}
 					>

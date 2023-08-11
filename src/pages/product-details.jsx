@@ -2,17 +2,14 @@ import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Layout from '../components/Layout';
-import { ProductContext } from '../contexts/ProductContext';
-// Import { CartContext } from '../contexts/CartContext';
 import { getProducts } from '../redux/slices/ProductSlice';
-import { addToCart, selectCart } from '../redux/slices/cartSlice';
+import { addToCart } from '../redux/slices/cartSlice';
 
 const ProductDetails = () => {
 	const { id } = useParams();
 	const dispatch = useDispatch();
 	const products = useSelector(state => state.product);
 	const [product, setProduct] = useState({});
-	// Const { addToCart } = useContext(CartContext);
 
 	const getProduct = id => products.find(product => id == product.id);
 

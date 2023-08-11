@@ -1,15 +1,12 @@
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// Import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../redux/slices/cartSlice';
-// Import { CartContext } from '../contexts/CartContext';
 
 const Product = ({ product }) => {
 	const { id, image, category, title, price } = product;
 	const dispatch = useDispatch();
-	// Const { addToCart } = useContext(CartContext);
 
 	return (
 		<div className="product-card">
