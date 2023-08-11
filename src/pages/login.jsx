@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 // Import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { redirect, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { onAuthStateChanged } from 'firebase/auth';
 import Layout from '../components/Layout';
 // Import { loginUser } from '../firebase/utils';
 import { login } from '../redux/slices/UserSlice';
+import { auth } from '../firebase/utils';
 
 const Login = () => {
 	const [email, setEmail] = useState('');
@@ -12,6 +14,14 @@ const Login = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const user = useSelector(state => state.user);
+
+	useEffect(() => {
+		onAuthStateChanged(auth, user => {
+			if (user) {
+				navigate('/');
+			}
+		});
+	}, []);
 
 	const handleLogin = () => {
 		try {

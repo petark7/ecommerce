@@ -34,7 +34,7 @@ export const logout = async () => {
 	const auth = getAuth();
 	try {
 		const result = await signOut(auth);
-		toast.success(result);
+		showToast('Signed out successfully!');
 	} catch {
 		toast.error('Something happened and your logout was not successfull');
 	}

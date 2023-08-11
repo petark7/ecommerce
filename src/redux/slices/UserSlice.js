@@ -40,7 +40,7 @@ const userSlice = createSlice({
 	},
 	extraReducers: {
 		[login.rejected]: (state, action) => {
-			console.log('error!');
+			console.log('error! (great error handling, I know :D)');
 		}
 	}
 });
