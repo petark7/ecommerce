@@ -8,7 +8,7 @@ import DeliveryDetails from '../components/DeliveryDetails';
 
 const Checkout = () => (
 	<Layout>
-		<section className="container mx-auto flex items-center justify-center min-h-screen m-10">
+		<section className="container mx-auto flex items-center justify-center min-h-screen mb-10">
 			<div>
 				<div className="font-semibold text-2xl text-center mb-10">Order Details</div>
 				<div className="border">

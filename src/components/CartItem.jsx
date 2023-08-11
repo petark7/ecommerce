@@ -3,9 +3,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addToCart, decrementProductAmount, removeFromCart } from '../redux/slices/CartSlice';
+import { setSidebarOpen } from '../redux/slices/SidebarSlice';
 import QuantityCounter from './QuantityCounter';
 
-const CartItem = ({ product, setIsOpen }) => {
+const CartItem = ({ product }) => {
 	const dispatch = useDispatch();
 	const { id, image, title, price, amount } = product;
 	const totalPrice = (amount * price);
@@ -33,7 +34,7 @@ const CartItem = ({ product, setIsOpen }) => {
 					<Link
 						className="uppercase font-semibold max-w-[240px] hover:text-red-400"
 						to={`/product-details/${product.id}`}
-						onClick={() => setIsOpen(false)}
+						onClick={() => dispatch(setSidebarOpen(false))}
 					>{title}
 					</Link>
 					<FontAwesomeIcon

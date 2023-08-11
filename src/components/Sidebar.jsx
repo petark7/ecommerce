@@ -33,7 +33,7 @@ const Sidebar = () => {
 
 			{/* cart items */}
 			<div className="max-h-[60vh] overflow-y-auto">
-				{cart.map(product => <CartItem key={product.id} product={product} setIsOpen={setSidebarOpen} />)}
+				{cart.map(product => <CartItem key={product.id} product={product} />)}
 			</div>
 
 			{/* cart total and place order */}
