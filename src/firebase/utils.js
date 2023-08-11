@@ -40,7 +40,7 @@ export const logout = async () => {
 	}
 };
 
-export const updateCartFirestore = async (userID, cart) => {
+export const setCartFirestore = async (userID, cart) => {
 	await setDoc(doc(db, 'users', userID), { cart });
 };
 

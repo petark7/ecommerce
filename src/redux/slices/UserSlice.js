@@ -1,5 +1,6 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { loginUser, logout } from '../../firebase/utils';
+import { clearCart } from './CartSlice';
 
 export const login = createAsyncThunk(
 	'auth/login',
@@ -17,6 +18,14 @@ export const login = createAsyncThunk(
 	}
 );
 
+export const clearCartAction = createAsyncThunk(
+	'user/logUserOut',
+	async (_, { dispatch }) => {
+		// Perform logout operation here
+		dispatch(clearCart());
+	}
+);
+
 const userSlice = createSlice({
 	name: 'auth',
 	initialState: { user: null },
@@ -26,7 +35,7 @@ const userSlice = createSlice({
 		},
 		logUserOut: state => {
 			logout();
-			state.user = null;
+			state.user = { user: null };
 		}
 	},
 	extraReducers: {
@@ -37,5 +46,7 @@ const userSlice = createSlice({
 });
 
 export const { setUser, logUserOut } = userSlice.actions;
+
+export const selectUser = state => state.user.user;
 
 export default userSlice.reducer;

@@ -1,11 +1,28 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getCartFirestore, updateCartFirestore } from '../../firebase/utils';
+import { getCartFirestore, setCartFirestore } from '../../firebase/utils';
 
 export const syncWithFirestore = createAsyncThunk(
 	'cart/syncWithFirestore',
-	async userId => {
+	async (userId, thunkAPI) => {
+		const state = thunkAPI.getState();
 		const firebaseCart = await getCartFirestore(userId);
+		if (state.cart.cart.length > 0) {
+			console.log('firestore cart data is updated.');
+			await setCartFirestore(userId, state.cart.cart);
+			return state.cart.cart;
+		}
+
+		await setCartFirestore(userId, state.cart.cart);
 		return firebaseCart;
+	}
+);
+
+export const setFirebaseCart = createAsyncThunk(
+	'cart/setFirebaseCart',
+	async (userId, thunkAPI) => {
+		const state = thunkAPI.getState();
+		await setCartFirestore(userId, state.cart.cart);
+		return state.cart.cart;
 	}
 );
 
@@ -33,6 +50,8 @@ const cartSlice = createSlice({
 			} else {
 				state.cart.push(newItem);
 			}
+
+			state.syncedWithFirestore = false;
 		},
 		decrementProductAmount: (state, action) => {
 			const product = action.payload;
@@ -42,25 +61,36 @@ const cartSlice = createSlice({
 				?				{ ...item, amount: cartItem.amount - 1 }
 				:				item);
 			state.cart = updatedCart;
+			state.syncedWithFirestore = false;
 		},
 		removeFromCart: (state, action) => {
 			const id = action.payload;
 			const newCart = state.cart.filter(product => product.id !== id);
 			state.cart = newCart;
+			state.syncedWithFirestore = false;
+		},
+		clearCart: state => {
+			state.cart = [];
+			state.cartTotal = null;
+			state.numberOfProducts = 0;
+			state.syncedWithFirestore = true;
 		}
 	},
 	extraReducers: builder => {
-		builder.addCase(syncWithFirestore.fulfilled, (state, action) => {
-			state.cart = action.payload;
-			state.syncedWithFirestore = true;
-		});
+		builder
+			.addCase(syncWithFirestore.fulfilled, (state, action) => {
+				state.cart = action.payload;
+			})
+			.addCase(setFirebaseCart.fulfilled, (state, action) => {
+				state.cart = action.payload;
+			});
 	}
 });
 
-export const { addToCart, decrementProductAmount, removeFromCart } = cartSlice.actions;
+export const { addToCart, decrementProductAmount, removeFromCart, clearCart } = cartSlice.actions;
 
 export const selectCart = state => state.cart.cart;
 export const selectNumberOfProducts = state => state.cart.cart.reduce((total, product) => total + product.amount, 0);
-export const selectCartTotal = state => state.cart.cart.reduce((total, product) => (total + (product.amount * product.price)), 0);
+export const selectCartTotal = state => state.cart?.cart.reduce((total, product) => (total + (product.amount * product.price)), 0);
 
 export default cartSlice.reducer;

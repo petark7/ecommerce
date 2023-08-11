@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { logUserOut } from '../redux/slices/UserSlice';
+import { clearCartAction, logUserOut } from '../redux/slices/UserSlice';
 import { setSidebarOpen } from '../redux/slices/SidebarSlice';
 
 const Navbar = () => {
@@ -45,6 +45,7 @@ const Navbar = () => {
 									<li>
 										<a onClick={() => {
 											dispatch(logUserOut());
+											dispatch(clearCartAction());
 										}}
 										>
 											Logout

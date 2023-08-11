@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState, useContext } from 'react';
-import { getCartFirestore, updateCartFirestore } from '../firebase/utils';
+import { getCartFirestore, setCartFirestore } from '../firebase/utils';
 import { UserContext } from './UserContext';
 
 export const CartContext = createContext();
@@ -60,7 +60,7 @@ const CartProvider = ({ children }) => {
 		setCartTotal(Number.parseFloat(total).toFixed(2));
 		setNumberOfProducts(numberOfProducts);
 
-		(syncedWithFirestore && updateCartFirestore(user?.uid, cart));
+		(syncedWithFirestore && setCartFirestore(user?.uid, cart));
 	}, [cart]);
 
 	useEffect(() => {
