@@ -1,11 +1,10 @@
-
+// TODO: VALUES ARE HARDCODED - IMPLEMENT WHEN USER SETTINGS IS IMPLEMENTED
 const DeliveryDetails = () => (
 	<section className="border mt-3 p-3">
 		<div className="flex justify-between">
 			<div>
 				<div className="font-semibold">Delivery details</div>
 				<div className="mt-2">
-					{/* <div>Pay with card</div> */}
 					<div>Name: Petar Kuzmanovski</div>
 					<div>Address: 22 high street</div>
 					<div>Phone: 074123456</div>

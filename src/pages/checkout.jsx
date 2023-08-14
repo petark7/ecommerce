@@ -1,4 +1,4 @@
-import { faClose } from '@fortawesome/free-solid-svg-icons';
+import { faClose, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
@@ -17,8 +17,11 @@ const Checkout = () => {
 	const user = useSelector(selectUser);
 	const shippingCost = 10; // Hardcoded. TODO: calculate shipping depending on location
 	const total = Number.parseFloat(cartTotal + shippingCost).toFixed(2);
+
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+
+	const [selectedOption, setSelectedOption] = useState();
 
 	const handleCompleteOrder = async () => {
 		const formData = {
@@ -65,17 +68,17 @@ const Checkout = () => {
 		<div>
 			<div className="font-semibold text-2xl text-center mb-10">Order Details</div>
 			<div
-				className="text-lg flex justify-end hover:text-red-400 hover:cursor-pointer mb-2 font-semibold"
+				className="text-lg flex items-center gap-2 justify-end hover:text-red-400 hover:cursor-pointer mb-2 font-semibold"
 				onClick={() => {
 					dispatch(clearCart());
 				}}
 			>
-				Clear cart
+				Clear cart <FontAwesomeIcon icon={faTrashCan} />
 			</div>
 			<div className="border">
 				<CartItemsCheckout />
 			</div>
-			<PaymentOptions />
+			<PaymentOptions setSelectedOption={setSelectedOption} />
 			<DeliveryDetails />
 
 			{/* total and complete order button */}

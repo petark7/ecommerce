@@ -46,6 +46,11 @@ const Login = () => {
 					{/* descriptive text at top */}
 					<div className="font-light text-4xl">Welcome!</div>
 					<div className="text-lg text-center">Glad to see you here. Enter your credentials to login</div>
+					<div className="w-full">
+						<div>TEST ACCOUNT:</div>
+						<div>email: testuser@gmail.com</div>
+						<div>password: 123456</div>
+					</div>
 
 					{/* email, password and forgot password */}
 					<form

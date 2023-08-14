@@ -1,0 +1,38 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { clearCartAction, logUserOut } from '../redux/slices/UserSlice';
+
+const UserDropdown = () => {
+	const dispatch = useDispatch();
+
+	return (
+		<div className="dropdown dropdown-end">
+			<label tabIndex="0" className="m-1">
+				<FontAwesomeIcon
+					className="text-3xl text-gray-600 cursor-pointer"
+					icon={faUserCircle}
+				/>
+			</label>
+			<ul
+				tabIndex="0"
+				className="dropdown-content z-[1] menu p-2 shadow bg-base-100
+      rounded-box w-52"
+			>
+				<li><a><Link to="/order-history">Order History</Link></a></li>
+				<li>
+					<a onClick={() => {
+						dispatch(logUserOut());
+						dispatch(clearCartAction());
+					}}
+					>
+						Logout
+					</a>
+				</li>
+			</ul>
+		</div>
+	);
+};
+
+export default UserDropdown;
