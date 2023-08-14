@@ -1,9 +1,9 @@
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { setSidebarOpen } from '../redux/slices/SidebarSlice';
-import { selectCart, selectCartTotal, selectNumberOfProducts } from '../redux/slices/cartSlice';
+import { clearCart, selectCart, selectCartTotal, selectNumberOfProducts } from '../redux/slices/cartSlice';
 import CartItem from './CartItem';
 
 const Sidebar = () => {
@@ -23,12 +23,21 @@ const Sidebar = () => {
 					Shopping cart ({cartNumberOfProducts})
 				</div>
 
-				<FontAwesomeIcon
-					className="text-xl text-gray-500 cursor-pointer  hover:text-red-400"
-					icon={faArrowRight}
-					onClick={() => {
-						dispatch(setSidebarOpen(false));
-					}} />
+				<div className="flex gap-2">
+					<FontAwesomeIcon
+						className="text-xl text-gray-500 cursor-pointer  hover:text-red-400"
+						icon={faTrashCan}
+						onClick={() => {
+							dispatch(clearCart());
+						}} />
+
+					<FontAwesomeIcon
+						className="text-xl text-gray-500 cursor-pointer  hover:text-red-400"
+						icon={faArrowRight}
+						onClick={() => {
+							dispatch(setSidebarOpen(false));
+						}} />
+				</div>
 			</div>
 
 			{/* cart items */}

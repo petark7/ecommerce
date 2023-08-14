@@ -44,34 +44,57 @@ const Checkout = () => {
 		}
 	};
 
+	const emptyCart = (
+		<div className="border p-10 flex flex-col gap-2 justify-center">
+			<div className="text-2xl">Your shopping cart is empty.</div>
+			<div className="text-lg">Add some products and they&apos;ll appear here.</div>
+
+			<button
+				type="button"
+				className="w-full border p-5 px-8 mt-10 bg-gray-700 font-bold text-white"
+				onClick={() => {
+					navigate(-1);
+				}}
+			>
+				Go back
+			</button>
+		</div>
+	);
+
+	const notEmptyCart = (
+		<div>
+			<div className="font-semibold text-2xl text-center mb-10">Order Details</div>
+			<div className="border">
+				<CartItemsCheckout />
+			</div>
+			<PaymentOptions />
+			<DeliveryDetails />
+
+			{/* total and complete order button */}
+			<div className="flex flex-col justify-center gap-1 border mt-3 p-2">
+				<div className="flex gap-2 justify-end text-xl">
+					Shipping: <div className="text-red-400 font-bold">${shippingCost}</div>
+				</div>
+				<div className="flex gap-2 justify-end text-xl">
+					Total: <div className="text-red-400 font-bold">${total}</div>
+				</div>
+			</div>
+			<button
+				type="button"
+				className="w-full border p-5 px-8 mt-10 bg-gray-700 font-bold text-white"
+				onClick={() => {
+					handleCompleteOrder();
+				}}
+			>
+				Complete Order
+			</button>
+
+		</div>
+	);
 	return (
 		<Layout>
 			<section className="container mx-auto flex items-center justify-center min-h-screen m-10">
-				<div>
-					<div className="font-semibold text-2xl text-center mb-10">Order Details</div>
-					<div className="border">
-						<CartItemsCheckout />
-					</div>
-					<PaymentOptions />
-					<DeliveryDetails />
-					<div className="flex flex-col justify-center gap-1 border mt-3 p-2">
-						<div className="flex gap-2 justify-end text-xl">
-							Shipping: <div className="text-red-400 font-bold">${shippingCost}</div>
-						</div>
-						<div className="flex gap-2 justify-end text-xl">
-							Total: <div className="text-red-400 font-bold">${total}</div>
-						</div>
-					</div>
-					<button
-						type="button"
-						className="w-full border p-5 px-8 mt-10 bg-gray-700 font-bold text-white"
-						onClick={() => {
-							handleCompleteOrder();
-						}}
-					>
-						Complete Order
-					</button>
-				</div>
+				{cartTotal > 0 ? notEmptyCart : emptyCart}
 			</section>
 		</Layout>
 	);

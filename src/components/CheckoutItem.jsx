@@ -27,7 +27,7 @@ const CheckoutItem = ({ product }) => {
 
 					<div>
 						<Link
-							className="font-bold mr-18"
+							className="font-bold mr-18 cursor-pointer  hover:text-red-400"
 							to={`/product-details/${product.id}`}
 						>
 							{product.title}
