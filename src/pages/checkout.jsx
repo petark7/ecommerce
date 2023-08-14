@@ -64,6 +64,14 @@ const Checkout = () => {
 	const notEmptyCart = (
 		<div>
 			<div className="font-semibold text-2xl text-center mb-10">Order Details</div>
+			<div
+				className="text-lg flex justify-end hover:text-red-400 hover:cursor-pointer mb-2 font-semibold"
+				onClick={() => {
+					dispatch(clearCart());
+				}}
+			>
+				Clear cart
+			</div>
 			<div className="border">
 				<CartItemsCheckout />
 			</div>
