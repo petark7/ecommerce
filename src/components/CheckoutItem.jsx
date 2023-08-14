@@ -6,8 +6,6 @@ import QuantityCounter from '../components/QuantityCounter';
 import { addToCart, decrementProductAmount, removeFromCart } from '../redux/slices/CartSlice';
 
 const CheckoutItem = ({ product }) => {
-	console.log(product);
-
 	const dispatch = useDispatch();
 
 	const incrementProduct = () => {

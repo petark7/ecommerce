@@ -1,9 +1,9 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { doc, setDoc, getDoc, getFirestore } from 'firebase/firestore';
+import { doc, setDoc, getDoc, getFirestore, addDoc, collection } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import { firebaseConfig } from '../firebaseConfig';
-import showToast from '../utils/toast';
+import showToast, { ShowToast } from '../utils/toast';
 // Follow this pattern to import other Firebase services
 // import { } from 'firebase/<service>';
 
@@ -49,6 +49,26 @@ export const getCartFirestore = async userID => {
 	const docSnap = await getDoc(docRef);
 	console.log(docSnap.data().cart);
 	return docSnap.data().cart;
+};
+
+// Create order and generate random unique ID
+export const createOrderFirestore = async (userID, formData) => {
+	const orderData = {
+		userID,
+		...formData
+	};
+
+	try {
+		const docRef = await addDoc(collection(db, 'orders'), orderData);
+		if (docRef) {
+			ShowToast('Order submitted successfully');
+		}
+
+		return (docRef);
+	} 	catch (error) {
+		ShowToast('Submitting order failed... try again.', false);
+		console.log(error);
+	}
 };
 
 // TODO: create user
