@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { doc, setDoc, getDoc, getFirestore, addDoc, collection } from 'firebase/firestore';
+import { query, where, getDocs, doc, setDoc, getDoc, getFirestore, addDoc, collection } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import { firebaseConfig } from '../firebaseConfig';
 import showToast, { ShowToast } from '../utils/toast';
@@ -69,6 +69,19 @@ export const createOrderFirestore = async (userID, formData) => {
 		ShowToast('Submitting order failed... try again.', false);
 		console.log(error);
 	}
+};
+
+export const getOrdersForUser = async userID => {
+	const ordersCollection = collection(db, 'orders');
+	const q = query(ordersCollection, where('userID', '==', userID));
+	const querySnapshot = await getDocs(q);
+
+	const orders = [];
+	for (const doc of querySnapshot.docs) {
+		orders.push(doc.data());
+	}
+
+	return orders;
 };
 
 // TODO: create user

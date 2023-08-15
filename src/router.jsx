@@ -4,6 +4,7 @@ import ProductDetails from './pages/product-details';
 import Login from './pages/login';
 import NotFound from './pages/notfound';
 import Checkout from './pages/checkout';
+import Account from './pages/account';
 
 const Router = () => (
 	<Routes>
@@ -11,6 +12,7 @@ const Router = () => (
 		<Route path="/product-details/:id" element={<ProductDetails />} />
 		<Route path="/checkout" element={<Checkout />} />
 		<Route path="/login" element={<Login />} />
+		<Route path="/account/:page" element={<Account />} />
 		<Route path="*" element={<NotFound />} />
 	</Routes>
 );

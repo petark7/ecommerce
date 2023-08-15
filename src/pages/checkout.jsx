@@ -104,7 +104,7 @@ const Checkout = () => {
 	);
 	return (
 		<Layout>
-			<section className="container mx-auto flex items-center justify-center min-h-screen m-10">
+			<section className="flex justify-center min-h-screen md:m-0 my-10 mx-5 md:mt-10 md:mb-10">
 				{cartTotal > 0 ? notEmptyCart : emptyCart}
 			</section>
 		</Layout>
