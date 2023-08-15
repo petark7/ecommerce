@@ -40,6 +40,11 @@ export const logout = async () => {
 	}
 };
 
+export const getLoggedUser = async () => {
+	const user = auth.currentUser;
+	return user;
+};
+
 export const setCartFirestore = async (userID, cart) => {
 	await setDoc(doc(db, 'users', userID), { cart });
 };

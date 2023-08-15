@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrdersForUser } from '../firebase/utils';
 import { selectUser } from '../redux/slices/UserSlice';
-import { fetchOrders, selectOrders } from '../redux/slices/OrdersSlice';
+import { fetchOrders, selectOrders, selectOrdersStatus } from '../redux/slices/OrdersSlice';
 import OrderDetails from './OrderDetails';
 
 const OrderHistory = () => {
@@ -10,16 +10,11 @@ const OrderHistory = () => {
 	const user = useSelector(selectUser);
 	const orders = useSelector(selectOrders);
 	const [renderableOrders, setRenderableOrders] = useState();
-	const getOrders = async () => {
-		dispatch(fetchOrders(user.uid));
-		// Const orders = await getOrdersForUser(user.uid);
-	};
 
 	useEffect(() => {
-		getOrders();
-	}, []);
+		dispatch(fetchOrders(user?.uid));
+	}, [user]);
 
-	console.log(orders);
 	useEffect(() => {
 		if (orders.length > 0) {
 			const orderElements = orders.map(order => (
@@ -35,6 +30,8 @@ const OrderHistory = () => {
 					}} />
 			));
 			setRenderableOrders(orderElements);
+		} else if (selectOrdersStatus === 'succeeded') {
+			setRenderableOrders(<div className="text-center text-2xl">You haven&apos;t made any orders yet!</div>);
 		}
 	}, [orders]);
 	return (
