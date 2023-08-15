@@ -5,6 +5,7 @@ import Login from './pages/login';
 import NotFound from './pages/notfound';
 import Checkout from './pages/checkout';
 import Account from './pages/account';
+import RequireAuth from './components/RequireAuth';
 
 const Router = () => (
 	<Routes>
@@ -12,7 +13,12 @@ const Router = () => (
 		<Route path="/product-details/:id" element={<ProductDetails />} />
 		<Route path="/checkout" element={<Checkout />} />
 		<Route path="/login" element={<Login />} />
-		<Route path="/account/:page" element={<Account />} />
+		<Route
+			path="/account/:page" element={
+				<RequireAuth>
+					<Account />
+				</RequireAuth>
+			} />
 		<Route path="*" element={<NotFound />} />
 	</Routes>
 );

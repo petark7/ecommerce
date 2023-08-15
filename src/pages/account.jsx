@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Layout from '../components/Layout';
 import ManagePassword from '../components/ManagePassword';
 import AccountSettings from '../components/AccountSettings';
@@ -9,19 +9,21 @@ import OrderHistory from '../components/OrderHistory';
 const Account = () => {
 	const [activeButton, setActiveButton] = useState('action_settings');
 	const { page } = useParams();
+	const navigate = useNavigate();
+
 	const items = [
 		{
 			id: 'account_settings',
 			label: 'Account Settings',
 			action: () => {
-				setActiveButton('account_settings');
+				navigate('/account/account_settings');
 			}
 		},
 		{
 			id: 'manage_password',
 			label: 'Manage Password',
 			action: () => {
-				setActiveButton('manage_password');
+				navigate('/account/manage_password');
 			}
 
 		},
@@ -29,14 +31,14 @@ const Account = () => {
 			id: 'manage_addresses',
 			label: 'Manage Addresses',
 			action: () => {
-				setActiveButton('manage_addresses');
+				navigate('/account/manage_addresses');
 			}
 		},
 		{
 			id: 'order_history',
 			label: 'Order History',
 			action: () => {
-				setActiveButton('order_history');
+				navigate('/account/order_history');
 			}
 		}
 	];
@@ -48,7 +50,7 @@ const Account = () => {
 
 	return (
 		<Layout>
-			<section className="container mx-auto p-10">
+			<section className="container mx-auto p-10 flex flex-col gap-10">
 				<div className="flex items-center justify-center ">
 					<ul className="flex flex-col lg:flex-row gap-4 p-4 items-center py-6 w-full border rounded">
 						{items.map(item => (

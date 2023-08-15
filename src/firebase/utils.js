@@ -59,7 +59,14 @@ export const createOrderFirestore = async (userID, formData) => {
 	};
 
 	try {
-		const docRef = await addDoc(collection(db, 'orders'), orderData);
+		const date = new Date().toJSON();
+
+		const dataToSend = {
+			...orderData,
+			createdAt: date,
+			status: 'ordered'
+		};
+		const docRef = await addDoc(collection(db, 'orders'), dataToSend);
 		if (docRef) {
 			ShowToast('Order submitted successfully');
 		}
@@ -78,7 +85,7 @@ export const getOrdersForUser = async userID => {
 
 	const orders = [];
 	for (const doc of querySnapshot.docs) {
-		orders.push(doc.data());
+		orders.push({ id: doc.id, ...doc.data() });
 	}
 
 	return orders;

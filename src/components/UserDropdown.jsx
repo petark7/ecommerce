@@ -28,7 +28,7 @@ const UserDropdown = () => {
 				</li>
 
 				<li onClick={() => {
-					navigate('/account/t');
+					navigate('/account/account_settings');
 				}}
 				><a>Account Settings</a>
 				</li>
