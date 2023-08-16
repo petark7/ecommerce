@@ -1,11 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { clearCartAction, logUserOut } from '../redux/slices/UserSlice';
 
 const UserDropdown = () => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 
 	return (
 		<div className="dropdown dropdown-end">
@@ -20,11 +21,23 @@ const UserDropdown = () => {
 				className="dropdown-content z-[1] menu p-2 shadow bg-base-100
       rounded-box w-52"
 			>
-				<li><a><Link to="/order-history">Order History</Link></a></li>
+				<li onClick={() => {
+					navigate('/account/order_history');
+				}}
+				><a>Order History</a>
+				</li>
+
+				<li onClick={() => {
+					navigate('/account/account_settings');
+				}}
+				><a>Account Settings</a>
+				</li>
+
 				<li>
 					<a onClick={() => {
 						dispatch(logUserOut());
 						dispatch(clearCartAction());
+						navigate('/');
 					}}
 					>
 						Logout

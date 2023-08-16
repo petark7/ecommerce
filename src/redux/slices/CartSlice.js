@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getCartFirestore, setCartFirestore } from '../../firebase/utils';
+import { logUserOut } from './UserSlice';
 
 export const syncWithFirestore = createAsyncThunk(
 	'cart/syncWithFirestore',
@@ -83,6 +84,12 @@ const cartSlice = createSlice({
 			})
 			.addCase(setFirebaseCart.fulfilled, (state, action) => {
 				state.cart = action.payload;
+			})
+			.addCase(logUserOut, state => {
+				state.cart = [];
+				state.cartTotal = null;
+				state.numberOfProducts = 0;
+				state.syncedWithFirestore = false;
 			});
 	}
 });

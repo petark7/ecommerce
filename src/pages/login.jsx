@@ -14,7 +14,6 @@ const Login = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const user = useSelector(state => state.user);
-
 	useEffect(() => {
 		onAuthStateChanged(auth, user => {
 			if (user) {

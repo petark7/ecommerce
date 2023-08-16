@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { doc, setDoc, getDoc, getFirestore, addDoc, collection } from 'firebase/firestore';
+import { query, where, getDocs, doc, setDoc, getDoc, getFirestore, addDoc, collection } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import { firebaseConfig } from '../firebaseConfig';
 import showToast, { ShowToast } from '../utils/toast';
@@ -40,6 +40,11 @@ export const logout = async () => {
 	}
 };
 
+export const getLoggedUser = async () => {
+	const user = auth.currentUser;
+	return user;
+};
+
 export const setCartFirestore = async (userID, cart) => {
 	await setDoc(doc(db, 'users', userID), { cart });
 };
@@ -59,7 +64,14 @@ export const createOrderFirestore = async (userID, formData) => {
 	};
 
 	try {
-		const docRef = await addDoc(collection(db, 'orders'), orderData);
+		const date = new Date().toJSON();
+
+		const dataToSend = {
+			...orderData,
+			createdAt: date,
+			status: 'ordered'
+		};
+		const docRef = await addDoc(collection(db, 'orders'), dataToSend);
 		if (docRef) {
 			ShowToast('Order submitted successfully');
 		}
@@ -69,6 +81,19 @@ export const createOrderFirestore = async (userID, formData) => {
 		ShowToast('Submitting order failed... try again.', false);
 		console.log(error);
 	}
+};
+
+export const getOrdersForUser = async userID => {
+	const ordersCollection = collection(db, 'orders');
+	const q = query(ordersCollection, where('userID', '==', userID));
+	const querySnapshot = await getDocs(q);
+
+	const orders = [];
+	for (const doc of querySnapshot.docs) {
+		orders.push({ id: doc.id, ...doc.data() });
+	}
+
+	return orders;
 };
 
 // TODO: create user
