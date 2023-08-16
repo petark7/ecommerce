@@ -28,13 +28,6 @@ const Account = () => {
 
 		},
 		{
-			id: 'manage_addresses',
-			label: 'Manage Addresses',
-			action: () => {
-				navigate('/account/manage_addresses');
-			}
-		},
-		{
 			id: 'order_history',
 			label: 'Order History',
 			action: () => {

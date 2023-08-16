@@ -37,6 +37,7 @@ const UserDropdown = () => {
 					<a onClick={() => {
 						dispatch(logUserOut());
 						dispatch(clearCartAction());
+						navigate('/');
 					}}
 					>
 						Logout

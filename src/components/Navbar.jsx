@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearCartAction, logUserOut } from '../redux/slices/UserSlice';
 import { setSidebarOpen } from '../redux/slices/SidebarSlice';
 import UserDropdown from './UserDropdown';
 
