@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase/utils';
-import { selectUser, setUser } from './redux/slices/UserSlice';
+import { fetchAccountSettings, selectUser, setUser } from './redux/slices/UserSlice';
 import { selectCartTotal, setFirebaseCart, syncWithFirestore } from './redux/slices/cartSlice';
 import Routes from './router';
 
@@ -22,6 +22,7 @@ const App = () => {
 					accessToken: user.accessToken
 				}));
 				dispatch(syncWithFirestore(user.uid));
+				dispatch(fetchAccountSettings(user.uid));
 			}
 		});
 	}, []);

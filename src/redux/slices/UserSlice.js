@@ -1,5 +1,5 @@
 import { createAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { loginUser, logout } from '../../firebase/utils';
+import { fetchAccountSettingsFirestore, loginUser, logout, updatePersonalInfoFirestore } from '../../firebase/utils';
 import { clearCart } from './CartSlice';
 
 export const login = createAsyncThunk(
@@ -26,27 +26,50 @@ export const clearCartAction = createAsyncThunk(
 	}
 );
 
+export const updateAccountSettings = createAsyncThunk(
+	'user/updateUserData', async ({ userID, data }) => {
+		const result = await updatePersonalInfoFirestore(userID, data);
+		return result;
+	}
+);
+
+export const fetchAccountSettings = createAsyncThunk(
+	'user/fetchAccountSettings', async userID => {
+		const result = await fetchAccountSettingsFirestore(userID);
+		console.log(result);
+		return result;
+	}
+);
+
 const userSlice = createSlice({
 	name: 'auth',
-	initialState: { user: null },
+	initialState: { user: null, userData: null },
 	reducers: {
 		setUser: (state, action) => {
 			state.user = action.payload;
 		},
 		logUserOut: state => {
 			logout();
-			state.user = { user: null };
+			state.user = null;
 		}
 	},
-	extraReducers: {
-		[login.rejected]: (state, action) => {
-			console.log('error! (great error handling, I know :D)');
-		}
+	extraReducers: builder => {
+		builder
+			.addCase(login.rejected, (state, action) => {
+				console.log('error! (great error handling, I know :D)');
+			})
+			.addCase(updateAccountSettings.fulfilled, (state, action) => {
+				state.userData = action.payload;
+			})
+			.addCase(fetchAccountSettings.fulfilled, (state, action) => {
+				state.userData = action.payload;
+			});
 	}
 });
 
 export const { setUser, logUserOut } = userSlice.actions;
 
 export const selectUser = state => state.user.user;
+export const selectUserData = state => state.user.userData;
 
 export default userSlice.reducer;

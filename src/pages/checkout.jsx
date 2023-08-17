@@ -49,7 +49,7 @@ const Checkout = () => {
 	};
 
 	const emptyCart = (
-		<div className="border p-10 flex flex-col gap-2 justify-center">
+		<div className="border p-10 flex flex-col gap-2 justify-center items-center">
 			<div className="text-2xl">Your shopping cart is empty.</div>
 			<div className="text-lg">Add some products and they&apos;ll appear here.</div>
 
@@ -106,7 +106,7 @@ const Checkout = () => {
 	);
 	return (
 		<Layout>
-			<section className="flex justify-center min-h-screen md:m-0 my-10 mx-5 md:mt-10 md:mb-10">
+			<section className="flex justify-center items-center h-[91vh] md:m-0 my-10 mx-5 md:mt-10 md:mb-10">
 				{cartTotal > 0 ? notEmptyCart : emptyCart}
 			</section>
 		</Layout>
