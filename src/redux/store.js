@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
-import userReducer from './slices/UserSlice';
+import userReducer from './slices/userSlice';
 import cartReducer from './slices/cartSlice';
 import productReducer from './slices/productSlice';
-import sidebarReducer from './slices/SidebarSlice';
-import ordersReducer from './slices/OrdersSlice';
+import sidebarReducer from './slices/sidebarSlice';
+import ordersReducer from './slices/ordersSlice';
 
 export default configureStore({
 	reducer: {

@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { getCartFirestore, setCartFirestore } from '../../firebase/utils';
-import { logUserOut } from './UserSlice';
+import { logUserOut } from './userSlice';
 
 export const syncWithFirestore = createAsyncThunk(
 	'cart/syncWithFirestore',

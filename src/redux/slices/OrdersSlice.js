@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { createOrderFirestore, getOrdersForUser } from '../../firebase/utils';
-import { logUserOut } from './UserSlice';
+import { logUserOut } from './userSlice';
 
 // Async thunk
 export const fetchOrders = createAsyncThunk(

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrdersForUser } from '../firebase/utils';
-import { selectUser } from '../redux/slices/UserSlice';
-import { fetchOrders, selectOrders, selectOrdersStatus } from '../redux/slices/OrdersSlice';
+import { selectUser } from '../redux/slices/userSlice';
+import { fetchOrders, selectOrders, selectOrdersStatus } from '../redux/slices/ordersSlice';
 import OrderDetails from './OrderDetails';
 
 const OrderHistory = () => {
