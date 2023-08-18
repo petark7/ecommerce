@@ -23,7 +23,6 @@ const Checkout = () => {
 
 	const [selectedOption, setSelectedOption] = useState();
 
-	// TODO HARDCODED DELIVERY DETAILS
 	const handleCompleteOrder = async () => {
 		const formData = {
 			cart,
@@ -49,7 +48,7 @@ const Checkout = () => {
 	};
 
 	const emptyCart = (
-		<div className="border p-10 flex flex-col gap-2 justify-center">
+		<div className="p-10 flex flex-col gap-2 justify-center items-center h-[91vh]">
 			<div className="text-2xl">Your shopping cart is empty.</div>
 			<div className="text-lg">Add some products and they&apos;ll appear here.</div>
 
@@ -67,9 +66,9 @@ const Checkout = () => {
 
 	const notEmptyCart = (
 		<div>
-			<div className="font-semibold text-2xl text-center mb-10">Order Details</div>
+			<div className="font-semibold text-2xl text-center mb-5">Order Details</div>
 			<div
-				className="text-lg flex items-center gap-2 justify-end hover:text-red-400
+				className="flex items-center gap-2 justify-end hover:text-red-400
 				hover:cursor-pointer mb-2 font-semibold"
 				onClick={() => {
 					dispatch(clearCart());
@@ -106,7 +105,7 @@ const Checkout = () => {
 	);
 	return (
 		<Layout>
-			<section className="flex justify-center min-h-screen md:m-0 my-10 mx-5 md:mt-10 md:mb-10">
+			<section className="flex justify-center md:items-center py-10 px-5 md:py-10">
 				{cartTotal > 0 ? notEmptyCart : emptyCart}
 			</section>
 		</Layout>
