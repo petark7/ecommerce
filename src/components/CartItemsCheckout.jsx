@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { selectCart } from '../redux/slices/cartSlice';
-import CheckoutItem from './checkoutItem';
+import CheckoutItem from './CheckoutItem';
 
 const CartItemsCheckout = () => {
 	const cart = useSelector(selectCart);
