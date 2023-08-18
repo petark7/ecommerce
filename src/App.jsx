@@ -7,7 +7,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase/utils';
 import { fetchAccountSettings, selectUser, setUser } from './redux/slices/UserSlice';
 import { selectCartTotal, setFirebaseCart, syncWithFirestore } from './redux/slices/cartSlice';
-import Routes from './router';
+import Router from './router';
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -33,7 +33,7 @@ const App = () => {
 	return (
 		<>
 			<ToastContainer />
-			<Routes />
+			<Router />
 		</>
 	);
 };
