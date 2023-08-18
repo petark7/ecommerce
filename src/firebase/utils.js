@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, signOut, updatePassword } from 'firebase/auth';
 import { query, where, getDocs, doc, setDoc, getDoc, getFirestore, addDoc, collection } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import { firebaseConfig } from '../firebaseConfig';
@@ -46,7 +46,14 @@ export const getLoggedUser = async () => {
 };
 
 export const setCartFirestore = async (userID, cart) => {
-	await setDoc(doc(db, 'users', userID), { cart });
+	const docRef = doc(db, 'users', userID);
+	const docData = await getDoc(docRef);
+
+	if (docData.exists()) {
+		await setDoc(docRef, { ...docData.data(), cart });
+	} else {
+		console.log('No such document!');
+	}
 };
 
 export const getCartFirestore = async userID => {
@@ -96,5 +103,50 @@ export const getOrdersForUser = async userID => {
 	return orders;
 };
 
+export const updatePersonalInfoFirestore = async (userID, data) => {
+	const docRef = doc(db, 'users', userID);
+	const docSnap = await getDoc(docRef);
+
+	if (docSnap.exists()) {
+		try {
+			const userData = {
+				...docSnap.data(),
+				userData: data
+			};
+
+			await setDoc(docRef, userData);
+			ShowToast('Successfully updated data!');
+			return userData.userData;
+		} catch {
+			ShowToast('Updating the personal data has been unsuccessful...', false);
+		}
+	}
+};
+
+export const fetchAccountSettingsFirestore = async userID => {
+	const docRef = doc(db, 'users', userID);
+	const docSnap = await getDoc(docRef);
+
+	if (docSnap.exists()) {
+		try {
+			console.log(docSnap.data().userData);
+			return docSnap.data().userData;
+		} catch {
+			console.log('Error fetching account settings...');
+		}
+	}
+};
+
+export const updatePasswordFirebase = async newPassword => {
+	const auth = getAuth();
+
+	const user = auth.currentUser;
+	try {
+		await updatePassword(user, newPassword);
+		ShowToast('Password updated successful.');
+	} catch {
+		ShowToast('Updating the password has been unsuccessful.', false);
+	}
+};
 // TODO: create user
 // const createUser = async (email, password) => {};
