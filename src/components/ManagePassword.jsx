@@ -43,6 +43,7 @@ const ManagePassword = () => {
 					New password
 				</label>
 				<input
+					required
 					name="newPassword"
 					id="newPassword"
 					type="password"
@@ -54,6 +55,7 @@ const ManagePassword = () => {
 					Confirm new password
 				</label>
 				<input
+					required
 					name="newPasswordConfirm"
 					id="newPasswordConfirm"
 					type="password"
