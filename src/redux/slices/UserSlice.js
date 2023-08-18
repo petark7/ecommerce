@@ -1,6 +1,6 @@
 import { createAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { fetchAccountSettingsFirestore, loginUser, logout, updatePersonalInfoFirestore } from '../../firebase/utils';
-import { clearCart } from './CartSlice';
+import { clearCart } from './cartSlice';
 
 export const login = createAsyncThunk(
 	'auth/login',
