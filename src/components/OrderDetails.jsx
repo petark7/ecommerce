@@ -42,7 +42,7 @@ const OrderDetails = ({ id, status, items, total, dateOrdered, buttonAction }) =
 				</div>
 
 				{/* Order date */}
-				<div className="text-lg uppercase">{dateFormatted}</div>
+				<div className="text-lg">{dateFormatted}</div>
 
 				{/* Number of items, price */}
 				<div className="flex gap-5 items-center lg:w-[200px] lg:justify-between">

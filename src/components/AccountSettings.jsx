@@ -79,7 +79,7 @@ const AccountSettings = () => {
 					className="input input-bordered w-full"
 					onChange={event => handleChange(event)}
 				/>
-				<Button handleClick={handleSubmit} label="Submit changes" />
+				<Button submit handleClick={handleSubmit} label="Submit changes" />
 			</form>
 		</section>
 	);

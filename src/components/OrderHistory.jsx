@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getOrdersForUser } from '../firebase/utils';
 import { selectUser } from '../redux/slices/userSlice';
 import { fetchOrders, selectOrders, selectOrdersStatus } from '../redux/slices/ordersSlice';
 import OrderDetails from './OrderDetails';
@@ -10,6 +9,12 @@ const OrderHistory = () => {
 	const user = useSelector(selectUser);
 	const orders = useSelector(selectOrders);
 	const [renderableOrders, setRenderableOrders] = useState();
+	const ordersStatus = useSelector(selectOrdersStatus);
+	const [sortBy, setSortBy] = useState('date');
+
+	const handleSortBy = event => {
+		setSortBy(event.target.value);
+	};
 
 	const sortOrders = (orders, sortBy) => {
 		const ordersCopy = [...orders]; // Create a copy of the array
@@ -23,7 +28,7 @@ const OrderHistory = () => {
 					return b.total - a.total;
 				}
 
-				case 'items': {
+				case 'quantity': {
 					return b.cart.length - a.cart.length;
 				}
 
@@ -37,12 +42,13 @@ const OrderHistory = () => {
 	useEffect(() => {
 		dispatch(fetchOrders(user?.uid));
 	}, [user]);
-	navigator.clipboard.writeText(JSON.stringify(orders));
+
+	console.log(sortBy);
 
 	useEffect(() => {
 		console.log(orders);
 		if (orders.length > 0) {
-			const sortedOrders = sortOrders(orders, 'date');
+			const sortedOrders = sortOrders(orders, sortBy);
 			const orderElements = sortedOrders.map(order => (
 				<OrderDetails
 					key={order.id}
@@ -56,12 +62,25 @@ const OrderHistory = () => {
 					}} />
 			));
 			setRenderableOrders(orderElements);
-		} else if (selectOrdersStatus === 'succeeded') {
+		} else if (ordersStatus === 'succeeded') {
 			setRenderableOrders(<div className="text-center text-2xl">You haven&apos;t made any orders yet!</div>);
 		}
-	}, [orders]);
+	}, [orders, sortBy]);
 	return (
 		<div className="flex flex-col">
+			<div className="flex text-end justify-end items-center gap-4">
+				<label htmlFor="countries" className="block mb-2 font-medium text-gray-900">Sort by</label>
+				<select
+					id="countries"
+					className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
+				 focus:ring-blue-500 focus:border-blue-500 block p-2.5 w-fit"
+					onChange={handleSortBy}
+				>
+					<option selected value="date">Date</option>
+					<option value="total">Total Amount</option>
+					<option value="quantity">Item Quantity</option>
+				</select>
+			</div>
 			{renderableOrders}
 		</div>
 	);

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../redux/slices/cartSlice';
+import Button from './Button';
 
 const Product = ({ product }) => {
 	const { id, image, category, title, price } = product;
@@ -58,8 +59,17 @@ const Product = ({ product }) => {
 						{title}
 					</Link>
 
-					<div className="font-bold text-red-400">
-						${price}
+					<div className="">
+						<div className="font-bold text-red-400">
+							${price}
+						</div>
+						<div className="md:hidden">
+							<Button handleClick={() => {
+								dispatch(addToCart(product));
+							}}
+							>Add to Cart
+							</Button>
+						</div>
 					</div>
 				</div>
 			</div>

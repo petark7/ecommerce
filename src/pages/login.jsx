@@ -40,7 +40,7 @@ const Login = () => {
 	return (
 		<Layout>
 			<section className="flex items-center justify-center min-h-screen">
-				<div className="flex flex-col gap-7 items-center shadow-lg h-fit p-14 m-10">
+				<div className="flex flex-col gap-7 items-center md:shadow-lg p-8 md:p-14 m-3 md:m-10">
 
 					{/* descriptive text at top */}
 					<div className="font-light text-4xl">Welcome!</div>
