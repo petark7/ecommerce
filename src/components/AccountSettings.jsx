@@ -21,40 +21,62 @@ const AccountSettings = () => {
 		});
 	};
 
-	const handleSubmit = async () => {
+	const handleSubmit = async event => {
+		event.preventDefault();
 		const userID = user.uid;
 		dispatch(updateAccountSettings({ userID, data }));
 	};
 
 	return (
 		<section className="lg:mx-20 my-5 md:mx-10 mx-5 ">
-			<form className="flex flex-col gap-3 items-center w-full">
+			<form className="flex flex-col gap-3 items-center w-full" onSubmit={handleSubmit}>
 				<div className="flex text-2xl mb-5">Change personal information</div>
+
+				<label className="w-full block text-gray-500 text-sm font-bold" htmlFor="name">
+					Name
+				</label>
+
 				<input
+					required
 					name="name"
 					type="text"
-					placeholder="Name"
+					placeholder="John Doe"
 					className="input input-bordered w-full"
 					onChange={event => handleChange(event)}
 				/>
+
+				<label className="w-full block text-gray-500 text-sm font-bold" htmlFor="email">
+					Email
+				</label>
 				<input
+					required
 					name="email"
-					type="text"
-					placeholder="Email"
+					type="email"
+					placeholder="johndoe@gmail.com"
 					className="input input-bordered w-full"
 					onChange={event => handleChange(event)}
 				/>
+
+				<label className="w-full block text-gray-500 text-sm font-bold" htmlFor="phone_number">
+					Phone Numbers
+				</label>
 				<input
+					required
 					name="phone_number"
 					type="text"
-					placeholder="Phone number"
+					placeholder="+389 756 412 13"
 					className="input input-bordered w-full"
 					onChange={event => handleChange(event)}
 				/>
+
+				<label className="w-full block text-gray-500 text-sm font-bold" htmlFor="address">
+					Address
+				</label>
 				<input
+					required
 					name="address"
 					type="text"
-					placeholder="Address"
+					placeholder="23 John's street"
 					className="input input-bordered w-full"
 					onChange={event => handleChange(event)}
 				/>

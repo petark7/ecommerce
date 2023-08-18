@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, signOut, updatePassword } from 'firebase/auth';
 import { query, where, getDocs, doc, setDoc, getDoc, getFirestore, addDoc, collection } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import { firebaseConfig } from '../firebaseConfig';
@@ -118,7 +118,7 @@ export const updatePersonalInfoFirestore = async (userID, data) => {
 			ShowToast('Successfully updated data!');
 			return userData.userData;
 		} catch {
-			ShowToast('Updating the personal data has been unsuccessful...');
+			ShowToast('Updating the personal data has been unsuccessful...', false);
 		}
 	}
 };
@@ -134,6 +134,18 @@ export const fetchAccountSettingsFirestore = async userID => {
 		} catch {
 			console.log('Error fetching account settings...');
 		}
+	}
+};
+
+export const updatePasswordFirebase = async newPassword => {
+	const auth = getAuth();
+
+	const user = auth.currentUser;
+	try {
+		await updatePassword(user, newPassword);
+		ShowToast('Password updated successful.');
+	} catch {
+		ShowToast('Updating the password has been unsuccessful.', false);
 	}
 };
 // TODO: create user

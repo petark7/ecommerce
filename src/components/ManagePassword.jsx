@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ShowToast from '../utils/toast';
+import { updatePasswordFirebase } from '../firebase/utils';
 import Button from './Button';
 
 const ManagePassword = () => {
@@ -23,7 +24,7 @@ const ManagePassword = () => {
 		event.preventDefault();
 		if (formData.newPassword === formData.newPasswordConfirm
 			&&			passwordRegex.test(formData.newPassword)) {
-			ShowToast('Passwords OK.');
+			updatePasswordFirebase(formData.newPassword);
 		} else {
 			ShowToast('Passwords don\'t match or don\'t meet the requirements', false);
 		}
