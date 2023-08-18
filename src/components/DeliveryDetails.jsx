@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { selectUserData } from '../redux/slices/UserSlice';
+import { selectUserData } from '../redux/slices/userSlice';
 
 // TODO: VALUES ARE HARDCODED - IMPLEMENT WHEN USER SETTINGS IS IMPLEMENTED
 const DeliveryDetails = () => {

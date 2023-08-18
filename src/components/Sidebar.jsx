@@ -2,7 +2,7 @@ import { faArrowRight, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { setSidebarOpen } from '../redux/slices/SidebarSlice';
+import { setSidebarOpen } from '../redux/slices/sidebarSlice';
 import { clearCart, selectCart, selectCartTotal, selectNumberOfProducts } from '../redux/slices/cartSlice';
 import CartItem from './CartItem';
 

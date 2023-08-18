@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSidebarOpen } from '../redux/slices/SidebarSlice';
+import { setSidebarOpen } from '../redux/slices/sidebarSlice';
 import UserDropdown from './UserDropdown';
 
 const Navbar = () => {

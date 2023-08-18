@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import Layout from '../components/Layout';
 // Import { loginUser } from '../firebase/utils';
-import { login } from '../redux/slices/UserSlice';
+import { login } from '../redux/slices/userSlice';
 import { auth } from '../firebase/utils';
 
 const Login = () => {

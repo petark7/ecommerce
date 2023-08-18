@@ -2,8 +2,8 @@ import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { addToCart, decrementProductAmount, removeFromCart } from '../redux/slices/CartSlice';
-import { setSidebarOpen } from '../redux/slices/SidebarSlice';
+import { addToCart, decrementProductAmount, removeFromCart } from '../redux/slices/cartSlice';
+import { setSidebarOpen } from '../redux/slices/sidebarSlice';
 import QuantityCounter from './QuantityCounter';
 
 const CartItem = ({ product }) => {

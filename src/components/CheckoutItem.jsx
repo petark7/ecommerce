@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import QuantityCounter from '../components/QuantityCounter';
-import { addToCart, decrementProductAmount, removeFromCart } from '../redux/slices/CartSlice';
+import { addToCart, decrementProductAmount, removeFromCart } from '../redux/slices/cartSlice';
 
 const CheckoutItem = ({ product }) => {
 	const dispatch = useDispatch();

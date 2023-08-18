@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updatePersonalInfoFirestore } from '../firebase/utils';
-import { selectUser, selectUserData, updateAccountSettings } from '../redux/slices/UserSlice';
+import { selectUser, selectUserData, updateAccountSettings } from '../redux/slices/userSlice';
 import Button from './Button';
 
 const AccountSettings = () => {

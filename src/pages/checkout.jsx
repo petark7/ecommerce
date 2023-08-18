@@ -7,9 +7,9 @@ import Layout from '../components/Layout';
 import CartItemsCheckout from '../components/CartItemsCheckout';
 import PaymentOptions from '../components/PaymentOptions';
 import DeliveryDetails from '../components/DeliveryDetails';
-import { clearCart, selectCart, selectCartTotal } from '../redux/slices/CartSlice';
+import { clearCart, selectCart, selectCartTotal } from '../redux/slices/cartSlice';
 import { createOrderFirestore } from '../firebase/utils';
-import { selectUser } from '../redux/slices/UserSlice';
+import { selectUser } from '../redux/slices/userSlice';
 
 const Checkout = () => {
 	const cartTotal = useSelector(selectCartTotal);

@@ -1,8 +1,5 @@
-import { faClose } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
-import QuantityCounter from '../components/QuantityCounter';
-import { selectCart } from '../redux/slices/CartSlice';
+import { selectCart } from '../redux/slices/cartSlice';
 import CheckoutItem from './checkoutItem';
 
 const CartItemsCheckout = () => {

@@ -1,11 +1,10 @@
 import { ToastContainer } from 'react-toastify';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase/utils';
-import { fetchAccountSettings, selectUser, setUser } from './redux/slices/UserSlice';
+import { fetchAccountSettings, selectUser, setUser } from './redux/slices/userSlice';
 import { selectCartTotal, setFirebaseCart, syncWithFirestore } from './redux/slices/cartSlice';
 import Router from './router';
 

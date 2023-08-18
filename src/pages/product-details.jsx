@@ -2,7 +2,7 @@ import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Layout from '../components/Layout';
-import { getProducts } from '../redux/slices/ProductSlice';
+import { getProducts } from '../redux/slices/productSlice';
 import { addToCart } from '../redux/slices/cartSlice';
 
 const ProductDetails = () => {
