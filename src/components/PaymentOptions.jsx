@@ -1,5 +1,5 @@
-const PaymentOptions = ({ setSelectedOption }) => (
-	<section className="border mt-3 p-3">
+const PaymentOptions = ({ setSelectedOption, formErrors }) => (
+	<section className={`border mt-3 p-3 ${formErrors.paymentOptionError ? 'border-2 border-red-300' : 'border'}`}>
 		<div className="font-semibold">Payment Options</div>
 		<div className="mt-2">
 			{/* <div>Pay with card</div> */}
@@ -13,6 +13,7 @@ const PaymentOptions = ({ setSelectedOption }) => (
 					<span className="">Direct payment (pay on delivery)</span>
 				</label>
 			</div>
+			{formErrors.paymentOptionError && <div className="text-red-500 mt-2">Please select a payment option.</div>}
 
 		</div>
 	</section>

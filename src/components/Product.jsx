@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../redux/slices/cartSlice';
+import ShowToast from '../utils/toast';
 import Button from './Button';
 
 const Product = ({ product }) => {
@@ -37,6 +38,7 @@ const Product = ({ product }) => {
 						<button
 							type="button" className="hover:scale-110 transition duration-200 w-10 h-10 bg-red-500 shadow-md" onClick={() => {
 								dispatch(addToCart(product));
+								ShowToast('Item added to cart.');
 							}}
 						>
 							<FontAwesomeIcon className="text-white" icon={faCartShopping} />

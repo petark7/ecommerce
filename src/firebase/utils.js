@@ -49,17 +49,16 @@ export const setCartFirestore = async (userID, cart) => {
 	const docRef = doc(db, 'users', userID);
 	const docData = await getDoc(docRef);
 
-	if (docData.exists()) {
+	try {
 		await setDoc(docRef, { ...docData.data(), cart });
-	} else {
-		console.log('No such document!');
+	} catch (error) {
+		console.log(error);
 	}
 };
 
 export const getCartFirestore = async userID => {
 	const docRef = doc(db, 'users', userID);
 	const docSnap = await getDoc(docRef);
-	console.log(docSnap.data().cart);
 	return docSnap.data().cart;
 };
 
@@ -129,7 +128,6 @@ export const fetchAccountSettingsFirestore = async userID => {
 
 	if (docSnap.exists()) {
 		try {
-			console.log(docSnap.data().userData);
 			return docSnap.data().userData;
 		} catch {
 			console.log('Error fetching account settings...');

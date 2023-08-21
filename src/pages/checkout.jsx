@@ -9,11 +9,12 @@ import PaymentOptions from '../components/PaymentOptions';
 import DeliveryDetails from '../components/DeliveryDetails';
 import { clearCart, selectCart, selectCartTotal } from '../redux/slices/cartSlice';
 import { createOrderFirestore } from '../firebase/utils';
-import { selectUser } from '../redux/slices/userSlice';
+import { selectUser, selectUserData } from '../redux/slices/userSlice';
 
 const Checkout = () => {
 	const cartTotal = useSelector(selectCartTotal);
 	const cart = useSelector(selectCart);
+	const userDetails = useSelector(selectUserData);
 	const user = useSelector(selectUser);
 	const shippingCost = 10; // Hardcoded. TODO: calculate shipping depending on location
 	const total = Number.parseFloat(cartTotal + shippingCost).toFixed(2);
@@ -22,31 +23,70 @@ const Checkout = () => {
 	const navigate = useNavigate();
 
 	const [selectedOption, setSelectedOption] = useState();
+	const [formErrors, setFormErrors] = useState({
+		paymentOptionError: false,
+		deliveryDetailsError: false
+	});
+
+	const setFormError = (element, value) => {
+		setFormErrors(previousValue => (
+			{
+				...previousValue,
+				[element]: value
+			}
+		));
+	};
+
+	const isDataValid = formData => {
+		let valid = true;
+
+		if (formData.paymentOption) {
+			setFormError('paymentOptionError', false);
+		} else {
+			setFormError('paymentOptionError', true);
+			valid = false;
+		}
+
+		if (userDetails) {
+			setFormError('deliveryDetailsError', false);
+		} else {
+			setFormError('deliveryDetailsError', true);
+			valid = false;
+		}
+
+		console.log(formErrors);
+		return valid;
+	};
+
+	useEffect(() => {
+		if (userDetails) {
+			setFormError('deliveryDetailsError', false);
+		}
+	}, [userDetails]);
 
 	const handleCompleteOrder = async () => {
 		const formData = {
 			cart,
 			total: cartTotal + shippingCost,
-			deliveryDetails: {
-				name: 'Petar Kuzmanovski',
-				address: '22 high street',
-				phone: '074123456',
-				email: 'petark@gmail.com'
-			},
-			paymentOption: 'direct' // TODO: add stripe
+			deliveryDetails: { ...userDetails },
+			paymentOption: selectedOption // TODO: add stripe
 		};
 
-		try {
-			const order = await createOrderFirestore(user.uid, formData);
-			if (order) {
-				dispatch(clearCart());
-				navigate('/');
+		console.log(isDataValid(formData));
+		if (isDataValid(formData)) {
+			try {
+				const order = await createOrderFirestore(user.uid, formData);
+				if (order) {
+					dispatch(clearCart());
+					navigate('/');
+				}
+			} catch (error) {
+				console.log(error);
 			}
-		} catch (error) {
-			console.log(error);
 		}
 	};
 
+	// Renders when cart is empty:
 	const emptyCart = (
 		<div className="p-10 flex flex-col gap-2 justify-center items-center h-[91vh]">
 			<div className="text-2xl">Your shopping cart is empty.</div>
@@ -64,6 +104,7 @@ const Checkout = () => {
 		</div>
 	);
 
+	// Renders when there are items in cart
 	const notEmptyCart = (
 		<div>
 			<div className="font-semibold text-2xl text-center mb-5">Order Details</div>
@@ -79,8 +120,8 @@ const Checkout = () => {
 			<div className="border">
 				<CartItemsCheckout />
 			</div>
-			<PaymentOptions setSelectedOption={setSelectedOption} />
-			<DeliveryDetails />
+			<PaymentOptions setSelectedOption={setSelectedOption} formErrors={formErrors} />
+			<DeliveryDetails formErrors={formErrors} />
 
 			{/* total and complete order button */}
 			<div className="flex flex-col justify-center gap-1 border mt-3 p-2">
