@@ -128,7 +128,6 @@ export const fetchAccountSettingsFirestore = async userID => {
 
 	if (docSnap.exists()) {
 		try {
-			console.log(docSnap.data().userData);
 			return docSnap.data().userData;
 		} catch {
 			console.log('Error fetching account settings...');

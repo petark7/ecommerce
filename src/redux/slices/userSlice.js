@@ -36,7 +36,6 @@ export const updateAccountSettings = createAsyncThunk(
 export const fetchAccountSettings = createAsyncThunk(
 	'user/fetchAccountSettings', async userID => {
 		const result = await fetchAccountSettingsFirestore(userID);
-		console.log(result);
 		return result;
 	}
 );

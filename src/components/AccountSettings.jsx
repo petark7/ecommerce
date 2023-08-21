@@ -30,7 +30,7 @@ const AccountSettings = () => {
 	return (
 		<section className="lg:mx-20 my-5 md:mx-10 mx-5 ">
 			<div className="flex text-2xl mb-8 w-full justify-center">Change personal information</div>
-			<DeliveryInfoForm handleChange={handleChange} handleSubmit={handleSubmit} />
+			<DeliveryInfoForm handleChange={handleChange} handleSubmit={handleSubmit} currentData={userData} />
 		</section>
 	);
 };
