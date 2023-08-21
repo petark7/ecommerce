@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Layout from '../components/Layout';
 import { getProducts } from '../redux/slices/productSlice';
 import { addToCart } from '../redux/slices/cartSlice';
+import ShowToast from '../utils/toast';
 
 const ProductDetails = () => {
 	const { id } = useParams();
@@ -63,7 +64,7 @@ const ProductDetails = () => {
 								 bg-gray-700 text-white"
 								onClick={() => {
 									dispatch(addToCart(product));
-									// AddToCart(product);
+									ShowToast('Item added to cart!');
 								}}
 							>	Add to cart
 							</button>
