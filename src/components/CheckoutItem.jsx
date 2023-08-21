@@ -25,7 +25,7 @@ const CheckoutItem = ({ product }) => {
 						className="max-w-[70px] object-cover object-center mr-15"
 						src={product.image} />
 
-					<div>
+					<div className="max-w-sm">
 						<Link
 							className="font-bold mr-18 cursor-pointer  hover:text-red-400"
 							to={`/product-details/${product.id}`}

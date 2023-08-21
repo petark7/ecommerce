@@ -5,7 +5,7 @@ import Modal from './Modal';
 import DeliveryInfoForm from './DeliveryInfoForm';
 
 // TODO: VALUES ARE HARDCODED - IMPLEMENT WHEN USER SETTINGS IS IMPLEMENTED
-const DeliveryDetails = () => {
+const DeliveryDetails = ({ formErrors }) => {
 	const userDetails = useSelector(selectUserData);
 	const [isOpen, setIsOpen] = useState(false);
 	const dispatch = useDispatch();
@@ -37,8 +37,9 @@ const DeliveryDetails = () => {
 			<div>Email: {userDetails?.email}</div>
 		</>
 	);
+
 	return (
-		<section className="border mt-3 p-3">
+		<section className={`border mt-3 p-3 ${formErrors.deliveryDetailsError ? 'border-2 border-red-300' : 'border'}`}>
 			<div className="flex justify-between">
 				<div>
 					<div className="font-semibold">Delivery details</div>
@@ -57,7 +58,9 @@ const DeliveryDetails = () => {
 					<DeliveryInfoForm handleChange={handleChange} handleSubmit={handleSubmit} />
 				</Modal>
 			</div>
+			{formErrors.deliveryDetailsError && <div className="text-red-500 mt-2">There is an issue with the delivery details.</div>}
 		</section>
+
 	);
 };
 
