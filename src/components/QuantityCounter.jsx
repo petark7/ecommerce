@@ -2,7 +2,7 @@ import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const QuantityCounter = ({ quantity, incrementAction, decrementAction }) => (
-	<div className="flex flex-1 justify-between border min-w-[80px] h-[40px]">
+	<div className="flex flex-1 justify-between border min-w-[80px] h-[40px] rounded-md">
 		<div
 			className="flex flex-1 items-center justify-center cursor-pointer" onClick={() => {
 				if (quantity > 1) {

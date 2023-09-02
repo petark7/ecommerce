@@ -26,7 +26,7 @@ const ManagePassword = () => {
 			&&			passwordRegex.test(formData.newPassword)) {
 			updatePasswordFirebase(formData.newPassword);
 		} else {
-			ShowToast('Passwords don\'t match or don\'t meet the requirements', false);
+			ShowToast('Passwords don\'t match or don\'t meet the requirements', {success: false});
 		}
 	};
 

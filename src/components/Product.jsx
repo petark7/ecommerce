@@ -13,7 +13,7 @@ const Product = ({ product }) => {
 	return (
 		<div className="product-card">
 			<div className="product-image border border-[#e4e4e4] h-[300px] mb-4
-			relative overflow-hidden group transition"
+			relative overflow-hidden group transition rounded-xl shadow"
 			>
 				{/* Image */}
 				<div
@@ -38,7 +38,7 @@ const Product = ({ product }) => {
 						<button
 							type="button" className="hover:scale-110 transition duration-200 w-10 h-10 bg-red-500 shadow-md" onClick={() => {
 								dispatch(addToCart(product));
-								ShowToast('Item added to cart.');
+								ShowToast('Item added to cart.', {success: true});
 							}}
 						>
 							<FontAwesomeIcon className="text-white" icon={faCartShopping} />
@@ -66,9 +66,7 @@ const Product = ({ product }) => {
 							${price}
 						</div>
 						<div className="md:hidden">
-							<Button handleClick={() => {
-								dispatch(addToCart(product));
-							}}
+							<Button handleClick={() => dispatch(addToCart(product))}
 							>Add to Cart
 							</Button>
 						</div>
