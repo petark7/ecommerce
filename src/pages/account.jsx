@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHistory, faLock, faWrench } from '@fortawesome/free-solid-svg-icons';
 import Layout from '../components/Layout';
 import ManagePassword from '../components/ManagePassword';
 import AccountSettings from '../components/AccountSettings';
@@ -14,14 +16,25 @@ const Account = () => {
 	const items = [
 		{
 			id: 'account_settings',
-			label: 'Account Settings',
+			label: (
+			  <div className='flex flex-row gap-2 justify-center items-center'>
+				<FontAwesomeIcon size="lg" icon={faWrench} />
+				<p>Account Settings</p>
+			  </div>
+			),
 			action: () => {
-				navigate('/account/account_settings');
+			  navigate('/account/account_settings');
 			}
-		},
+		  },
+		  
 		{
 			id: 'manage_password',
-			label: 'Manage Password',
+			label: (
+				<div className='flex flex-row gap-2 justify-center items-center'>
+				  <FontAwesomeIcon size="lg" icon={faLock} />
+				  <p>Manage Password</p>
+				</div>
+			  ),
 			action: () => {
 				navigate('/account/manage_password');
 			}
@@ -29,7 +42,12 @@ const Account = () => {
 		},
 		{
 			id: 'order_history',
-			label: 'Order History',
+			label: (
+				<div className='flex flex-row gap-2 justify-center items-center'>
+				  <FontAwesomeIcon size="lg" icon={faHistory} />
+				  <p>Order History</p>
+				</div>
+			  ),
 			action: () => {
 				navigate('/account/order_history');
 			}
@@ -38,7 +56,6 @@ const Account = () => {
 
 	useEffect(() => {
 		setActiveButton(page);
-		console.log(page);
 	}, [page]);
 
 	return (
@@ -55,7 +72,7 @@ const Account = () => {
                 ${activeButton === item.id && 'bg-red-200'}`}
 								onClick={item.action}
 							>
-								<a>{item.label}</a>
+								<a className="font-semibold">{item.label}</a>
 							</li>
 						))}
 					</ul>

@@ -60,7 +60,7 @@ const OrderHistoryElement = ({ id, status, items, total, dateOrdered, buttonActi
 
 				<div
 					className="flex justify-center bg-gray-200 p-2
-				font-semibold rounded mt-2 hover:cursor-pointer w-[130px]" onClick={buttonAction}
+				font-semibold rounded mt-2 hover:cursor-pointer w-[130px]" onClick={()=>buttonAction(id)}
 				>
 					More details
 				</div>

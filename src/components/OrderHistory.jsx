@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../redux/slices/userSlice';
 import { fetchOrders, selectOrders, selectOrdersStatus } from '../redux/slices/ordersSlice';
 import OrderHistoryElement from './OrderHistoryElement';
+import { useNavigate } from 'react-router-dom';
 
 const OrderHistory = () => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const user = useSelector(selectUser);
 	const orders = useSelector(selectOrders);
 	const [renderableOrders, setRenderableOrders] = useState();
@@ -56,9 +58,7 @@ const OrderHistory = () => {
 					items={order.cart}
 					total={order.total}
 					dateOrdered={order.createdAt}
-					buttonAction={() => {
-						alert();
-					}} />
+					buttonAction={(orderId) => navigate(`/order-details/${orderId}`)} />
 			));
 			setRenderableOrders(orderElements);
 		} else if (ordersStatus === 'succeeded') {
