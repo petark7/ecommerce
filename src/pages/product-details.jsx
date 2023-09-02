@@ -60,7 +60,9 @@ const ProductDetails = () => {
 						<div>
 							<button
 								type="button"
-								handleClidk={() => {
+								className="flex font-semibold justify-center p-4 mt-4 lg:mt-5 border w-full lg:w-[200px]
+								 bg-gray-700 text-white rounded-md"
+								onClick={() => {
 									dispatch(addToCart(product));
 									ShowToast('Item added to cart!', {success: true});
 								}}
