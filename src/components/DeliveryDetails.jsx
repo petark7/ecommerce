@@ -1,13 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUser, selectUserData, updateAccountSettings } from '../redux/slices/userSlice';
 import Modal from './Modal';
 import DeliveryInfoForm from './DeliveryInfoForm';
 
 const DeliveryDetails = ({ formErrors }) => {
+	const dispatch = useDispatch();
 	const userDetails = useSelector(selectUserData);
 	const [isOpen, setIsOpen] = useState(false);
-	const dispatch = useDispatch();
 	const [data, setData] = useState();
 	const user = useSelector(selectUser);
 
@@ -36,6 +36,16 @@ const DeliveryDetails = ({ formErrors }) => {
 		</>
 	);
 
+	useEffect(() => {
+		setData({
+			name: userDetails?.name,
+			email: userDetails?.email,
+			address: userDetails?.address,
+			phone_number: userDetails?.phone_number
+		})
+	}, [userDetails])
+
+
 	return (
 		<section className={`border rounded mt-3 p-3 ${formErrors.deliveryDetailsError ? 'border-2 border-red-300' : 'border'}`}>
 			<div className="flex justify-between">
@@ -56,6 +66,7 @@ const DeliveryDetails = ({ formErrors }) => {
 				<Modal isOpen={isOpen} toggleModal={() => setIsOpen(!isOpen)}>
 					<div className="w-full text-center text-2xl pb-10">Change delivery address</div>
 					<DeliveryInfoForm 
+					formData={data}
 					handleChange={handleChange} 
 					handleSubmit={handleSubmit} 
 					/>

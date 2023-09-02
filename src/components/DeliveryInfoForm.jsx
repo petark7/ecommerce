@@ -1,8 +1,7 @@
 import React from 'react';
 import Button from './Button';
 
-const DeliveryInfoForm = ({ handleChange, handleSubmit, currentData }) => {
-	console.log(currentData);
+const DeliveryInfoForm = ({ handleChange, handleSubmit, formData }) => {
 
 	return (
 		<form className="flex flex-col gap-3 items-center w-full" onSubmit={handleSubmit}>
@@ -13,6 +12,7 @@ const DeliveryInfoForm = ({ handleChange, handleSubmit, currentData }) => {
 
 			<input
 				required
+				value={formData?.name}
 				name="name"
 				type="text"
 				placeholder="John Doe"
@@ -25,6 +25,7 @@ const DeliveryInfoForm = ({ handleChange, handleSubmit, currentData }) => {
 			</label>
 			<input
 				required
+				value={formData?.email}
 				name="email"
 				type="email"
 				placeholder="johndoe@gmail.com"
@@ -38,6 +39,7 @@ const DeliveryInfoForm = ({ handleChange, handleSubmit, currentData }) => {
 			<input
 				required
 				name="phone_number"
+				value={formData?.phone_number}
 				type="text"
 				placeholder="+389 756 412 13"
 				className="input input-bordered w-full"
@@ -50,6 +52,7 @@ const DeliveryInfoForm = ({ handleChange, handleSubmit, currentData }) => {
 			<input
 				required
 				name="address"
+				value={formData?.address}
 				type="text"
 				placeholder="23 John's street"
 				className="input input-bordered w-full"

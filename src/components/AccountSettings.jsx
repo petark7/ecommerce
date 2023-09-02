@@ -1,8 +1,7 @@
-import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import { selectUser, selectUserData, updateAccountSettings } from '../redux/slices/userSlice';
-import Button from './Button';
 import DeliveryInfoForm from './DeliveryInfoForm';
 
 const AccountSettings = () => {
@@ -23,14 +22,26 @@ const AccountSettings = () => {
 
 	const handleSubmit = event => {
 		event.preventDefault();
-		const userID = user.uid;
-		dispatch(updateAccountSettings({ userID, data }));
+		dispatch(updateAccountSettings({ userID: user.uid, data }));
 	};
+
+	useEffect(() => {
+		setData({
+			name: userData?.name,
+			email: userData?.email,
+			address: userData?.address,
+			phone_number: userData?.phone_number
+		})
+	}, [userData])
 
 	return (
 		<section className="lg:mx-20 my-5 md:mx-10 mx-5 ">
 			<div className="flex text-2xl mb-8 w-full justify-center">Change personal information</div>
-			<DeliveryInfoForm handleChange={handleChange} handleSubmit={handleSubmit} currentData={userData} />
+			<DeliveryInfoForm 
+			formData={data} 
+			handleChange={handleChange} 
+			handleSubmit={handleSubmit} 
+			/>
 		</section>
 	);
 };
