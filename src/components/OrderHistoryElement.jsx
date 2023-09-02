@@ -2,9 +2,8 @@ import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
 import { statuses } from '../constants/statuses';
-import Button from './Button';
 
-const OrderDetails = ({ id, status, items, total, dateOrdered, buttonAction }) => {
+const OrderHistoryElement = ({ id, status, items, total, dateOrdered, buttonAction }) => {
 	const dateFormatted = format(new Date(dateOrdered), 'M/d/yyyy HH:mm');
 	const [statusColor, setStatusColor] = useState();
 	const shortID = id.slice(0, 5);
@@ -33,7 +32,7 @@ const OrderDetails = ({ id, status, items, total, dateOrdered, buttonAction }) =
 	}, [status]);
 
 	return (
-		<div className="flex justify-between items-center py-5 border-b">
+		<div className="flex mt-5 md:mt-0">
 			<div className="flex flex-col lg:flex-row lg:justify-around w-full lg:items-center">
 				{/* order, orderid */}
 				<div className="flex items-center gap-2 flex-row md:flex-row">
@@ -54,7 +53,7 @@ const OrderDetails = ({ id, status, items, total, dateOrdered, buttonAction }) =
 			{/* status (ordered, shipped..), more details button */}
 			<div className="flex h-[80px] flex-col md:flex-row justify-around items-end md:items-center md:gap-5">
 				<div className={`border flex justify-center ${statusColor} font-semibold
-				rounded py-2 mt-2 w-[100px] capitalize`}
+				rounded py-2 mt-2 w-[100%] md:w-[100px] capitalize`}
 				>
 					{status}
 				</div>
@@ -70,7 +69,7 @@ const OrderDetails = ({ id, status, items, total, dateOrdered, buttonAction }) =
 	);
 };
 
-OrderDetails.propTypes = {
+OrderHistoryElement.propTypes = {
 	buttonAction: PropTypes.any,
 	dateOrdered: PropTypes.any,
 	id: PropTypes.string,
@@ -79,4 +78,4 @@ OrderDetails.propTypes = {
 	total: PropTypes.number
 };
 
-export default OrderDetails;
+export default OrderHistoryElement;

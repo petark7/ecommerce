@@ -7,6 +7,7 @@ import Layout from '../components/Layout';
 // Import { loginUser } from '../firebase/utils';
 import { login } from '../redux/slices/userSlice';
 import { auth } from '../firebase/utils';
+import Button from '../components/Button';
 
 const Login = () => {
 	const [email, setEmail] = useState('');
@@ -79,13 +80,12 @@ const Login = () => {
 						/>
 						<div className="w-full text-end underline text-red-500 cursor-pointer">Forgot password?</div>
 						{/* login buttons */}
-						<button
+						<Button
 							type="submit"
-							className="w-full border bg-red-500 text-xl
-					text-white py-4 font-semibold rounded-xl"
+							color="red-500"
 						>
 							LOGIN
-						</button>
+						</Button>
 					</form>
 				</div>
 			</section>

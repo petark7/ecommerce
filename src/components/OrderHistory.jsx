@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '../redux/slices/userSlice';
 import { fetchOrders, selectOrders, selectOrdersStatus } from '../redux/slices/ordersSlice';
-import OrderDetails from './OrderDetails';
+import OrderHistoryElement from './OrderHistoryElement';
 
 const OrderHistory = () => {
 	const dispatch = useDispatch();
@@ -17,6 +17,7 @@ const OrderHistory = () => {
 	};
 
 	const sortOrders = (orders, sortBy) => {
+		console.log(JSON.stringify(orders));
 		const ordersCopy = [...orders]; // Create a copy of the array
 		return ordersCopy.sort((a, b) => {
 			switch (sortBy) {
@@ -24,8 +25,8 @@ const OrderHistory = () => {
 					return new Date(b.createdAt) - new Date(a.createdAt);
 				}
 
-				case 'price': {
-					return b.total - a.total;
+				case 'total': {
+					return Number(b.total) - Number(a.total);
 				}
 
 				case 'quantity': {
@@ -43,14 +44,12 @@ const OrderHistory = () => {
 		dispatch(fetchOrders(user?.uid));
 	}, [user]);
 
-	console.log(sortBy);
-
 	useEffect(() => {
 		console.log(orders);
 		if (orders.length > 0) {
 			const sortedOrders = sortOrders(orders, sortBy);
 			const orderElements = sortedOrders.map(order => (
-				<OrderDetails
+				<OrderHistoryElement
 					key={order.id}
 					id={order.id}
 					status={order.status}
@@ -69,9 +68,8 @@ const OrderHistory = () => {
 	return (
 		<div className="flex flex-col">
 			<div className="flex text-end justify-end items-center gap-4">
-				<label htmlFor="countries" className="block mb-2 font-medium text-gray-900">Sort by</label>
+				<label className="block mb-2 font-medium text-gray-900">Sort by</label>
 				<select
-					id="countries"
 					className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg
 				 focus:ring-blue-500 focus:border-blue-500 block p-2.5 w-fit"
 					onChange={handleSortBy}

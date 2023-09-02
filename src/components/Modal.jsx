@@ -8,8 +8,10 @@ const Modal = ({ children, isOpen, toggleModal }) => {
 
 	return ReactDOM.createPortal(
 		<div
-			className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50" onClick={e => {
+			className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50" 
+			onClick={e => {
 				e.stopPropagation();
+				toggleModal(false);
 			}}
 		>
 			<div className="modal-box bg-white p-6 rounded-lg shadow-lg">
@@ -19,7 +21,8 @@ const Modal = ({ children, isOpen, toggleModal }) => {
 						className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onClick={() => {
 							toggleModal(false);
 						}}
-					>✕
+					>
+						✕
 					</button>
 					{children}
 				</div>

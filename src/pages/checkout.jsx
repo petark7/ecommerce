@@ -10,6 +10,8 @@ import DeliveryDetails from '../components/DeliveryDetails';
 import { clearCart, selectCart, selectCartTotal } from '../redux/slices/cartSlice';
 import { createOrderFirestore } from '../firebase/utils';
 import { selectUser, selectUserData } from '../redux/slices/userSlice';
+import Button from '../components/Button';
+import ShowToast from '../utils/toast';
 
 const Checkout = () => {
 	const cartTotal = useSelector(selectCartTotal);
@@ -54,7 +56,6 @@ const Checkout = () => {
 			valid = false;
 		}
 
-		console.log(formErrors);
 		return valid;
 	};
 
@@ -72,7 +73,6 @@ const Checkout = () => {
 			paymentOption: selectedOption // TODO: add stripe
 		};
 
-		console.log(isDataValid(formData));
 		if (isDataValid(formData)) {
 			try {
 				const order = await createOrderFirestore(user.uid, formData);
@@ -81,10 +81,24 @@ const Checkout = () => {
 					navigate('/');
 				}
 			} catch (error) {
-				console.log(error);
+				ShowToast('There was a problem with the connection to the server. Try again', {success: false})
 			}
 		}
 	};
+
+	useEffect(() => {
+		const formData = {
+			cart,
+			total: cartTotal + shippingCost,
+			deliveryDetails: { ...userDetails },
+			paymentOption: selectedOption // TODO: add stripe
+		};
+
+		if (formErrors.deliveryDetailsError === true || formErrors.paymentOptionError === true)
+		{
+			isDataValid(formData)
+		}
+	}, [formErrors])
 
 	// Renders when cart is empty:
 	const emptyCart = (
@@ -117,14 +131,14 @@ const Checkout = () => {
 			>
 				Clear cart <FontAwesomeIcon icon={faTrashCan} />
 			</div>
-			<div className="border">
+			<div className="border rounded">
 				<CartItemsCheckout />
 			</div>
 			<PaymentOptions setSelectedOption={setSelectedOption} formErrors={formErrors} />
 			<DeliveryDetails formErrors={formErrors} />
 
 			{/* total and complete order button */}
-			<div className="flex flex-col justify-center gap-1 border mt-3 p-2">
+			<div className="flex flex-col justify-center gap-1 border rounded mt-3 p-2 ">
 				<div className="flex gap-2 justify-end text-xl">
 					Shipping: <div className="text-red-400 font-bold">${shippingCost}</div>
 				</div>
@@ -132,15 +146,14 @@ const Checkout = () => {
 					Total: <div className="text-red-400 font-bold">${total}</div>
 				</div>
 			</div>
-			<button
+			<Button
 				type="button"
-				className="w-full border p-5 px-8 mt-10 bg-gray-700 font-bold text-white"
-				onClick={() => {
+				handleClick={() => {
 					handleCompleteOrder();
 				}}
 			>
 				Complete Order
-			</button>
+			</Button>
 
 		</div>
 	);

@@ -47,6 +47,7 @@ const ManagePassword = () => {
 					name="newPassword"
 					id="newPassword"
 					type="password"
+					pattern={passwordRegex}
 					className="input input-bordered w-full"
 					onChange={event => handleChange(event)}
 				/>
@@ -59,11 +60,12 @@ const ManagePassword = () => {
 					name="newPasswordConfirm"
 					id="newPasswordConfirm"
 					type="password"
+					pattern={passwordRegex}
 					className="input input-bordered w-full"
 					onChange={event => handleChange(event)}
 				/>
 
-				<Button submit handleClick={handleSubmit} label="Submit changes" />
+				<Button type="submit" handleClick={handleSubmit} label="Submit changes" />
 			</form>
 		</section>
 	);

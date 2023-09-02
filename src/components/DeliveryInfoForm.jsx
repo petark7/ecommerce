@@ -55,7 +55,7 @@ const DeliveryInfoForm = ({ handleChange, handleSubmit, currentData }) => {
 				className="input input-bordered w-full"
 				onChange={event => handleChange(event)}
 			/>
-			<Button submit label="Submit changes" />
+			<Button type="submit" label="Submit changes" />
 		</form>
 	);
 };

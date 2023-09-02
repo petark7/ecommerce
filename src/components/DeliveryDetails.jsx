@@ -1,10 +1,9 @@
-import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectUser, selectUserData, updateAccountSettings } from '../redux/slices/userSlice';
 import Modal from './Modal';
 import DeliveryInfoForm from './DeliveryInfoForm';
 
-// TODO: VALUES ARE HARDCODED - IMPLEMENT WHEN USER SETTINGS IS IMPLEMENTED
 const DeliveryDetails = ({ formErrors }) => {
 	const userDetails = useSelector(selectUserData);
 	const [isOpen, setIsOpen] = useState(false);
@@ -24,8 +23,7 @@ const DeliveryDetails = ({ formErrors }) => {
 
 	const handleSubmit = async event => {
 		event.preventDefault();
-		const userID = user.uid;
-		dispatch(updateAccountSettings({ userID, data }));
+		dispatch(updateAccountSettings({ userID: user.uid, data }));
 		setIsOpen(false);
 	};
 
@@ -39,7 +37,7 @@ const DeliveryDetails = ({ formErrors }) => {
 	);
 
 	return (
-		<section className={`border mt-3 p-3 ${formErrors.deliveryDetailsError ? 'border-2 border-red-300' : 'border'}`}>
+		<section className={`border rounded mt-3 p-3 ${formErrors.deliveryDetailsError ? 'border-2 border-red-300' : 'border'}`}>
 			<div className="flex justify-between">
 				<div>
 					<div className="font-semibold">Delivery details</div>
@@ -48,14 +46,19 @@ const DeliveryDetails = ({ formErrors }) => {
 				</div>
 				<button
 					type="button"
-					className="border p-2 px-4 h-fit bg-gray-200 font-semibold" onClick={() => {
+					className="border p-2 px-4 h-fit bg-gray-200 font-semibold rounded" 
+					onClick={() => {
 						setIsOpen(!isOpen);
 					}}
-				>Change
+				>
+					Change
 				</button>
 				<Modal isOpen={isOpen} toggleModal={() => setIsOpen(!isOpen)}>
 					<div className="w-full text-center text-2xl pb-10">Change delivery address</div>
-					<DeliveryInfoForm handleChange={handleChange} handleSubmit={handleSubmit} />
+					<DeliveryInfoForm 
+					handleChange={handleChange} 
+					handleSubmit={handleSubmit} 
+					/>
 				</Modal>
 			</div>
 			{formErrors.deliveryDetailsError && <div className="text-red-500 mt-2">There is an issue with the delivery details.</div>}

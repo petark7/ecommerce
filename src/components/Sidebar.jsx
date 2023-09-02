@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router';
 import { setSidebarOpen } from '../redux/slices/sidebarSlice';
 import { clearCart, selectCart, selectCartTotal, selectNumberOfProducts } from '../redux/slices/cartSlice';
 import CartItem from './CartItem';
+import Button from './Button';
 
 const Sidebar = () => {
 	const navigate = useNavigate();
@@ -58,16 +59,15 @@ const Sidebar = () => {
 								Total: <div className="text-red-400 font-bold">${cartTotal.toFixed(2)}</div>
 							</div>
 
-							<button
+							<Button
 								type="button"
-								className="w-full border p-5 px-8 mt-10 bg-gray-700 font-bold text-white"
-								onClick={() => {
+								handleClick={() => {
 									navigate('/checkout');
 									dispatch(setSidebarOpen(false));
 								}}
 							>
 								Checkout
-							</button>
+							</Button>
 
 						</div>
 					)}
