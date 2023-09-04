@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { selectUser } from '../redux/slices/userSlice';
 import { fetchOrders, selectOrders, selectOrdersStatus } from '../redux/slices/ordersSlice';
 import OrderHistoryElement from './OrderHistoryElement';
-import { useNavigate } from 'react-router-dom';
 
 const OrderHistory = () => {
 	const dispatch = useDispatch();
@@ -19,7 +19,6 @@ const OrderHistory = () => {
 	};
 
 	const sortOrders = (orders, sortBy) => {
-		console.log(JSON.stringify(orders));
 		const ordersCopy = [...orders]; // Create a copy of the array
 		return ordersCopy.sort((a, b) => {
 			switch (sortBy) {
@@ -58,7 +57,7 @@ const OrderHistory = () => {
 					items={order.cart}
 					total={order.total}
 					dateOrdered={order.createdAt}
-					buttonAction={(orderId) => navigate(`/order-details/${orderId}`)} />
+					buttonAction={orderId => navigate(`/order-details/${orderId}`)} />
 			));
 			setRenderableOrders(orderElements);
 		} else if (ordersStatus === 'succeeded') {

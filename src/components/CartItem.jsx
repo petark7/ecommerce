@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
@@ -8,7 +9,7 @@ import QuantityCounter from './QuantityCounter';
 
 const CartItem = ({ product }) => {
 	const dispatch = useDispatch();
-	const { id, image, title, price, amount } = product;
+	const { image, title, price, amount } = product;
 	const totalPrice = (amount * price);
 
 	const incrementProduct = () => {
@@ -65,5 +66,15 @@ const CartItem = ({ product }) => {
 		</div>
 	);
 };
+
+CartItem.propTypes = {
+  product: PropTypes.shape({
+    amount: PropTypes.number,
+    id: PropTypes.string,
+    image: PropTypes.string,
+    price: PropTypes.number,
+    title: PropTypes.string
+  })
+}
 
 export default CartItem;

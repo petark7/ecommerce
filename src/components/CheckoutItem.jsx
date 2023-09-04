@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch } from 'react-redux';
@@ -52,6 +53,16 @@ const CheckoutItem = ({ product }) => {
 			</th>
 		</tr>
 	);
+};
+
+CheckoutItem.propTypes = {
+	product: PropTypes.shape({
+		amount: PropTypes.number,
+		id: PropTypes.string,
+		image: PropTypes.string,
+		price: PropTypes.number,
+		title: PropTypes.string
+	})
 };
 
 export default CheckoutItem;

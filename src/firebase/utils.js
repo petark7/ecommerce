@@ -17,13 +17,13 @@ export const loginUser = async (email, password) => {
 	try {
 		const userCredential = await signInWithEmailAndPassword(auth, email, password);
 		const user = userCredential.user;
-		showToast('User logged in successfully.', {success: true});
+		showToast('User logged in successfully.', { success: true });
 		return ({
 			uid: user.uid,
 			accessToken: user.accessToken
 		});
 	} catch (error) {
-		showToast('You entered incorrect credentials.', {success: false});
+		showToast('You entered incorrect credentials.', { success: false });
 		const errorCode = error.code;
 		// TODO: implement better handling
 		return ('error');
@@ -35,7 +35,7 @@ export const logout = async () => {
 	const auth = getAuth();
 	try {
 		const result = await signOut(auth);
-		showToast('Signed out successfully!', {success: true});
+		showToast('Signed out successfully!', { success: true });
 	} catch {
 		toast.error('Something happened and your logout was not successfull');
 	}
@@ -80,12 +80,12 @@ export const createOrderFirestore = async (userID, formData) => {
 		};
 		const docRef = await addDoc(collection(db, 'orders'), dataToSend);
 		if (docRef) {
-			ShowToast('Order submitted successfully', {success: true});
+			ShowToast('Order submitted successfully', { success: true });
 		}
 
 		return (docRef);
-	} 	catch (error) {
-		ShowToast('Submitting order failed... try again.', {success: false});
+	} 	catch {
+		ShowToast('Submitting order failed... try again.', { success: false });
 	}
 };
 
@@ -114,10 +114,10 @@ export const updatePersonalInfoFirestore = async (userID, data) => {
 			};
 
 			await setDoc(docRef, userData);
-			ShowToast('Successfully updated data!', {success: true});
+			ShowToast('Successfully updated data!', { success: true });
 			return userData.userData;
 		} catch {
-			ShowToast('Updating the personal data has been unsuccessful...', {success: false});
+			ShowToast('Updating the personal data has been unsuccessful...', { success: false });
 		}
 	}
 };
@@ -137,13 +137,13 @@ export const fetchAccountSettingsFirestore = async userID => {
 
 export const updatePasswordFirebase = async newPassword => {
 	const auth = getAuth();
-
 	const user = auth.currentUser;
+
 	try {
 		await updatePassword(user, newPassword);
-		ShowToast('Password updated successful.',{success: true});
+		ShowToast('Password updated successful.', { success: true });
 	} catch {
-		ShowToast('Updating the password has been unsuccessful.', {success: false});
+		ShowToast('Updating the password has been unsuccessful.', { success: false });
 	}
 };
 // TODO: create user

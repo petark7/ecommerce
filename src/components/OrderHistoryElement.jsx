@@ -32,7 +32,7 @@ const OrderHistoryElement = ({ id, status, items, total, dateOrdered, buttonActi
 	}, [status]);
 
 	return (
-		<div className="flex mt-5 md:mt-0">
+		<div className="flex mt-5 md:mt-0 md:mb-5 lg:mb-0">
 			<div className="flex flex-col lg:flex-row lg:justify-around w-full lg:items-center">
 				{/* order, orderid */}
 				<div className="flex items-center gap-2 flex-row md:flex-row">
@@ -60,7 +60,7 @@ const OrderHistoryElement = ({ id, status, items, total, dateOrdered, buttonActi
 
 				<div
 					className="flex justify-center bg-gray-200 p-2
-				font-semibold rounded mt-2 hover:cursor-pointer w-[130px]" onClick={()=>buttonAction(id)}
+				font-semibold rounded mt-2 hover:cursor-pointer w-[130px]" onClick={() => buttonAction(id)}
 				>
 					More details
 				</div>
