@@ -30,14 +30,13 @@ const OrderDetails = () => {
 
 	return (
 		<Layout>
-			<section className="flex gap-5 my-10 md:justify-center min-h-screen p-4">
-				<div className="flex flex-col gap-3 md:border md:p-7 md:rounded-xl">
+			<section className="flex gap-5 my-10 md:justify-center min-h-screen p-4 flex-wrap lg:flex-nowrap">
+				<div className="flex flex-col h-fit gap-3 md:border md:p-7 md:rounded-xl w-full lg:w-fit">
 					<div className="text-2xl font-semibold">
 						Order Details
 					</div>
 
-					<div>
-
+					<div className="w-full">
 						{/* top part */}
 						<div className="flex flex-col gap-2 bg-gradient-to-r from-[#FF5E62] to-[#FF9966] p-10 rounded-lg">
 							<div className="text-3xl text-white font-semibold">
@@ -57,7 +56,9 @@ const OrderDetails = () => {
 						</div>
 					</div>
 				</div>
-				<OrderDetailsDeliveryTracker />
+				<div className="w-full lg:w-[400px]">
+					<OrderDetailsDeliveryTracker />
+				</div>
 			</section>
 		</Layout>
 	);

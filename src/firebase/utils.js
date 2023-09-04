@@ -76,8 +76,40 @@ export const createOrderFirestore = async (userID, formData) => {
 		const dataToSend = {
 			...orderData,
 			createdAt: date,
-			status: 'ordered'
+			statuses: [
+				{
+					orderPlaced: {
+						date,
+						completed: true
+					}
+				},
+				{
+					productsPicked: {
+						date: '',
+						completed: false
+					}
+				},
+				{
+					orderPacked: {
+						date: '',
+						completed: false
+					}
+				},
+				{
+					orderShipped: {
+						date: '',
+						completed: false
+					}
+				},
+				{
+					orderDelivered: {
+						date: '',
+						completed: false
+					}
+				}
+			]
 		};
+
 		const docRef = await addDoc(collection(db, 'orders'), dataToSend);
 		if (docRef) {
 			ShowToast('Order submitted successfully', { success: true });
@@ -87,6 +119,13 @@ export const createOrderFirestore = async (userID, formData) => {
 	} 	catch {
 		ShowToast('Submitting order failed... try again.', { success: false });
 	}
+};
+
+export const updateOrderFirestore = async (orderId, updatedData) => {
+	const orderRef = collection('orders').doc(orderId);
+	await orderRef.update(updatedData);
+	const updatedOrder = await orderRef.get();
+	return updatedOrder.data();
 };
 
 export const getOrdersForUser = async userID => {
@@ -146,5 +185,6 @@ export const updatePasswordFirebase = async newPassword => {
 		ShowToast('Updating the password has been unsuccessful.', { success: false });
 	}
 };
+
 // TODO: create user
 // const createUser = async (email, password) => {};

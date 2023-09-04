@@ -1,22 +1,22 @@
-import { faClose, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Layout from '../components/Layout';
-import CartItemsCheckout from '../components/CartItemsCheckout';
-import PaymentOptions from '../components/PaymentOptions';
-import DeliveryDetails from '../components/DeliveryDetails';
+import { useDispatch, useSelector } from 'react-redux';
+import { faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { clearCart, selectCart, selectCartTotal } from '../redux/slices/cartSlice';
 import { createOrderFirestore } from '../firebase/utils';
 import { selectUser, selectUserData } from '../redux/slices/userSlice';
+import CartItemsCheckout from '../components/CartItemsCheckout';
+import PaymentOptions from '../components/PaymentOptions';
+import DeliveryDetails from '../components/DeliveryDetails';
+import Layout from '../components/Layout';
 import Button from '../components/Button';
 import ShowToast from '../utils/toast';
 
 const Checkout = () => {
 	const cartTotal = useSelector(selectCartTotal);
-	const cart = useSelector(selectCart);
 	const userDetails = useSelector(selectUserData);
+	const cart = useSelector(selectCart);
 	const user = useSelector(selectUser);
 	const shippingCost = 10; // Hardcoded. TODO: calculate shipping depending on location
 	const total = Number.parseFloat(cartTotal + shippingCost).toFixed(2);
@@ -80,8 +80,8 @@ const Checkout = () => {
 					dispatch(clearCart());
 					navigate('/');
 				}
-			} catch (error) {
-				ShowToast('There was a problem with the connection to the server. Try again', {success: false})
+			} catch {
+				ShowToast('There was a problem with the connection to the server. Try again', { success: false });
 			}
 		}
 	};
@@ -94,11 +94,10 @@ const Checkout = () => {
 			paymentOption: selectedOption // TODO: add stripe
 		};
 
-		if (formErrors.deliveryDetailsError === true || formErrors.paymentOptionError === true)
-		{
-			isDataValid(formData)
+		if (formErrors.deliveryDetailsError === true || formErrors.paymentOptionError === true) {
+			isDataValid(formData);
 		}
-	}, [formErrors])
+	}, [formErrors]);
 
 	// Renders when cart is empty:
 	const emptyCart = (

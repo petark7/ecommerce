@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { createOrderFirestore, getOrdersForUser } from '../../firebase/utils';
+import { createOrderFirestore, getOrdersForUser, updateOrderFirestore } from '../../firebase/utils';
 import { logUserOut } from './userSlice';
 
 // Async thunk
@@ -7,12 +7,20 @@ export const fetchOrders = createAsyncThunk(
 	'orders/fetchOrders',
 	async (userID, thunkAPI) => {
 		const orders = thunkAPI.getState().orders.orders;
-		if (orders) {
+		if (orders.length === 0) {
 			const response = await getOrdersForUser(userID);
 			return response;
 		}
 
 		return orders;
+	}
+);
+
+export const updateOrder = createAsyncThunk(
+	'orders/updateOrder',
+	async ({ orderId, updatedData }, thunkAPI) => {
+		const response = await updateOrderFirestore(orderId, updatedData);
+		return response;
 	}
 );
 
