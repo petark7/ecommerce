@@ -1,6 +1,7 @@
 export const statuses = {
-	SHIPPED: 'shipped',
-	PROCESSING: 'processing',
-	COMPLETED: 'completed',
-	CANCELLED: 'cancelled'
+	ORDER_PLACED: 'placed',
+	ORDER_PICKED: 'picked',
+	ORDER_BOXED: 'boxed',
+	ORDER_SHIPPED: 'shipped',
+	ORDER_DELIVERED: 'delivered'
 };

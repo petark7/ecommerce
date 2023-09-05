@@ -31,7 +31,7 @@ const OrderDetails = () => {
 	return (
 		<Layout>
 			<section className="flex gap-5 my-10 md:justify-center min-h-screen p-4 flex-wrap lg:flex-nowrap">
-				<div className="flex flex-col h-fit gap-3 md:border md:p-7 md:rounded-xl w-full lg:w-fit">
+				<div className="flex flex-col h-fit gap-3 md:border md:p-7 md:rounded-xl w-full lg:w-fit md:shadow">
 					<div className="text-2xl font-semibold">
 						Order Details
 					</div>
@@ -57,7 +57,7 @@ const OrderDetails = () => {
 					</div>
 				</div>
 				<div className="w-full lg:w-[400px]">
-					<OrderDetailsDeliveryTracker />
+					<OrderDetailsDeliveryTracker statuses={order?.statuses} />
 				</div>
 			</section>
 		</Layout>

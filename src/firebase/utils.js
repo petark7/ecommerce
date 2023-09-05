@@ -76,38 +76,28 @@ export const createOrderFirestore = async (userID, formData) => {
 		const dataToSend = {
 			...orderData,
 			createdAt: date,
-			statuses: [
-				{
-					orderPlaced: {
-						date,
-						completed: true
-					}
+			statuses: {
+				orderPlaced: {
+					date
 				},
-				{
-					productsPicked: {
-						date: '',
-						completed: false
-					}
+
+				orderPicked: {
+					date: ''
 				},
-				{
-					orderPacked: {
-						date: '',
-						completed: false
-					}
+
+				orderBoxed: {
+					date: ''
 				},
-				{
-					orderShipped: {
-						date: '',
-						completed: false
-					}
+
+				orderShipped: {
+					date: ''
 				},
-				{
-					orderDelivered: {
-						date: '',
-						completed: false
-					}
+
+				orderDelivered: {
+					date: ''
 				}
-			]
+
+			}
 		};
 
 		const docRef = await addDoc(collection(db, 'orders'), dataToSend);
@@ -119,13 +109,6 @@ export const createOrderFirestore = async (userID, formData) => {
 	} 	catch {
 		ShowToast('Submitting order failed... try again.', { success: false });
 	}
-};
-
-export const updateOrderFirestore = async (orderId, updatedData) => {
-	const orderRef = collection('orders').doc(orderId);
-	await orderRef.update(updatedData);
-	const updatedOrder = await orderRef.get();
-	return updatedOrder.data();
 };
 
 export const getOrdersForUser = async userID => {

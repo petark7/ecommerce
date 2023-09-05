@@ -1,46 +1,63 @@
-import { faBox, faCashRegister, faCheck, faShoppingCart, faTruck, faVanShuttle } from '@fortawesome/free-solid-svg-icons';
+import PropTypes from 'prop-types';
+import { faBox, faCashRegister, faCheck, faShoppingCart, faTruck } from '@fortawesome/free-solid-svg-icons';
+import { getFormattedDate } from '../utils/date';
 import OrderStatusElement from './OrderStatusElement';
 
-const OrderDetailsDeliveryTracker = () => (
-	<div className="flex flex-col gap-3 md:border md:p-7 md:rounded-xl w-full">
+const OrderDetailsDeliveryTracker = ({ statuses }) => (
+	<div className="flex flex-col gap-3 md:border md:p-7 md:rounded-xl w-full px-5 md:shadow">
 		<div className="text-2xl font-semibold">Order Status</div>
 		<div className="flex flex-col gap-10">
 			<OrderStatusElement
 				isFirst
-				isCompleted
 				icon={faCashRegister}
 				statusName="Order Placed"
-				statusDate="27 Jul 2022" />
+				statusDate={getFormattedDate(statuses?.orderPlaced?.date)} />
 
 			<OrderStatusElement
-				isCompleted
 				isFirst={false}
 				icon={faShoppingCart}
 				statusName="Order Picked"
-				statusDate="27 Jul 2022" />
+				statusDate={getFormattedDate(statuses?.orderPicked?.date)} />
 
 			<OrderStatusElement
-				isCompleted
 				isFirst={false}
 				icon={faBox}
 				statusName="Order Boxed"
-				statusDate="27 Jul 2022" />
+				statusDate={getFormattedDate(statuses?.orderBoxed?.date)} />
 
 			<OrderStatusElement
-				isCompleted
 				isFirst={false}
 				icon={faTruck}
 				statusName="Shipped"
-				statusDate="27 Jul 2022" />
+				statusDate={getFormattedDate(statuses?.orderShipped?.date)} />
 
 			<OrderStatusElement
-				isCompleted
 				isFirst={false}
 				icon={faCheck}
 				statusName="Delivered"
-				statusDate="27 Jul 2022" />
+				statusDate={getFormattedDate(statuses?.orderDelivered?.date)} />
 		</div>
 	</div>
 );
+
+OrderDetailsDeliveryTracker.propTypes = {
+	statuses: PropTypes.shape({
+		orderBoxed: PropTypes.shape({
+			date: PropTypes.string
+		}),
+		orderDelivered: PropTypes.shape({
+			date: PropTypes.string
+		}),
+		orderPicked: PropTypes.shape({
+			date: PropTypes.string
+		}),
+		orderPlaced: PropTypes.shape({
+			date: PropTypes.string
+		}),
+		orderShipped: PropTypes.shape({
+			date: PropTypes.string
+		})
+	})
+};
 
 export default OrderDetailsDeliveryTracker;

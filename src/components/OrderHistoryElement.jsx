@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
 import { statuses } from '../constants/statuses';
+import { getItemQuantity } from '../utils/orderHistory';
 
 const OrderHistoryElement = ({ id, status, items, total, dateOrdered, buttonAction }) => {
 	const dateFormatted = format(new Date(dateOrdered), 'M/d/yyyy HH:mm');
@@ -45,7 +46,7 @@ const OrderHistoryElement = ({ id, status, items, total, dateOrdered, buttonActi
 
 				{/* Number of items, price */}
 				<div className="flex gap-5 items-center lg:w-[200px] lg:justify-between">
-					<div className=""><span className="text-xl font-semibold">{items.length}</span> items</div>
+					<div className=""><span className="text-xl font-semibold">{getItemQuantity(items)}</span> items</div>
 					<div className="text-red-400 font-semibold text-xl">${Number.parseFloat(total).toFixed(2)}</div>
 				</div>
 			</div>
@@ -53,7 +54,7 @@ const OrderHistoryElement = ({ id, status, items, total, dateOrdered, buttonActi
 			{/* status (ordered, shipped..), more details button */}
 			<div className="flex h-[80px] flex-col md:flex-row justify-around items-end md:items-center md:gap-5">
 				<div className={`border flex justify-center ${statusColor} font-semibold
-				rounded py-2 mt-2 w-[100%] md:w-[100px] capitalize`}
+				rounded py-2 mt-2 w-[100%] md:w-[100px] uppercase`}
 				>
 					{status}
 				</div>

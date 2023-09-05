@@ -12,6 +12,7 @@ import DeliveryDetails from '../components/DeliveryDetails';
 import Layout from '../components/Layout';
 import Button from '../components/Button';
 import ShowToast from '../utils/toast';
+import { fetchOrders } from '../redux/slices/ordersSlice';
 
 const Checkout = () => {
 	const cartTotal = useSelector(selectCartTotal);
