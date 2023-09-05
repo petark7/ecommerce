@@ -5,15 +5,15 @@ import { logUserOut } from './userSlice';
 export const syncWithFirestore = createAsyncThunk(
 	'cart/syncWithFirestore',
 	async (userId, thunkAPI) => {
-		const state = thunkAPI.getState();
+		const cart = thunkAPI.getState().cart.cart;
 		const firebaseCart = await getCartFirestore(userId);
-		if (state.cart.cart.length > 0) {
+		if (cart.length > 0) {
 			console.log('firestore cart data is updated.');
-			await setCartFirestore(userId, state.cart.cart);
-			return state.cart.cart;
+			await setCartFirestore(userId, cart);
+			return cart;
 		}
 
-		await setCartFirestore(userId, state.cart.cart);
+		await setCartFirestore(userId, cart);
 		return firebaseCart;
 	}
 );
@@ -21,9 +21,9 @@ export const syncWithFirestore = createAsyncThunk(
 export const setFirebaseCart = createAsyncThunk(
 	'cart/setFirebaseCart',
 	async (userId, thunkAPI) => {
-		const state = thunkAPI.getState();
-		await setCartFirestore(userId, state.cart.cart);
-		return state.cart.cart;
+		const cart = thunkAPI.getState().cart.cart;
+		await setCartFirestore(userId, cart);
+		return cart;
 	}
 );
 
@@ -33,7 +33,8 @@ const cartSlice = createSlice({
 		cart: [],
 		cartTotal: null,
 		numberOfProducts: 0,
-		syncedWithFirestore: false
+		syncedWithFirestore: false,
+		isUpdating: false
 	},
 	reducers: {
 		addToCart: (state, action) => {
@@ -79,17 +80,26 @@ const cartSlice = createSlice({
 	},
 	extraReducers: builder => {
 		builder
+			.addCase(syncWithFirestore.pending, state => {
+				state.isUpdating = true;
+			})
 			.addCase(syncWithFirestore.fulfilled, (state, action) => {
 				state.cart = action.payload;
+				state.isUpdating = false;
+			})
+			.addCase(setFirebaseCart.pending, state => {
+				state.isUpdating = true;
 			})
 			.addCase(setFirebaseCart.fulfilled, (state, action) => {
 				state.cart = action.payload;
+				state.isUpdating = false;
 			})
 			.addCase(logUserOut, state => {
 				state.cart = [];
 				state.cartTotal = null;
 				state.numberOfProducts = 0;
 				state.syncedWithFirestore = false;
+				state.isUpdating = false; // Add this line
 			});
 	}
 });
@@ -97,6 +107,7 @@ const cartSlice = createSlice({
 export const { addToCart, decrementProductAmount, removeFromCart, clearCart } = cartSlice.actions;
 
 export const selectCart = state => state.cart.cart;
+export const selectIsUpdating = state => state.cart.isUpdating;
 export const selectNumberOfProducts = state => state.cart.cart.reduce((total, product) => total + product.amount, 0);
 export const selectCartTotal = state => state.cart?.cart.reduce((total, product) => (total + (product.amount * product.price)), 0);
 

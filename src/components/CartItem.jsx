@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { addToCart, decrementProductAmount, removeFromCart } from '../redux/slices/cartSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart, decrementProductAmount, removeFromCart, selectIsUpdating } from '../redux/slices/cartSlice';
 import { setSidebarOpen } from '../redux/slices/sidebarSlice';
 import QuantityCounter from './QuantityCounter';
 
@@ -11,13 +11,18 @@ const CartItem = ({ product }) => {
 	const dispatch = useDispatch();
 	const { image, title, price, amount } = product;
 	const totalPrice = (amount * price);
+	const isUpdating = useSelector(selectIsUpdating);
 
 	const incrementProduct = () => {
-		dispatch(addToCart(product));
+		if (!isUpdating) {
+			dispatch(addToCart(product));
+		}
 	};
 
 	const decrementProduct = () => {
-		dispatch(decrementProductAmount(product));
+		if (!isUpdating) {
+			dispatch(decrementProductAmount(product));
+		}
 	};
 
 	return (
@@ -68,13 +73,13 @@ const CartItem = ({ product }) => {
 };
 
 CartItem.propTypes = {
-  product: PropTypes.shape({
-    amount: PropTypes.number,
-    id: PropTypes.string,
-    image: PropTypes.string,
-    price: PropTypes.number,
-    title: PropTypes.string
-  })
-}
+	product: PropTypes.shape({
+		amount: PropTypes.number,
+		id: PropTypes.string,
+		image: PropTypes.string,
+		price: PropTypes.number,
+		title: PropTypes.string
+	})
+};
 
 export default CartItem;

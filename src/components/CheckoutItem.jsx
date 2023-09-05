@@ -1,20 +1,25 @@
 import PropTypes from 'prop-types';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import QuantityCounter from '../components/QuantityCounter';
-import { addToCart, decrementProductAmount, removeFromCart } from '../redux/slices/cartSlice';
+import { addToCart, decrementProductAmount, removeFromCart, selectIsUpdating } from '../redux/slices/cartSlice';
 
 const CheckoutItem = ({ product }) => {
+	const isUpdating = useSelector(selectIsUpdating);
 	const dispatch = useDispatch();
 
 	const incrementProduct = () => {
-		dispatch(addToCart(product));
+		if (!isUpdating) {
+			dispatch(addToCart(product));
+		}
 	};
 
 	const decrementProduct = () => {
-		dispatch(decrementProductAmount(product));
+		if (!isUpdating) {
+			dispatch(decrementProductAmount(product));
+		}
 	};
 
 	return (

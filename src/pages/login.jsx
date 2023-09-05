@@ -78,7 +78,8 @@ const Login = () => {
 								setPassword(event.target.value);
 							}}
 						/>
-						<div className="w-full text-end underline text-red-500 cursor-pointer">Forgot password?</div>
+						{/* TODO: forgot password not yet implemented */}
+						{/* <div className="w-full text-end underline text-red-500 cursor-pointer">Forgot password?</div> */}
 						{/* login buttons */}
 						<Button
 							type="submit"

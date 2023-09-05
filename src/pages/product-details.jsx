@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Layout from '../components/Layout';
 import { getProducts } from '../redux/slices/productSlice';
-import { addToCart } from '../redux/slices/cartSlice';
+import { addToCart, selectIsUpdating } from '../redux/slices/cartSlice';
 import ShowToast from '../utils/toast';
 
 const ProductDetails = () => {
@@ -11,6 +11,7 @@ const ProductDetails = () => {
 	const dispatch = useDispatch();
 	const products = useSelector(state => state.product);
 	const [product, setProduct] = useState({});
+	const isUpdating = useSelector(selectIsUpdating);
 
 	const getProduct = id => products.find(product => id == product.id);
 
@@ -63,8 +64,10 @@ const ProductDetails = () => {
 								className="flex font-semibold justify-center p-4 mt-4 lg:mt-5 border w-full lg:w-[200px]
 								 bg-gray-700 text-white rounded-md"
 								onClick={() => {
-									dispatch(addToCart(product));
-									ShowToast('Item added to cart!', {success: true});
+									if (!isUpdating) {
+										dispatch(addToCart(product));
+										ShowToast('Item added to cart!', { success: true });
+									}
 								}}
 							>	Add to cart
 							</button>

@@ -1,13 +1,14 @@
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { addToCart } from '../redux/slices/cartSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart, selectIsUpdating } from '../redux/slices/cartSlice';
 import ShowToast from '../utils/toast';
 import Button from './Button';
 
 const Product = ({ product }) => {
 	const { id, image, category, title, price } = product;
+	const isUpdating = useSelector(selectIsUpdating);
 	const dispatch = useDispatch();
 
 	return (
@@ -36,11 +37,13 @@ const Product = ({ product }) => {
 				>
 					<div className="relative">
 						<button
-							type="button" 
-							className="hover:scale-110 transition duration-200 w-10 h-10 bg-red-500 shadow-md" 
+							type="button"
+							className="hover:scale-110 transition duration-200 w-10 h-10 bg-red-500 shadow-md"
 							onClick={() => {
-								dispatch(addToCart(product));
-								ShowToast('Item added to cart.', {success: true});
+								if (!isUpdating) {
+									dispatch(addToCart(product));
+									ShowToast('Item added to cart.', { success: true });
+								}
 							}}
 						>
 							<FontAwesomeIcon className="text-white" icon={faCartShopping} />
@@ -68,8 +71,7 @@ const Product = ({ product }) => {
 							${price}
 						</div>
 						<div className="md:hidden">
-							<Button handleClick={() => dispatch(addToCart(product))}
-							>Add to Cart
+							<Button handleClick={() => dispatch(addToCart(product))}>Add to Cart
 							</Button>
 						</div>
 					</div>
