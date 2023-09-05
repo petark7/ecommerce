@@ -52,7 +52,7 @@ const OrderDetails = () => {
 							<OrderDetailsOrderList order={order} />
 
 							{/* order summary */}
-							<OrderDetailsSummary />
+							<OrderDetailsSummary total={Number(order?.total)} shipping={10} />
 						</div>
 					</div>
 				</div>

@@ -69,7 +69,7 @@ const Checkout = () => {
 	const handleCompleteOrder = async () => {
 		const formData = {
 			cart,
-			total: cartTotal + shippingCost,
+			total: Number(cartTotal + shippingCost).toFixed(2),
 			deliveryDetails: { ...userDetails },
 			paymentOption: selectedOption // TODO: add stripe
 		};
