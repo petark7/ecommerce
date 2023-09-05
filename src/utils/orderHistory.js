@@ -11,7 +11,7 @@ export const sortOrders = (orders, sortBy) => {
 			}
 
 			case 'quantity': {
-				return b.cart.length - a.cart.length;
+				return getItemQuantity(b.cart) - getItemQuantity(a.cart);
 			}
 
 			default: {

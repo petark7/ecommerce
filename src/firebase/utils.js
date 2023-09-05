@@ -12,7 +12,6 @@ export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 
-console.log(firebaseConfig.apiKey);
 export const loginUser = async (email, password) => {
 	try {
 		const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -22,9 +21,8 @@ export const loginUser = async (email, password) => {
 			uid: user.uid,
 			accessToken: user.accessToken
 		});
-	} catch (error) {
+	} catch {
 		showToast('You entered incorrect credentials.', { success: false });
-		const errorCode = error.code;
 		// TODO: implement better handling
 		return ('error');
 	}
@@ -34,7 +32,7 @@ export const loginUser = async (email, password) => {
 export const logout = async () => {
 	const auth = getAuth();
 	try {
-		const result = await signOut(auth);
+		await signOut(auth);
 		showToast('Signed out successfully!', { success: true });
 	} catch {
 		toast.error('Something happened and your logout was not successfull');
@@ -101,9 +99,7 @@ export const createOrderFirestore = async (userID, formData) => {
 		};
 
 		const docRef = await addDoc(collection(db, 'orders'), dataToSend);
-		if (docRef) {
-			ShowToast('Order submitted successfully', { success: true });
-		}
+		ShowToast('Order submitted successfully', { success: true });
 
 		return (docRef);
 	} 	catch {
