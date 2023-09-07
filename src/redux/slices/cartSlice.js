@@ -40,7 +40,7 @@ const cartSlice = createSlice({
 		addToCart: (state, action) => {
 			const product = action.payload;
 			const newItem = { ...product, amount: 1 };
-
+			
 			// Check if item is added already.
 			// If item already in cart, increment value only. Otherwise, add item + value of 1
 			const cartItem = state.cart.find(item => item.id === product.id);

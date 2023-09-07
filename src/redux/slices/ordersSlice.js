@@ -46,5 +46,6 @@ const ordersSlice = createSlice({
 
 export const selectOrders = state => state.orders.orders;
 export const selectOrdersStatus = state => state.orders.status;
+export const selectOrdersErrorStatus = state => state.orders.error;
 
 export default ordersSlice.reducer;

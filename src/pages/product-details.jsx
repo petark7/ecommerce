@@ -5,6 +5,8 @@ import Layout from '../components/Layout';
 import { getProducts } from '../redux/slices/productSlice';
 import { addToCart, selectIsUpdating } from '../redux/slices/cartSlice';
 import ShowToast from '../utils/toast';
+import { selectUser } from '../redux/slices/userSlice';
+import { ADD_PRODUCT_SUCCESS } from '../constants/toastMessages';
 
 const ProductDetails = () => {
 	const { id } = useParams();
@@ -12,7 +14,7 @@ const ProductDetails = () => {
 	const products = useSelector(state => state.product);
 	const [product, setProduct] = useState({});
 	const isUpdating = useSelector(selectIsUpdating);
-
+	const user = useSelector(selectUser);
 	const getProduct = id => products.find(product => id == product.id);
 
 	// Set product and scroll to top
@@ -64,9 +66,13 @@ const ProductDetails = () => {
 								className="flex font-semibold justify-center p-4 mt-4 lg:mt-5 border w-full lg:w-[200px]
 								 bg-gray-700 text-white rounded-md"
 								onClick={() => {
-									if (!isUpdating) {
+									if (!isUpdating && user) {
 										dispatch(addToCart(product));
-										ShowToast('Item added to cart!', { success: true });
+										ShowToast(ADD_PRODUCT_SUCCESS, { success: true, position: 'bottom-right' });
+									} else if (!user) {
+										// Code when user is not logged in
+										dispatch(addToCart(product));
+										ShowToast(ADD_PRODUCT_SUCCESS, { success: true, position: 'bottom-right' });
 									}
 								}}
 							>	Add to cart

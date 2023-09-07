@@ -1,63 +1,73 @@
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { format } from 'date-fns';
+import Loading from 'react-fullscreen-loading';
 import Layout from '../components/Layout';
 import OrderDetailsOrderList from '../components/OrderDetailsOrderList';
-import { fetchOrders, selectOrders } from '../redux/slices/ordersSlice';
+import { fetchOrders, selectOrders, selectOrdersStatus } from '../redux/slices/ordersSlice';
 import { selectUser } from '../redux/slices/userSlice';
 import OrderDetailsSummary from '../components/OrderDetailsSummary';
 import OrderDetailsDeliveryTracker from '../components/OrderDetailsDeliveryTracker';
 
 const OrderDetails = () => {
 	const orders = useSelector(selectOrders);
+	const loadingStatus = useSelector(selectOrdersStatus);
 	const [order, setOrder] = useState();
 	const orderId = useParams().id;
-	console.log(orderId);
-
 	const user = useSelector(selectUser);
 	const dispatch = useDispatch();
+	const [dateFormatted, setDateFormatted] = useState();
 
 	// Get orders if not already set in store
 	useEffect(() => {
-		if (orders.length === 0) {
+		if (orders?.length === 0 && user?.uid) {
 			dispatch(fetchOrders(user?.uid));
 		}
-	}, [user, orders.length, dispatch]);
+	}, [user, orders?.length, dispatch]);
 
 	useEffect(() => {
 		setOrder(orders?.find(order => order.id === orderId));
 	}, [orders, orderId]);
 
+	useEffect(() => {
+		if (order?.createdAt) {
+			setDateFormatted(format(new Date(order?.createdAt), 'MMMM d, yyyy hh:mm a'));
+		}
+	}, [order]);
+
 	return (
 		<Layout>
-			<section className="flex gap-5 my-10 md:justify-center min-h-screen p-4 flex-wrap lg:flex-nowrap">
-				<div className="flex flex-col h-fit gap-3 md:border md:p-7 md:rounded-xl w-full lg:w-fit md:shadow">
-					<div className="text-2xl font-semibold">
-						Order Details
-					</div>
-
-					<div className="w-full">
-						{/* top part */}
-						<div className="flex flex-col gap-2 bg-gradient-to-r from-[#FF5E62] to-[#FF9966] p-10 rounded-lg">
-							<div className="text-3xl text-white font-semibold">
-								Order #08974
-							</div>
-							<div className="font-thin text-white">
-								July 25, 2022 at 09:45 AM
-							</div>
-						</div>
-
-						<div className="flex flex-col mt-10 md:mt-0 md:p-10 gap-20">
-							{/* items ordered */}
-							<OrderDetailsOrderList order={order} />
-
-							{/* order summary */}
-							<OrderDetailsSummary total={Number(order?.total)} shipping={10} />
-						</div>
-					</div>
+			<section className="flex flex-col items-center container mx-auto my-10 min-h-screen p-4 flex-wrap lg:flex-nowrap">
+				<div className="text-3xl font-semibold mb-5">
+					Order Details
 				</div>
-				<div className="w-full lg:w-[400px]">
-					<OrderDetailsDeliveryTracker statuses={order?.statuses} />
+				<div className="flex gap-5 flex-col lg:flex-row">
+					<div className="flex h-fit gap-3 md:border md:p-7 md:rounded-xl w-full md:w-fit lg:w-full md:shadow">
+						{/* orders and total */}
+						<div className="w-full">
+							<div className="flex flex-col gap-2 bg-gradient-to-r from-[#FF5E62] to-[#FF9966] p-10 rounded-lg">
+								<div className="text-3xl text-white font-semibold">
+									Order <span className="text-2xl uppercase"> # {order?.id.slice(0, 5)}</span>
+								</div>
+								<div className="font-thin text-white">
+									{dateFormatted}
+								</div>
+							</div>
+
+							<div className="flex flex-col mt-10 md:mt-0 md:p-10 gap-20">
+								{/* items ordered */}
+								{loadingStatus === 'idle' || loadingStatus === 'loading'
+									? <Loading loading className="bg-red-500" background="white" />
+									: <OrderDetailsOrderList order={order} />}
+								{/* order summary */}
+								<OrderDetailsSummary total={Number(order?.total)} shipping={10} />
+							</div>
+						</div>
+					</div>
+					<div className="w-full lg:w-[400px]">
+						<OrderDetailsDeliveryTracker statuses={order?.statuses} />
+					</div>
 				</div>
 			</section>
 		</Layout>

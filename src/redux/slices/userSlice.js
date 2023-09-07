@@ -1,4 +1,4 @@
-import { createAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { fetchAccountSettingsFirestore, loginUser, logout, updatePersonalInfoFirestore } from '../../firebase/utils';
 import { clearCart } from './cartSlice';
 
@@ -54,7 +54,7 @@ const userSlice = createSlice({
 	},
 	extraReducers: builder => {
 		builder
-			.addCase(login.rejected, (state, action) => {
+			.addCase(login.rejected, () => {
 				console.log('error! (great error handling, I know :D)');
 			})
 			.addCase(updateAccountSettings.fulfilled, (state, action) => {

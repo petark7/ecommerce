@@ -5,20 +5,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import QuantityCounter from '../components/QuantityCounter';
 import { addToCart, decrementProductAmount, removeFromCart, selectIsUpdating } from '../redux/slices/cartSlice';
+import { selectUser } from '../redux/slices/userSlice';
 
 const CheckoutItem = ({ product }) => {
 	const isUpdating = useSelector(selectIsUpdating);
 	const dispatch = useDispatch();
+	const user = useSelector(selectUser);
 
 	const incrementProduct = () => {
-		if (!isUpdating) {
+		if (!isUpdating && user) {
+			dispatch(addToCart(product));
+		} else if (!user) {
+			// Code when user is not logged in
 			dispatch(addToCart(product));
 		}
 	};
 
 	const decrementProduct = () => {
-		if (!isUpdating) {
+		if (!isUpdating && user) {
 			dispatch(decrementProductAmount(product));
+		} else if (!user) {
+			// Code when user is not logged in
+			dispatch(addToCart(product));
 		}
 	};
 

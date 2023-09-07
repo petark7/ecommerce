@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { selectUser } from '../redux/slices/userSlice';
 import { fetchOrders, selectOrders, selectOrdersStatus } from '../redux/slices/ordersSlice';
 import { getOrderStatus } from '../utils/statuses';
-import { sortOrders } from '../utils/orderHistory';
+import { getItemQuantity, sortOrders } from '../utils/orderHistory';
 import OrderHistoryElement from './OrderHistoryElement';
 
 const OrderHistory = () => {
@@ -31,10 +31,14 @@ const OrderHistory = () => {
 						key={order.id}
 						id={order.id}
 						status={orderStatus}
-						items={order.cart}
+						itemQuantity={getItemQuantity(order.cart)}
 						total={order.total}
 						dateOrdered={order.createdAt}
-						buttonAction={orderId => navigate(`/order-details/${orderId}`)} />
+						buttonAction={orderId => navigate(`/order-details/${orderId}`, {
+							state: {
+								itemQuantity: order.cart.length
+							}
+						})} />
 				);
 			});
 			setRenderableOrders(orderElements);

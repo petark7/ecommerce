@@ -2,9 +2,8 @@ import PropTypes from 'prop-types';
 import { format } from 'date-fns';
 import { useEffect, useState } from 'react';
 import { statuses } from '../constants/statuses';
-import { getItemQuantity } from '../utils/orderHistory';
 
-const OrderHistoryElement = ({ id, status, items, total, dateOrdered, buttonAction }) => {
+const OrderHistoryElement = ({ id, status, itemQuantity, total, dateOrdered, buttonAction }) => {
 	const dateFormatted = format(new Date(dateOrdered), 'M/d/yyyy HH:mm');
 	const [statusColor, setStatusColor] = useState();
 	const shortID = id.slice(0, 5);
@@ -46,7 +45,7 @@ const OrderHistoryElement = ({ id, status, items, total, dateOrdered, buttonActi
 
 				{/* Number of items, price */}
 				<div className="flex gap-5 items-center lg:w-[200px] lg:justify-between">
-					<div className=""><span className="text-xl font-semibold">{getItemQuantity(items)}</span> items</div>
+					<div className=""><span className="text-xl font-semibold">{itemQuantity}</span> items</div>
 					<div className="text-red-400 font-semibold text-xl">${Number.parseFloat(total).toFixed(2)}</div>
 				</div>
 			</div>
@@ -74,7 +73,7 @@ OrderHistoryElement.propTypes = {
 	buttonAction: PropTypes.any,
 	dateOrdered: PropTypes.any,
 	id: PropTypes.string,
-	items: PropTypes.array,
+	itemQuantity: PropTypes.number,
 	status: PropTypes.string,
 	total: PropTypes.number
 };

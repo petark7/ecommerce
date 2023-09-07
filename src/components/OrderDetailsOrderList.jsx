@@ -11,7 +11,7 @@ const OrderDetailsOrderList = ({ order }) => {
 					<th>{index + 1}</th>
 					<td>{product?.title}</td>
 					<td>${product?.price}</td>
-					<td className='text-center'>{product?.amount}</td>
+					<td className="text-center">{product?.amount}</td>
 					<td>${product?.price * product.amount}</td>
 				</tr>
 			));
@@ -19,7 +19,6 @@ const OrderDetailsOrderList = ({ order }) => {
 			setOrderProductsJSX(productsJSX);
 		}
 	}, [order]);
-	console.log(orderProductsJSX);
 	return (
 
 		<div>
@@ -44,10 +43,7 @@ const OrderDetailsOrderList = ({ order }) => {
 
 OrderDetailsOrderList.propTypes = {
 	order: PropTypes.shape({
-		cart: PropTypes.shape({
-			length: PropTypes.number,
-			map: PropTypes.func
-		})
+		cart: PropTypes.array
 	})
 };
 
