@@ -4,7 +4,7 @@ import { getFormattedDate } from '../utils/date';
 import OrderStatusElement from './OrderStatusElement';
 
 const OrderDetailsDeliveryTracker = ({ statuses }) => (
-	<div className="flex flex-col gap-3 md:border md:p-7 md:rounded-xl w-full px-5 md:shadow">
+	<div className="flex flex-col gap-3 md:border md:p-7 md:rounded-xl w-full px-8 md:shadow">
 		<div className="text-2xl font-semibold">Order Status</div>
 		<div className="flex flex-col gap-10">
 			<OrderStatusElement

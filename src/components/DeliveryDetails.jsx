@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectUser, selectUserData, updateAccountSettings } from '../redux/slices/userSlice';
+import { selectUser, selectUserData, setUserData, updateAccountSettings } from '../redux/slices/userSlice';
 import Modal from './Modal';
 import DeliveryInfoForm from './DeliveryInfoForm';
 
@@ -23,7 +24,12 @@ const DeliveryDetails = ({ formErrors }) => {
 
 	const handleSubmit = async event => {
 		event.preventDefault();
-		dispatch(updateAccountSettings({ userID: user.uid, data }));
+		if (user?.uid) {
+			dispatch(updateAccountSettings({ userID: user.uid, data }));
+		} else {
+			dispatch(setUserData(data));
+		}
+
 		setIsOpen(false);
 	};
 
@@ -42,9 +48,8 @@ const DeliveryDetails = ({ formErrors }) => {
 			email: userDetails?.email,
 			address: userDetails?.address,
 			phone_number: userDetails?.phone_number
-		})
-	}, [userDetails])
-
+		});
+	}, [userDetails]);
 
 	return (
 		<section className={`border rounded mt-3 p-3 ${formErrors.deliveryDetailsError ? 'border-2 border-red-300' : 'border'}`}>
@@ -56,7 +61,7 @@ const DeliveryDetails = ({ formErrors }) => {
 				</div>
 				<button
 					type="button"
-					className="border p-2 px-4 h-fit bg-gray-200 font-semibold rounded" 
+					className="border p-2 px-4 h-fit bg-gray-200 font-semibold rounded"
 					onClick={() => {
 						setIsOpen(!isOpen);
 					}}
@@ -65,10 +70,10 @@ const DeliveryDetails = ({ formErrors }) => {
 				</button>
 				<Modal isOpen={isOpen} toggleModal={() => setIsOpen(!isOpen)}>
 					<div className="w-full text-center text-2xl pb-10">Change delivery address</div>
-					<DeliveryInfoForm 
-					formData={data}
-					handleChange={handleChange} 
-					handleSubmit={handleSubmit} 
+					<DeliveryInfoForm
+						formData={data}
+						handleChange={handleChange}
+						handleSubmit={handleSubmit}
 					/>
 				</Modal>
 			</div>
@@ -76,6 +81,12 @@ const DeliveryDetails = ({ formErrors }) => {
 		</section>
 
 	);
+};
+
+DeliveryDetails.propTypes = {
+	formErrors: PropTypes.shape({
+		deliveryDetailsError: PropTypes.string
+	})
 };
 
 export default DeliveryDetails;

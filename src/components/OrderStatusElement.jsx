@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { faCircleCheck } from '@fortawesome/free-regular-svg-icons';
-import { faCashRegister, faClock, faShoppingBasket } from '@fortawesome/free-solid-svg-icons';
+import { faCashRegister, faClock } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const OrderStatusElement = ({ isFirst = true, icon = faCashRegister, statusName = 'Order Placed', statusDate }) => (

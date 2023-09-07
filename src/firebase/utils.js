@@ -62,7 +62,7 @@ export const getCartFirestore = async userID => {
 };
 
 // Create order and generate random unique ID
-export const createOrderFirestore = async (userID, formData) => {
+export const createOrderFirestore = async (userID = "guest", formData) => {
 	const orderData = {
 		userID,
 		...formData

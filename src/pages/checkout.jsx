@@ -12,15 +12,15 @@ import DeliveryDetails from '../components/DeliveryDetails';
 import Layout from '../components/Layout';
 import Button from '../components/Button';
 import ShowToast from '../utils/toast';
-import { fetchOrders } from '../redux/slices/ordersSlice';
+
+const SHIPPING_COST = 10; // TODO: calculate shipping depending on location
 
 const Checkout = () => {
 	const cartTotal = useSelector(selectCartTotal);
 	const userDetails = useSelector(selectUserData);
 	const cart = useSelector(selectCart);
 	const user = useSelector(selectUser);
-	const shippingCost = 10; // Hardcoded. TODO: calculate shipping depending on location
-	const total = Number.parseFloat(cartTotal + shippingCost).toFixed(2);
+	const total = Number.parseFloat(cartTotal + SHIPPING_COST).toFixed(2);
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -40,24 +40,10 @@ const Checkout = () => {
 		));
 	};
 
-	const isDataValid = formData => {
-		let valid = true;
-
-		if (formData.paymentOption) {
-			setFormError('paymentOptionError', false);
-		} else {
-			setFormError('paymentOptionError', true);
-			valid = false;
-		}
-
-		if (userDetails) {
-			setFormError('deliveryDetailsError', false);
-		} else {
-			setFormError('deliveryDetailsError', true);
-			valid = false;
-		}
-
-		return valid;
+	const validateFormData = formData => {
+		setFormError('paymentOptionError', !formData.paymentOption);
+		setFormError('deliveryDetailsError', !userDetails);
+		return formData.paymentOption && userDetails;
 	};
 
 	useEffect(() => {
@@ -69,36 +55,23 @@ const Checkout = () => {
 	const handleCompleteOrder = async () => {
 		const formData = {
 			cart,
-			total: Number(cartTotal + shippingCost).toFixed(2),
+			total,
 			deliveryDetails: { ...userDetails },
 			paymentOption: selectedOption // TODO: add stripe
 		};
 
-		if (isDataValid(formData)) {
+		if (validateFormData(formData)) {
 			try {
-				const order = await createOrderFirestore(user.uid, formData);
+				const order = await createOrderFirestore(user?.uid, formData);
 				if (order) {
 					dispatch(clearCart());
 					navigate('/');
 				}
-			} catch {
-				ShowToast('There was a problem with the connection to the server. Try again', { success: false });
+			} catch (error) {
+				ShowToast(error.message, { success: false });
 			}
 		}
 	};
-
-	useEffect(() => {
-		const formData = {
-			cart,
-			total: cartTotal + shippingCost,
-			deliveryDetails: { ...userDetails },
-			paymentOption: selectedOption // TODO: add stripe
-		};
-
-		if (formErrors.deliveryDetailsError === true || formErrors.paymentOptionError === true) {
-			isDataValid(formData);
-		}
-	}, [formErrors]);
 
 	// Renders when cart is empty:
 	const emptyCart = (
@@ -121,16 +94,15 @@ const Checkout = () => {
 	// Renders when there are items in cart
 	const notEmptyCart = (
 		<div>
-			<div className="font-semibold text-2xl text-center mb-5">Order Details</div>
+			<div className="font-semibold text-2xl text-center mb-5">Checkout</div>
 			<div
 				className="flex items-center gap-2 justify-end hover:text-red-400
 				hover:cursor-pointer mb-2 font-semibold"
-				onClick={() => {
-					dispatch(clearCart());
-				}}
+				onClick={() => dispatch(clearCart())}
 			>
 				Clear cart <FontAwesomeIcon icon={faTrashCan} />
 			</div>
+
 			<div className="border rounded">
 				<CartItemsCheckout />
 			</div>
@@ -140,7 +112,7 @@ const Checkout = () => {
 			{/* total and complete order button */}
 			<div className="flex flex-col justify-center gap-1 border rounded mt-3 p-2 ">
 				<div className="flex gap-2 justify-end text-xl">
-					Shipping: <div className="text-red-400 font-bold">${shippingCost}</div>
+					Shipping: <div className="text-red-400 font-bold">${SHIPPING_COST}</div>
 				</div>
 				<div className="flex gap-2 justify-end text-xl">
 					Total: <div className="text-red-400 font-bold">${total}</div>
@@ -148,9 +120,7 @@ const Checkout = () => {
 			</div>
 			<Button
 				type="button"
-				handleClick={() => {
-					handleCompleteOrder();
-				}}
+				handleClick={() => handleCompleteOrder()}
 			>
 				Complete Order
 			</Button>

@@ -50,6 +50,9 @@ const userSlice = createSlice({
 		logUserOut: state => {
 			logout();
 			state.user = null;
+		},
+		setUserData: (state, action) => {
+			state.userData = action.payload;
 		}
 	},
 	extraReducers: builder => {
@@ -66,7 +69,7 @@ const userSlice = createSlice({
 	}
 });
 
-export const { setUser, logUserOut } = userSlice.actions;
+export const { setUser, logUserOut, setUserData } = userSlice.actions;
 
 export const selectUser = state => state.user.user;
 export const selectUserData = state => state.user.userData;
