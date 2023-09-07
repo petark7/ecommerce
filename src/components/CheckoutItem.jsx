@@ -26,7 +26,7 @@ const CheckoutItem = ({ product }) => {
 			dispatch(decrementProductAmount(product));
 		} else if (!user) {
 			// Code when user is not logged in
-			dispatch(addToCart(product));
+			dispatch(decrementProductAmount(product));
 		}
 	};
 
