@@ -40,13 +40,14 @@ const Navbar = () => {
 									>
 										Login
 									</Link>
-									or
+									{/* TODO: add register page */}
+									{/* or
 									<Link
 										className="font-semibold hover:text-red-500 cursor-pointer"
 										to="/register"
 									>
 										create account
-									</Link>
+									</Link> */}
 								</div>
 							</div>
 						)}
