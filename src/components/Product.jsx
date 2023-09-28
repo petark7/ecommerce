@@ -1,17 +1,34 @@
 import { faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { addToCart } from '../redux/slices/cartSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart, selectIsUpdating } from '../redux/slices/cartSlice';
+import ShowToast from '../utils/toast';
+import { selectUser } from '../redux/slices/userSlice';
+import Button from './Button';
+import { ADD_PRODUCT_SUCCESS } from '../constants/toastMessages';
 
 const Product = ({ product }) => {
 	const { id, image, category, title, price } = product;
+	const isUpdating = useSelector(selectIsUpdating);
 	const dispatch = useDispatch();
+	const user = useSelector(selectUser);
+
+	const handleClick = () => {
+		if (!isUpdating && user) {
+			dispatch(addToCart(product));
+			ShowToast(ADD_PRODUCT_SUCCESS, { success: true, position: 'bottom-right' });
+		} else if (!user) {
+			// Code when user is not logged in
+			dispatch(addToCart(product));
+			ShowToast(ADD_PRODUCT_SUCCESS, { success: true, position: 'bottom-right' });
+		}
+	};
 
 	return (
 		<div className="product-card">
 			<div className="product-image border border-[#e4e4e4] h-[300px] mb-4
-			relative overflow-hidden group transition"
+			relative overflow-hidden group transition rounded-xl shadow"
 			>
 				{/* Image */}
 				<div
@@ -34,9 +51,9 @@ const Product = ({ product }) => {
 				>
 					<div className="relative">
 						<button
-							type="button" className="hover:scale-110 transition duration-200 w-10 h-10 bg-red-500 shadow-md" onClick={() => {
-								dispatch(addToCart(product));
-							}}
+							type="button"
+							className="hover:scale-110 transition duration-200 w-10 h-10 bg-red-500 shadow-md"
+							onClick={() => handleClick()}
 						>
 							<FontAwesomeIcon className="text-white" icon={faCartShopping} />
 						</button>
@@ -58,8 +75,14 @@ const Product = ({ product }) => {
 						{title}
 					</Link>
 
-					<div className="font-bold text-red-400">
-						${price}
+					<div className="">
+						<div className="font-bold text-red-400">
+							${price}
+						</div>
+						<div className="md:hidden">
+							<Button handleClick={() => handleClick()}>Add to Cart
+							</Button>
+						</div>
 					</div>
 				</div>
 			</div>

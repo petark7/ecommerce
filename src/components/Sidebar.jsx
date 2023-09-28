@@ -1,11 +1,14 @@
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSidebarOpen } from '../redux/slices/SidebarSlice';
-import { selectCart, selectCartTotal, selectNumberOfProducts } from '../redux/slices/cartSlice';
+import { useNavigate } from 'react-router';
+import { setSidebarOpen } from '../redux/slices/sidebarSlice';
+import { clearCart, selectCart, selectCartTotal, selectNumberOfProducts } from '../redux/slices/cartSlice';
 import CartItem from './CartItem';
+import Button from './Button';
 
 const Sidebar = () => {
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const cartNumberOfProducts = useSelector(selectNumberOfProducts);
 	const cartTotal = useSelector(selectCartTotal);
@@ -21,17 +24,26 @@ const Sidebar = () => {
 					Shopping cart ({cartNumberOfProducts})
 				</div>
 
-				<FontAwesomeIcon
-					className="text-xl text-gray-500 cursor-pointer  hover:text-red-400"
-					icon={faArrowRight}
-					onClick={() => {
-						dispatch(setSidebarOpen(false));
-					}} />
+				<div className="flex gap-2">
+					<FontAwesomeIcon
+						className="text-xl text-gray-500 cursor-pointer  hover:text-red-400"
+						icon={faTrashCan}
+						onClick={() => {
+							dispatch(clearCart());
+						}} />
+
+					<FontAwesomeIcon
+						className="text-xl text-gray-500 cursor-pointer  hover:text-red-400"
+						icon={faArrowRight}
+						onClick={() => {
+							dispatch(setSidebarOpen(false));
+						}} />
+				</div>
 			</div>
 
 			{/* cart items */}
 			<div className="max-h-[60vh] overflow-y-auto">
-				{cart.map(product => <CartItem key={product.id} product={product} setIsOpen={setSidebarOpen} />)}
+				{cart.map(product => <CartItem key={product.id} product={product} />)}
 			</div>
 
 			{/* cart total and place order */}
@@ -47,12 +59,15 @@ const Sidebar = () => {
 								Total: <div className="text-red-400 font-bold">${cartTotal.toFixed(2)}</div>
 							</div>
 
-							<button
+							<Button
 								type="button"
-								className="w-full border p-5 px-8 mt-10 bg-gray-700 font-bold text-white"
+								handleClick={() => {
+									navigate('/checkout');
+									dispatch(setSidebarOpen(false));
+								}}
 							>
 								Checkout
-							</button>
+							</Button>
 
 						</div>
 					)}

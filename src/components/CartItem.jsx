@@ -1,21 +1,36 @@
+import PropTypes from 'prop-types';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { addToCart, decrementProductAmount, removeFromCart } from '../redux/slices/CartSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart, decrementProductAmount, removeFromCart, selectIsUpdating } from '../redux/slices/cartSlice';
+import { setSidebarOpen } from '../redux/slices/sidebarSlice';
+import { selectUser } from '../redux/slices/userSlice';
 import QuantityCounter from './QuantityCounter';
 
-const CartItem = ({ product, setIsOpen }) => {
+const CartItem = ({ product }) => {
 	const dispatch = useDispatch();
-	const { id, image, title, price, amount } = product;
+	const { image, title, price, amount } = product;
 	const totalPrice = (amount * price);
+	const isUpdating = useSelector(selectIsUpdating);
+	const user = useSelector(selectUser);
 
 	const incrementProduct = () => {
-		dispatch(addToCart(product));
+		if (!isUpdating && user) {
+			dispatch(addToCart(product));
+		} else if (!user) {
+			// Code when user is not logged in
+			dispatch(addToCart(product));
+		}
 	};
 
 	const decrementProduct = () => {
-		dispatch(decrementProductAmount(product));
+		if (!isUpdating && user) {
+			dispatch(decrementProductAmount(product));
+		} else if (!user) {
+			// Code when user is not logged in
+			dispatch(decrementProductAmount(product));
+		}
 	};
 
 	return (
@@ -33,7 +48,7 @@ const CartItem = ({ product, setIsOpen }) => {
 					<Link
 						className="uppercase font-semibold max-w-[240px] hover:text-red-400"
 						to={`/product-details/${product.id}`}
-						onClick={() => setIsOpen(false)}
+						onClick={() => dispatch(setSidebarOpen(false))}
 					>{title}
 					</Link>
 					<FontAwesomeIcon
@@ -63,6 +78,16 @@ const CartItem = ({ product, setIsOpen }) => {
 			</div>
 		</div>
 	);
+};
+
+CartItem.propTypes = {
+	product: PropTypes.shape({
+		amount: PropTypes.number,
+		id: PropTypes.string,
+		image: PropTypes.string,
+		price: PropTypes.number,
+		title: PropTypes.string
+	})
 };
 
 export default CartItem;

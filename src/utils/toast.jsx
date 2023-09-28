@@ -1,32 +1,12 @@
 import { toast } from 'react-toastify';
 
-export const ShowToast = (message, success = true, center = true) => {
-	if (success) {
-		if (center) {
-			toast.success(message, {
-				position: toast.POSITION.TOP_CENTER,
-				toastId: message
-			});
-		} else if (!center) {
-			toast.success(message, {
-				position: toast.POSITION.TOP_RIGHT,
-				toastId: message
-			});
-		}
-	} else if (!success) {
-		if (center) {
-			toast.error(message, {
-				position: toast.POSITION.TOP_CENTER,
-				toastId: message
-			});
-		} else if (!center) {
-			toast.error(message, {
-				position: toast.POSITION.TOP_RIGHT,
-				toastId: message
-			});
-		}
-	}
+export const ShowToast = (message, options) => {
+    const toastType = options.success ? toast.success : toast.error;
+    const position = options.position ? options.position : toast.POSITION.TOP_CENTER;
+
+    toastType(message, {
+        position
+    });
 };
 
 export default ShowToast;
-

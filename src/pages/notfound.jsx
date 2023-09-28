@@ -25,7 +25,7 @@ const NotFound = () => {
 						<button
 							type="button"
 							className="md:max-w[100px] mt-5 md:w-[250px] border bg-red-500 text-xl
-            text-white py-4 font-semibold"
+            text-white py-4 font-semibold rounded-md"
 							onClick={() => navigate(-1)}
 						>
 							Go back

@@ -1,13 +1,12 @@
 import { ToastContainer } from 'react-toastify';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase/utils';
-import { selectUser, setUser } from './redux/slices/UserSlice';
+import { fetchAccountSettings, selectUser, setUser } from './redux/slices/userSlice';
 import { selectCartTotal, setFirebaseCart, syncWithFirestore } from './redux/slices/cartSlice';
-import Routes from './router';
+import Router from './router';
 
 const App = () => {
 	const dispatch = useDispatch();
@@ -22,6 +21,7 @@ const App = () => {
 					accessToken: user.accessToken
 				}));
 				dispatch(syncWithFirestore(user.uid));
+				dispatch(fetchAccountSettings(user.uid));
 			}
 		});
 	}, []);
@@ -32,7 +32,8 @@ const App = () => {
 	return (
 		<>
 			<ToastContainer />
-			<Routes />
+			<Router />
+
 		</>
 	);
 };

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart, faUserCircle } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearCartAction, logUserOut } from '../redux/slices/UserSlice';
-import { setSidebarOpen } from '../redux/slices/SidebarSlice';
+import { setSidebarOpen } from '../redux/slices/sidebarSlice';
+import UserDropdown from './UserDropdown';
 
 const Navbar = () => {
 	const dispatch = useDispatch();
@@ -26,34 +26,10 @@ const Navbar = () => {
 				<Link className="uppercase font-bold text-2xl text-red-400" to="/">Bluzify</Link>
 
 				<div className="flex w-[250px] gap-2 justify-end items-center">
-					{/* logged in -> show icon */}
+					{/* logged in -> show icon with dropdown */}
 					{user.user?.uid
-						? 						(
-							<div className="dropdown dropdown-end">
-								<label tabIndex="0" className="m-1">
-									<FontAwesomeIcon
-										className="text-3xl text-gray-600 cursor-pointer"
-										icon={faUserCircle}
-									/>
-								</label>
-								<ul
-									tabIndex="0"
-									className="dropdown-content z-[1] menu p-2 shadow bg-base-100
-									rounded-box w-52"
-								>
-									<li><a>Account settings</a></li>
-									<li>
-										<a onClick={() => {
-											dispatch(logUserOut());
-											dispatch(clearCartAction());
-										}}
-										>
-											Logout
-										</a>
-									</li>
-								</ul>
-							</div>
-						)
+						? <UserDropdown />
+
 					// Not logged in -> show login/register buttons
 						: (
 							<div className="flex font-light justify-center items-center">
@@ -64,13 +40,14 @@ const Navbar = () => {
 									>
 										Login
 									</Link>
-									or
+									{/* TODO: add register page */}
+									{/* or
 									<Link
 										className="font-semibold hover:text-red-500 cursor-pointer"
 										to="/register"
 									>
 										create account
-									</Link>
+									</Link> */}
 								</div>
 							</div>
 						)}
