@@ -2,6 +2,7 @@ import { faArrowRight, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
+import { useEffect, useRef } from 'react';
 import { setSidebarOpen } from '../redux/slices/sidebarSlice';
 import { clearCart, selectCart, selectCartTotal, selectNumberOfProducts } from '../redux/slices/cartSlice';
 import CartItem from './CartItem';
@@ -14,9 +15,21 @@ const Sidebar = () => {
 	const cartTotal = useSelector(selectCartTotal);
 	const sidebarIsOpen = useSelector(state => state.sidebar.isOpen);
 	const cart = useSelector(selectCart);
+	const sidebarRef = useRef();
+
+	useEffect(() => {
+		const handler = e => {
+			if (!sidebarRef.current.contains(e.target)) {
+				dispatch(setSidebarOpen(false));
+			}
+		};
+
+		document.addEventListener('mousedown', handler);
+	});
 
 	return (
-		<div className={`${sidebarIsOpen ? 'right-0' : '-right-full'} p-5 w-full fixed top-0 h-full
+		<div
+			ref={sidebarRef} className={`${sidebarIsOpen ? 'right-0' : '-right-full'} p-5 w-full fixed top-0 h-full
         bg-white z-20 md:w-[450px] md:min-w-[350px] xl:max-w-[26vw] transition-all duration-300 shadow-2xl`}
 		>
 			<div className="flex justify-between py-4 border-b">

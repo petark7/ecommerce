@@ -61,6 +61,7 @@ const Login = () => {
 						}}
 					>
 						<input
+							required
 							type="text"
 							placeholder="Email"
 							className="input input-bordered w-full"
@@ -70,6 +71,7 @@ const Login = () => {
 							}}
 						/>
 						<input
+							required
 							type="password"
 							placeholder="Password"
 							className="input input-bordered w-full"
