@@ -1,12 +1,15 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { fetchProducts } from '../../constants/sanity';
+// Import axios from 'axios';
 
 export const getProducts = createAsyncThunk(
 	'product/getProducts',
 	async () => {
-		const products = await axios.get('https://fakestoreapi.com/products');
-		const filteredProducts = products.data.filter(product => product.category === 'women\'s clothing' || product.category === 'men\'s clothing');
-		return filteredProducts;
+		// Const products = await axios.get('https://fakestoreapi.com/products');
+		// //const filteredProducts = products.data.filter(product => product.category === 'women\'s clothing' || product.category === 'men\'s clothing');
+		// return products.data;
+		const products = fetchProducts();
+		return products;
 	}
 );
 

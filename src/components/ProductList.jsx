@@ -13,6 +13,9 @@ const ProductList = () => {
 
 	// Select the products from the state
 	const products = useSelector(state => state.product);
+	useEffect(() => {
+		console.log(products);
+	}, [products]);
 
 	return (
 		<div className="py-16 md:mx-10">
@@ -23,7 +26,7 @@ const ProductList = () => {
 				>
 					{products.map(
 						product => (
-							<Product key={product.id} product={product} />
+							<Product key={product._id} product={product} />
 						)
 					)}
 				</div>

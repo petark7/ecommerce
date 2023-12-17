@@ -11,7 +11,7 @@ import OrderDetails from './pages/order-details';
 const Router = () => (
 	<Routes>
 		<Route path="/" element={<Home />} />
-		<Route path="/product-details/:id" element={<ProductDetails />} />
+		<Route path="/product-details/:slug" element={<ProductDetails />} />
 		<Route path="/order-details/:id" element={<OrderDetails />} />
 		<Route path="/checkout" element={<Checkout />} />
 		<Route path="/login" element={<Login />} />
