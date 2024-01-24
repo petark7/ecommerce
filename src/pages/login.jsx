@@ -1,10 +1,8 @@
 import { useEffect, useState } from 'react';
-// Import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import Layout from '../components/Layout';
-// Import { loginUser } from '../firebase/utils';
 import { login } from '../redux/slices/userSlice';
 import { auth } from '../firebase/utils';
 import Button from '../components/Button';
@@ -33,10 +31,6 @@ const Login = () => {
 			// Handle error
 		}
 	};
-
-	useEffect(() => {
-		console.log(user);
-	}, [user]);
 
 	return (
 		<Layout>

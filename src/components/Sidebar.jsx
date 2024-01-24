@@ -25,7 +25,11 @@ const Sidebar = () => {
 		};
 
 		document.addEventListener('mousedown', handler);
-	});
+
+		return () => {
+			document.removeEventListener('mousedown', handler);
+		}
+	}, [dispatch]);
 
 	return (
 		<div

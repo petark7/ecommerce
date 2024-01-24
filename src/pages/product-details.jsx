@@ -27,7 +27,6 @@ const ProductDetails = () => {
 	}, [id, products]);
 
 	useEffect(() => {
-		console.log(products);
 		if (products.length === 0) {
 			dispatch(getProducts());
 		}
@@ -66,11 +65,7 @@ const ProductDetails = () => {
 								className="flex font-semibold justify-center p-4 mt-4 lg:mt-5 border w-full lg:w-[200px]
 								 bg-gray-700 text-white rounded-md"
 								onClick={() => {
-									if (!isUpdating && user) {
-										dispatch(addToCart(product));
-										ShowToast(ADD_PRODUCT_SUCCESS, { success: true, position: 'bottom-right' });
-									} else if (!user) {
-										// Code when user is not logged in
+									if (!isUpdating || !user) {
 										dispatch(addToCart(product));
 										ShowToast(ADD_PRODUCT_SUCCESS, { success: true, position: 'bottom-right' });
 									}

@@ -5,21 +5,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, selectIsUpdating } from '../redux/slices/cartSlice';
 import ShowToast from '../utils/toast';
 import { selectUser } from '../redux/slices/userSlice';
-import Button from './Button';
 import { ADD_PRODUCT_SUCCESS } from '../constants/toastMessages';
+import Button from './Button';
 
 const Product = ({ product }) => {
 	const { id, image, category, title, price } = product;
-	const isUpdating = useSelector(selectIsUpdating);
+	const isCartUpdateInProgress = useSelector(selectIsUpdating);
 	const dispatch = useDispatch();
 	const user = useSelector(selectUser);
 
 	const handleClick = () => {
-		if (!isUpdating && user) {
-			dispatch(addToCart(product));
-			ShowToast(ADD_PRODUCT_SUCCESS, { success: true, position: 'bottom-right' });
-		} else if (!user) {
-			// Code when user is not logged in
+		if (!isCartUpdateInProgress) {
 			dispatch(addToCart(product));
 			ShowToast(ADD_PRODUCT_SUCCESS, { success: true, position: 'bottom-right' });
 		}

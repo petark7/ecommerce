@@ -5,7 +5,6 @@ import Login from './pages/login';
 import NotFound from './pages/notfound';
 import Checkout from './pages/checkout';
 import Account from './pages/account';
-import RequireAuth from './components/RequireAuth';
 import OrderDetails from './pages/order-details';
 
 const Router = () => (
@@ -16,11 +15,7 @@ const Router = () => (
 		<Route path="/checkout" element={<Checkout />} />
 		<Route path="/login" element={<Login />} />
 		<Route
-			path="/account/:page" element={
-				<RequireAuth>
-					<Account />
-				</RequireAuth>
-			} />
+			path="/account/:page" element={<Account />} />
 		<Route path="*" element={<NotFound />} />
 	</Routes>
 );

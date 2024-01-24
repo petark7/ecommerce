@@ -1,4 +1,4 @@
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { format } from 'date-fns';
@@ -17,11 +17,13 @@ const OrderDetails = () => {
 	const orderId = useParams().id;
 	const user = useSelector(selectUser);
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const [dateFormatted, setDateFormatted] = useState();
 
+	console.log(user?.uid);
 	// Get orders if not already set in store
 	useEffect(() => {
-		if (orders?.length === 0 && user?.uid) {
+		if (orders?.length === 0) {
 			dispatch(fetchOrders(user?.uid));
 		}
 	}, [user, orders?.length, dispatch]);

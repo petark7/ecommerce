@@ -18,13 +18,13 @@ export const login = createAsyncThunk(
 	}
 );
 
-export const clearCartAction = createAsyncThunk(
-	'user/logUserOut',
-	async (_, { dispatch }) => {
-		// Perform logout operation here
-		dispatch(clearCart());
-	}
-);
+// export const clearCartAction = createAsyncThunk(
+// 	'user/logUserOut',
+// 	async (_, { dispatch }) => {
+// 		// Perform logout operation here
+// 		dispatch(clearCart());
+// 	}
+// );
 
 export const updateAccountSettings = createAsyncThunk(
 	'user/updateUserData', async ({ userID, data }) => {

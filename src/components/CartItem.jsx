@@ -3,7 +3,12 @@ import { faClose } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { addToCart, decrementProductAmount, removeFromCart, selectIsUpdating } from '../redux/slices/cartSlice';
+import {
+	addToCart,
+	decrementProductAmount,
+	removeFromCart,
+	selectIsUpdating
+} from '../redux/slices/cartSlice';
 import { setSidebarOpen } from '../redux/slices/sidebarSlice';
 import { selectUser } from '../redux/slices/userSlice';
 import QuantityCounter from './QuantityCounter';
@@ -11,24 +16,17 @@ import QuantityCounter from './QuantityCounter';
 const CartItem = ({ product }) => {
 	const dispatch = useDispatch();
 	const { image, title, price, amount } = product;
-	const totalPrice = (amount * price);
 	const isUpdating = useSelector(selectIsUpdating);
 	const user = useSelector(selectUser);
 
 	const incrementProduct = () => {
-		if (!isUpdating && user) {
-			dispatch(addToCart(product));
-		} else if (!user) {
-			// Code when user is not logged in
+		if (!isUpdating || !user) {
 			dispatch(addToCart(product));
 		}
 	};
 
 	const decrementProduct = () => {
-		if (!isUpdating && user) {
-			dispatch(decrementProductAmount(product));
-		} else if (!user) {
-			// Code when user is not logged in
+		if (!isUpdating || !user) {
 			dispatch(decrementProductAmount(product));
 		}
 	};
@@ -71,7 +69,7 @@ const CartItem = ({ product }) => {
 						</div>
 						<div className="select-none font-bold text-red-400 text-xl">
 							{/* total items price */}
-							${Number.parseFloat(totalPrice).toFixed(2)}
+							${Number.parseFloat(amount * price).toFixed(2)}
 						</div>
 					</div>
 				</div>
@@ -83,7 +81,7 @@ const CartItem = ({ product }) => {
 CartItem.propTypes = {
 	product: PropTypes.shape({
 		amount: PropTypes.number,
-		id: PropTypes.string,
+		id: PropTypes.number,
 		image: PropTypes.string,
 		price: PropTypes.number,
 		title: PropTypes.string
