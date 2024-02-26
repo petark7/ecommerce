@@ -29,6 +29,7 @@ const App = () => {
 	useEffect(() => {
 		dispatch(setFirebaseCart(user?.uid));
 	}, [cartTotal]);
+	
 	return (
 		<>
 			<ToastContainer />

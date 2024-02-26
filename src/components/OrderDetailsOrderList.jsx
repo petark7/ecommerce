@@ -14,16 +14,17 @@ const OrderDetailsOrderList = ({ order }) => {
 						<Link
 							className="uppercase font-semibold max-w-[240px] hover:text-red-400"
 							to={`/product-details/${product.id}`}
-						><div className="flex flex-col md:flex-row gap-3 font-semibold text-md items-center">
-							<img className="w-14" src={product?.image} />
-							<div className="max-w-[200px]">{product?.title}</div>
-						</div>
+						>
+							<div className="flex flex-col md:flex-row gap-3 font-semibold text-md items-center">
+								<img className="w-14" src={product?.image} />
+								<div className="max-w-[200px]">{product?.title}</div>
+							</div>
 						</Link>
 
 					</td>
 					<td>${product?.price}</td>
 					<td className="text-center">{product?.amount}</td>
-					<td>${product?.price * product.amount}</td>
+					<td>${product.price * product.amount}</td>
 				</tr>
 			));
 

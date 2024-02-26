@@ -9,6 +9,7 @@ import { fetchOrders, selectOrders, selectOrdersStatus } from '../redux/slices/o
 import { selectUser } from '../redux/slices/userSlice';
 import OrderDetailsSummary from '../components/OrderDetailsSummary';
 import OrderDetailsDeliveryTracker from '../components/OrderDetailsDeliveryTracker';
+import NotFound from './notfound';
 
 const OrderDetails = () => {
 	const orders = useSelector(selectOrders);
@@ -17,10 +18,8 @@ const OrderDetails = () => {
 	const orderId = useParams().id;
 	const user = useSelector(selectUser);
 	const dispatch = useDispatch();
-	const navigate = useNavigate();
 	const [dateFormatted, setDateFormatted] = useState();
 
-	console.log(user?.uid);
 	// Get orders if not already set in store
 	useEffect(() => {
 		if (orders?.length === 0) {
@@ -38,41 +37,52 @@ const OrderDetails = () => {
 		}
 	}, [order]);
 
-	return (
-		<Layout>
-			<section className="flex flex-col items-center container mx-auto my-10 min-h-screen p-4 flex-wrap lg:flex-nowrap">
-				<div className="text-3xl font-semibold mb-5">
-					Order Details
-				</div>
-				<div className="flex gap-5 flex-col lg:flex-row">
-					<div className="flex h-fit gap-3 md:border md:p-7 md:rounded-xl w-full md:w-fit lg:w-full md:shadow">
-						{/* orders and total */}
-						<div className="w-full">
-							<div className="flex flex-col gap-2 bg-gradient-to-r from-[#FF5E62] to-[#FF9966] p-10 rounded-lg">
-								<div className="text-3xl text-white font-semibold">
-									Order <span className="text-2xl uppercase"> # {order?.id.slice(0, 5)}</span>
-								</div>
-								<div className="font-thin text-white">
-									{dateFormatted}
-								</div>
-							</div>
+	console.log(order);
 
-							<div className="flex flex-col mt-10 md:mt-0 md:p-10 gap-20">
-								{/* items ordered */}
-								{loadingStatus === 'idle' || loadingStatus === 'loading'
-									? <Loading loading className="bg-red-500" background="white" />
-									: <OrderDetailsOrderList order={order} />}
-								{/* order summary */}
-								<OrderDetailsSummary total={Number(order?.total)} shipping={10} />
+	return (
+		(order === undefined && loadingStatus === 'succeeded') ? (
+			<NotFound />
+		) : (
+			<Layout>
+				<section className="flex flex-col items-center container mx-auto my-10 min-h-screen p-4 flex-wrap lg:flex-nowrap">
+					{loadingStatus === 'idle' || loadingStatus === 'loading' ? (
+						<Loading loading className="bg-red-500" background="white" />
+					) : (
+						<>
+							<div className="text-3xl font-semibold mb-5">
+								Order Details
 							</div>
-						</div>
-					</div>
-					<div className="w-full lg:w-[400px]">
-						<OrderDetailsDeliveryTracker statuses={order?.statuses} />
-					</div>
-				</div>
-			</section>
-		</Layout>
+							<div className="flex gap-5 flex-col lg:flex-row">
+								<div className="flex h-fit gap-3 md:border md:p-7 md:rounded-xl w-full md:w-fit lg:w-full md:shadow">
+									{/* orders and total */}
+									<div className="w-full">
+										<div className="flex flex-col gap-2 bg-gradient-to-r from-[#FF5E62] to-[#FF9966] p-10 rounded-lg">
+											<div className="text-3xl text-white font-semibold">
+												Order <span className="text-2xl uppercase"> # {order?.id.slice(0, 5)}</span>
+											</div>
+											<div className="font-thin text-white">
+												{dateFormatted}
+											</div>
+										</div>
+
+										<div className="flex flex-col mt-10 md:mt-0 md:p-10 gap-20">
+											{/* items ordered */}
+											<OrderDetailsOrderList order={order} />
+											{/* order summary */}
+											<OrderDetailsSummary total={Number(order?.total)} shipping={10} />
+										</div>
+									</div>
+								</div>
+								<div className="w-full lg:w-[400px]">
+									<OrderDetailsDeliveryTracker statuses={order?.statuses} />
+								</div>
+							</div>
+						</>
+					)}
+
+				</section>
+			</Layout>
+		)
 	);
 };
 

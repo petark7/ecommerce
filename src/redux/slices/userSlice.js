@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { fetchAccountSettingsFirestore, loginUser, logout, updatePersonalInfoFirestore } from '../../firebase/utils';
-import { clearCart } from './cartSlice';
 
 export const login = createAsyncThunk(
 	'auth/login',
@@ -18,14 +17,6 @@ export const login = createAsyncThunk(
 	}
 );
 
-// export const clearCartAction = createAsyncThunk(
-// 	'user/logUserOut',
-// 	async (_, { dispatch }) => {
-// 		// Perform logout operation here
-// 		dispatch(clearCart());
-// 	}
-// );
-
 export const updateAccountSettings = createAsyncThunk(
 	'user/updateUserData', async ({ userID, data }) => {
 		const result = await updatePersonalInfoFirestore(userID, data);
@@ -42,7 +33,7 @@ export const fetchAccountSettings = createAsyncThunk(
 
 const userSlice = createSlice({
 	name: 'auth',
-	initialState: { user: null, userData: null },
+	initialState: { user: 'not logged in', userData: null },
 	reducers: {
 		setUser: (state, action) => {
 			state.user = action.payload;

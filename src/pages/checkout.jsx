@@ -20,7 +20,7 @@ const Checkout = () => {
 	const userDetails = useSelector(selectUserData);
 	const cart = useSelector(selectCart);
 	const user = useSelector(selectUser);
-	const total = Number.parseFloat(cartTotal + SHIPPING_COST).toFixed(2);
+	const total = Number.parseFloat(cartTotal).toFixed(2);
 
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -115,7 +115,7 @@ const Checkout = () => {
 					Shipping: <div className="text-red-400 font-bold">${SHIPPING_COST}</div>
 				</div>
 				<div className="flex gap-2 justify-end text-xl">
-					Total: <div className="text-red-400 font-bold">${total}</div>
+					Grand Total: <div className="text-red-400 font-bold">${Number(total + SHIPPING_COST)}</div>
 				</div>
 			</div>
 			<Button

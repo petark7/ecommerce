@@ -69,7 +69,7 @@ const DeliveryDetails = ({ formErrors }) => {
 					Change
 				</button>
 				<Modal isOpen={isOpen} toggleModal={() => setIsOpen(!isOpen)}>
-					<div className="w-full text-center text-2xl pb-10">Change delivery address</div>
+					<div className="w-full text-center text-2xl pb-10">Change delivery details</div>
 					<DeliveryInfoForm
 						formData={data}
 						handleChange={handleChange}
