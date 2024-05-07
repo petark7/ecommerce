@@ -1,7 +1,16 @@
 # Bluzify - a web shop for clothes
 See demo: https://bit.ly/ecommerceappfikt
 
-A simple e-commerce web application developed using modern technologies: ReactJS for building the user interface, TailwindCSS for styling, Firebase as a backend service, and FakeStoreAPI for product data.
+A simple e-commerce web application developed using modern technologies: 
+
+➡️ **ReactJS** for building the user interface
+
+➡️ **TailwindCSS** for styling
+
+➡️ **Firebase** as a backend service
+
+➡️ **FakeStoreAPI** for product data
+
 
 ## Screenshots
 
