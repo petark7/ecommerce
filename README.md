@@ -5,6 +5,8 @@ A simple e-commerce web application developed using modern technologies:
 
 ➡️ **ReactJS** for building the user interface
 
+➡️ **Redux** for state management  
+
 ➡️ **TailwindCSS** for styling
 
 ➡️ **Firebase** as a backend service
