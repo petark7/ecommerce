@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
@@ -6,20 +8,20 @@ import {
   clearCart,
   selectCart,
   selectCartTotal,
-} from "../redux/slices/cartSlice";
-import { createOrderFirestore } from "../firebase/utils";
-import { selectUser, selectUserData } from "../redux/slices/userSlice";
-import CartItemsCheckout from "../components/CartItemsCheckout";
-import PaymentOptions from "../components/PaymentOptions";
-import DeliveryDetails from "../components/DeliveryDetails";
-import Layout from "../components/Layout";
-import Button from "../components/Button";
-import ShowToast from "../utils/toast";
+} from "../../redux/slices/cartSlice";
+import { createOrderFirestore } from "../../firebase/utils";
+import { selectUser, selectUserData } from "../../redux/slices/userSlice";
+import CartItemsCheckout from "../../components/CartItemsCheckout";
+import PaymentOptions from "../../components/PaymentOptions";
+import DeliveryDetails from "../../components/DeliveryDetails";
+import Layout from "../../components/Layout";
+import Button from "../../components/Button";
+import ShowToast from "../../utils/toast";
 import { useRouter } from "next/navigation";
 
 const SHIPPING_COST = 10; // TODO: calculate shipping depending on location
 
-const Checkout = () => {
+const Page = () => {
   const cartTotal = useSelector(selectCartTotal);
   const userDetails = useSelector(selectUserData);
   const cart = useSelector(selectCart);
@@ -87,7 +89,7 @@ const Checkout = () => {
         type="button"
         className="w-full border p-5 px-8 mt-10 bg-gray-700 font-bold text-white"
         onClick={() => {
-          navigate(-1);
+          router.back();
         }}
       >
         Go back
@@ -140,4 +142,4 @@ const Checkout = () => {
   );
 };
 
-export default Checkout;
+export default Page;

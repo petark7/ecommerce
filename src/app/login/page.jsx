@@ -1,13 +1,15 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
-import Layout from "../components/Layout";
-import { login } from "../redux/slices/userSlice";
-import { auth } from "../firebase/utils";
-import Button from "../components/Button";
+import Layout from "../../components/Layout";
+import { login } from "../../redux/slices/userSlice";
+import { auth } from "../../firebase/utils";
+import Button from "../../components/Button";
 
-const Login = () => {
+const Page = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -90,4 +92,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Page;
