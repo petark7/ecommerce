@@ -16,7 +16,7 @@ import {
   setFirebaseCart,
   syncWithFirestore,
 } from "./redux/slices/cartSlice";
-import Router from "./router";
+import Home from "./pages/home";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -44,7 +44,7 @@ const App = () => {
   return (
     <>
       <ToastContainer />
-      {/* <Router /> */}
+      <Home />
     </>
   );
 };
