@@ -1,9 +1,7 @@
 "use client";
 
-import { ToastContainer } from "react-toastify";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "react-toastify/dist/ReactToastify.css";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/utils";
 import {
@@ -43,7 +41,6 @@ const App = () => {
   }, [cartTotal]);
   return (
     <>
-      <ToastContainer />
       <Home />
     </>
   );
