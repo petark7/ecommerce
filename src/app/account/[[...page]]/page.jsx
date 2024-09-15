@@ -1,17 +1,21 @@
+"use client";
+
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHistory, faLock, faWrench } from "@fortawesome/free-solid-svg-icons";
-import Layout from "../components/Layout";
-import ManagePassword from "../components/ManagePassword";
-import AccountSettings from "../components/AccountSettings";
-import ManageAddresses from "../components/ManageAddresses";
-import OrderHistory from "../components/OrderHistory";
+import Layout from "../../../components/Layout";
+import ManagePassword from "../../../components/ManagePassword";
+import AccountSettings from "../../../components/AccountSettings";
+import ManageAddresses from "../../../components/ManageAddresses";
+import OrderHistory from "../../../components/OrderHistory";
 
-const Account = () => {
-  const [activeButton, setActiveButton] = useState("action_settings");
-  const { page } = router.query;
+export const dynamic = "force-dynamic";
+
+const Page = () => {
+  const [activeButton, setActiveButton] = useState("account_settings");
   const router = useRouter();
+  const pathname = usePathname();
 
   const items = [
     {
@@ -26,7 +30,6 @@ const Account = () => {
         router.push("/account/account_settings");
       },
     },
-
     {
       id: "manage_password",
       label: (
@@ -54,8 +57,9 @@ const Account = () => {
   ];
 
   useEffect(() => {
-    setActiveButton(page);
-  }, [page]);
+    const currentPage = pathname.split("/").pop();
+    setActiveButton(currentPage || "account_settings");
+  }, [pathname]);
 
   return (
     <Layout>
@@ -79,11 +83,8 @@ const Account = () => {
         <div>
           <div className="border p-5">
             {activeButton === "account_settings" && <AccountSettings />}
-
             {activeButton === "manage_password" && <ManagePassword />}
-
             {activeButton === "manage_addresses" && <ManageAddresses />}
-
             {activeButton === "order_history" && <OrderHistory />}
           </div>
         </div>
@@ -92,4 +93,4 @@ const Account = () => {
   );
 };
 
-export default Account;
+export default Page;
