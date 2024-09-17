@@ -15,7 +15,6 @@ const ProductList = () => {
 
   // Select the products from the state
   const products = useSelector((state) => state.product);
-  console.log("second", products);
   return (
     <div className="py-16 md:mx-10">
       <div className="container mx-auto">

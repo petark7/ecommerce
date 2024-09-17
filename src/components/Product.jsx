@@ -10,7 +10,6 @@ import { ADD_PRODUCT_SUCCESS } from "../constants/toastMessages";
 import Image from "next/image";
 
 const Product = ({ product }) => {
-  console.log(product);
   const { id, name, category, main_image, price } = product;
   const isUpdating = useSelector(selectIsUpdating);
   const dispatch = useDispatch();
@@ -46,12 +45,11 @@ const Product = ({ product }) => {
         >
           <Link href={`/product-details/${id}`}>
             <Image
-              className="w-[120px] group-hover:scale-110 mx-auto flex justify-center
+              className="w-full group-hover:scale-110 mx-auto flex justify-center
 						items-center transition duration-300"
               src={main_image}
-              width={120}
-              height={120}
-              alt="Picture of the author"
+              width={300}
+              height={300}
             />
           </Link>
         </div>

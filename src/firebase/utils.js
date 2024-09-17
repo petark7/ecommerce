@@ -83,7 +83,7 @@ export const getCartFirestore = async (userID) => {
 };
 
 export const fetchProducts = async () => {
-  const storage = getStorage(); // Initialize Firebase storage
+  const storage = getStorage();
 
   try {
     const productsCollection = collection(db, "products");
@@ -91,16 +91,18 @@ export const fetchProducts = async () => {
     const querySnapshot = await getDocs(q);
     const products = [];
 
-    // Iterate through the product documents
     for (const doc of querySnapshot.docs) {
       const data = doc.data();
       let mainImageUrl = null;
 
-      // Generate the download URL for the main image
+      // Get the main image URL
       if (data.main_image) {
-        const imageRef = ref(storage, data.main_image); // Reference to the image
-        mainImageUrl = await getDownloadURL(imageRef); // Get the download URL
+        const imageRef = ref(storage, data.main_image);
+        mainImageUrl = await getDownloadURL(imageRef);
       }
+
+      // Extract only the IDs from related_products
+      const relatedProductIds = data.related_products.map((ref) => ref.id);
 
       const filteredProduct = {
         id: doc.id,
@@ -109,15 +111,14 @@ export const fetchProducts = async () => {
         price: data.price,
         images: data.images,
         brand: data.brand,
-        related_products: data.related_products,
-        main_image: mainImageUrl, // Use the generated URL
+        related_products: relatedProductIds, // Use IDs instead of DocumentReferences (fixes non-serializable error)
+        main_image: mainImageUrl,
         description: data.description,
       };
 
       products.push(filteredProduct);
     }
 
-    console.log(products);
     return products;
   } catch (error) {
     console.error("Error fetching products: ", error);
