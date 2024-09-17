@@ -1,25 +1,26 @@
-import { useRouter } from "next/navigation";
+"use client";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { format } from "date-fns";
 import Loading from "react-fullscreen-loading";
-import Layout from "../components/Layout";
-import OrderDetailsOrderList from "../components/OrderDetailsOrderList";
+import Layout from "../../../components/Layout";
+import OrderDetailsOrderList from "../../../components/OrderDetailsOrderList";
 import {
   fetchOrders,
   selectOrders,
   selectOrdersStatus,
-} from "../redux/slices/ordersSlice";
-import { selectUser } from "../redux/slices/userSlice";
-import OrderDetailsSummary from "../components/OrderDetailsSummary";
-import OrderDetailsDeliveryTracker from "../components/OrderDetailsDeliveryTracker";
+} from "../../../redux/slices/ordersSlice";
+import { selectUser } from "../../../redux/slices/userSlice";
+import OrderDetailsSummary from "../../../components/OrderDetailsSummary";
+import OrderDetailsDeliveryTracker from "../../../components/OrderDetailsDeliveryTracker";
+import { useParams } from "next/navigation";
 
-const OrderDetails = () => {
+const Page = () => {
   const orders = useSelector(selectOrders);
   const loadingStatus = useSelector(selectOrdersStatus);
   const [order, setOrder] = useState();
-  const router = useRouter();
-  const { id: orderId } = router.query;
+  const { id: orderId } = useParams();
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
   const [dateFormatted, setDateFormatted] = useState();
@@ -86,4 +87,4 @@ const OrderDetails = () => {
   );
 };
 
-export default OrderDetails;
+export default Page;

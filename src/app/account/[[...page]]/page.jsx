@@ -13,7 +13,7 @@ import OrderHistory from "../../../components/OrderHistory";
 export const dynamic = "force-dynamic";
 
 const Page = () => {
-  const [activeButton, setActiveButton] = useState("account_settings");
+  const [activeButton, setActiveButton] = useState();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -58,7 +58,7 @@ const Page = () => {
 
   useEffect(() => {
     const currentPage = pathname.split("/").pop();
-    setActiveButton(currentPage || "account_settings");
+    setActiveButton(currentPage);
   }, [pathname]);
 
   return (

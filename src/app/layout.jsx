@@ -2,6 +2,7 @@ import StoreProvider from "./StoreProvider";
 import { ToastContainer } from "react-toastify";
 import "../index.css";
 import "react-toastify/dist/ReactToastify.css";
+import AuthWrapper from "../components/AuthWrapper";
 
 export const metadata = {
   title: "Bluzify - a Firebase-based Ecommerce NextJS App",
@@ -27,7 +28,7 @@ export default function RootLayout({ children }) {
       <body>
         <StoreProvider>
           <ToastContainer />
-          {children}
+          <AuthWrapper>{children}</AuthWrapper>
         </StoreProvider>
         <div id="modal-root"></div>
       </body>
