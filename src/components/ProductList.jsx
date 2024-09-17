@@ -15,7 +15,7 @@ const ProductList = () => {
 
   // Select the products from the state
   const products = useSelector((state) => state.product);
-
+  console.log("second", products);
   return (
     <div className="py-16 md:mx-10">
       <div className="container mx-auto">
@@ -24,9 +24,13 @@ const ProductList = () => {
 				lg:grid-cols-4 xl:grid-cols-5 gap-[30px] max-w-sm mx-auto
 				md:max-w-none"
         >
-          {products.map((product) => (
-            <Product key={product.id} product={product} />
-          ))}
+          {products && products.length > 0 ? (
+            products.map((product) => (
+              <Product key={product.id} product={product} />
+            ))
+          ) : (
+            <p>Loading products...</p>
+          )}
         </div>
       </div>
     </div>

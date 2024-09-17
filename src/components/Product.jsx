@@ -7,9 +7,11 @@ import ShowToast from "../utils/toast";
 import { selectUser } from "../redux/slices/userSlice";
 import Button from "./Button";
 import { ADD_PRODUCT_SUCCESS } from "../constants/toastMessages";
+import Image from "next/image";
 
 const Product = ({ product }) => {
-  const { id, image, category, title, price } = product;
+  console.log(product);
+  const { id, name, category, main_image, price } = product;
   const isUpdating = useSelector(selectIsUpdating);
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
@@ -43,10 +45,13 @@ const Product = ({ product }) => {
 					items-center"
         >
           <Link href={`/product-details/${id}`}>
-            <img
+            <Image
               className="w-[120px] group-hover:scale-110 mx-auto flex justify-center
 						items-center transition duration-300"
-              src={image}
+              src={main_image}
+              width={120}
+              height={120}
+              alt="Picture of the author"
             />
           </Link>
         </div>
@@ -69,13 +74,13 @@ const Product = ({ product }) => {
         </div>
       </div>
 
-      {/* Category title and price */}
+      {/* Category name and price */}
       <div>
         <div>
           <div className="text-sm capitalize text-gray-500">{category}</div>
 
           <Link className="font-semibold mb-1" href={`/product-details/${id}`}>
-            {title}
+            {name}
           </Link>
 
           <div className="">
