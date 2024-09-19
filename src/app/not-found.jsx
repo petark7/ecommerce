@@ -1,5 +1,8 @@
+"use client";
+
 import { useRouter } from "next/navigation";
 import notFoundImage from "../assets/notfound.svg";
+import Image from "next/image";
 
 const Page = () => {
   const router = useRouter();
@@ -9,7 +12,7 @@ const Page = () => {
       gap-4 justify-center p-10 h-screen"
     >
       <div className="flex flex-col md:flex-row md:items-center md:w-[1000px]">
-        <img className="md:max-w-[400px]" src={notFoundImage} />
+        <Image src={notFoundImage} alt="404 not found" width={400} />
         <div className="flex flex-col gap-4">
           <div className="text-4xl">Page not found :(</div>
 
@@ -22,9 +25,9 @@ const Page = () => {
             type="button"
             className="md:max-w[100px] mt-5 md:w-[250px] border bg-red-500 text-xl
             text-white py-4 font-semibold rounded-md"
-            onClick={() => router.back()}
+            onClick={() => router.push("/")}
           >
-            Go back
+            Go to home
           </button>
         </div>
       </div>
