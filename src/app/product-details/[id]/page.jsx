@@ -1,4 +1,3 @@
-import Layout from "../../../components/Layout";
 import ClientComponent from "./ClientComponent"; // Import the client-side component
 import { fetchProducts } from "../../../firebase/utils";
 
@@ -25,19 +24,17 @@ const Page = async ({ params }) => {
     return <div>Product not found</div>;
   }
   return (
-    <Layout>
-      <section className="py-20 min-h-screen flex">
-        <div className="container mx-auto flex flex-col lg:flex-row items-center justify-center">
-          <img
-            className="mb-8 lb:mb-0 pb-4 max-w-[200px] lg:max-w-sm lg:mr-20"
-            src={product?.main_image}
-            alt={product?.name}
-          />
-          {/* Render client-side component */}
-          <ClientComponent product={product} />
-        </div>
-      </section>
-    </Layout>
+    <section className="py-20 min-h-screen flex">
+      <div className="container mx-auto flex flex-col lg:flex-row items-center justify-center">
+        <img
+          className="mb-8 lb:mb-0 pb-4 max-w-[200px] lg:max-w-sm lg:mr-20"
+          src={product?.main_image}
+          alt={product?.name}
+        />
+        {/* Render client-side component */}
+        <ClientComponent product={product} />
+      </div>
+    </section>
   );
 };
 

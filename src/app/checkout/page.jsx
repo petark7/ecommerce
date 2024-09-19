@@ -14,7 +14,6 @@ import { selectUser, selectUserData } from "../../redux/slices/userSlice";
 import CartItemsCheckout from "../../components/CartItemsCheckout";
 import PaymentOptions from "../../components/PaymentOptions";
 import DeliveryDetails from "../../components/DeliveryDetails";
-import Layout from "../../components/Layout";
 import Button from "../../components/Button";
 import ShowToast from "../../utils/toast";
 import { useRouter } from "next/navigation";
@@ -134,11 +133,9 @@ const Page = () => {
     </div>
   );
   return (
-    <Layout>
-      <section className="flex justify-center md:items-center py-10 px-5 md:py-10">
-        {cartTotal > 0 ? notEmptyCart : emptyCart}
-      </section>
-    </Layout>
+    <section className="flex justify-center md:items-center py-10 px-5 md:py-10">
+      {cartTotal > 0 ? notEmptyCart : emptyCart}
+    </section>
   );
 };
 
