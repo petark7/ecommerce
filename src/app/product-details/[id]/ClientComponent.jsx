@@ -1,4 +1,5 @@
 "use client";
+import PropTypes from "prop-types";
 
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, selectIsUpdating } from "../../../redux/slices/cartSlice";
@@ -43,6 +44,14 @@ const ClientComponent = ({ product }) => {
       </div>
     </div>
   );
+};
+
+ClientComponent.propTypes = {
+  product: PropTypes.shape({
+    description: PropTypes.string,
+    name: PropTypes.string,
+    price: PropTypes.number,
+  }),
 };
 
 export default ClientComponent;

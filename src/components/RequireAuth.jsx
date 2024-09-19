@@ -1,17 +1,14 @@
-import PropTypes from 'prop-types';
-import { useState } from 'react';
+import PropTypes from "prop-types";
 
 const RequireAuth = ({ children }) => {
-	const [user, setUser] = useState();
+  // REMOVED INEFFECTIVE CODE
+  // TODO: FIND A WAY TO IMPLEMENT PROTECTED ROUTES CORRECTLY
 
-	// REMOVED INEFFECTIVE CODE
-	// TODO: FIND A WAY TO IMPLEMENT PROTECTED ROUTES CORRECTLY
-
-	return children;
+  return children;
 };
 
 RequireAuth.propTypes = {
-	children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default RequireAuth;

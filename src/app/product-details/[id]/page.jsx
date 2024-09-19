@@ -24,7 +24,6 @@ const Page = async ({ params }) => {
   if (!product) {
     return <div>Product not found</div>;
   }
-  console.log(JSON.stringify(product));
   return (
     <Layout>
       <section className="py-20 min-h-screen flex">

@@ -25,7 +25,6 @@ const OrderHistory = () => {
   }, [user]);
 
   useEffect(() => {
-    console.log(orders);
     if (orders.length > 0) {
       const sortedOrders = sortOrders(orders, sortBy);
       const orderElements = sortedOrders.map((order) => {

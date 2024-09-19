@@ -1,8 +1,12 @@
+import PropTypes from "prop-types";
 import StoreProvider from "./StoreProvider";
 import { ToastContainer } from "react-toastify";
 import "../index.css";
 import "react-toastify/dist/ReactToastify.css";
 import AuthWrapper from "../components/AuthWrapper";
+import Navbar from "../components/Navbar";
+import Sidebar from "../components/Sidebar";
+import Footer from "../components/Footer";
 
 export const metadata = {
   title: "Bluzify - a Firebase-based Ecommerce NextJS App",
@@ -28,10 +32,19 @@ export default function RootLayout({ children }) {
       <body>
         <StoreProvider>
           <ToastContainer />
-          <AuthWrapper>{children}</AuthWrapper>
+          <Navbar />
+          <Sidebar />
+          <div className="min-h-screen">
+            <AuthWrapper>{children}</AuthWrapper>{" "}
+          </div>
+          <Footer />
         </StoreProvider>
         <div id="modal-root"></div>
       </body>
     </html>
   );
 }
+
+RootLayout.propTypes = {
+  children: PropTypes.node,
+};

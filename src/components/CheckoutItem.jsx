@@ -80,6 +80,8 @@ CheckoutItem.propTypes = {
     amount: PropTypes.number,
     id: PropTypes.string,
     image: PropTypes.string,
+    main_image: PropTypes.string,
+    name: PropTypes.string,
     price: PropTypes.number,
     title: PropTypes.string,
   }),

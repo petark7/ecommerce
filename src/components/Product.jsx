@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
@@ -91,6 +92,16 @@ const Product = ({ product }) => {
       </div>
     </div>
   );
+};
+
+Product.propTypes = {
+  product: PropTypes.shape({
+    category: PropTypes.string,
+    id: PropTypes.string,
+    main_image: PropTypes.string,
+    name: PropTypes.string,
+    price: PropTypes.number,
+  }),
 };
 
 export default Product;

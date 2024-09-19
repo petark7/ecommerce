@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
 import { fetchProducts } from "../../firebase/utils";
 
 export const getProducts = createAsyncThunk("product/getProducts", async () => {

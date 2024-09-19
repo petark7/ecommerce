@@ -34,10 +34,6 @@ const Page = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(user);
-  }, [user]);
-
   return (
     <Layout>
       <section className="flex items-center justify-center min-h-screen">
