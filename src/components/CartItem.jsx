@@ -15,7 +15,7 @@ import QuantityCounter from "./QuantityCounter";
 
 const CartItem = ({ product }) => {
   const dispatch = useDispatch();
-  const { image, title, price, amount } = product;
+  const { main_image, name, price, amount } = product;
   const totalPrice = amount * price;
   const isUpdating = useSelector(selectIsUpdating);
   const user = useSelector(selectUser);
@@ -42,7 +42,7 @@ const CartItem = ({ product }) => {
     <div className="flex items-center my-5 border-b pb-5 gap-3 p-5 select-none">
       {/* image */}
       <div>
-        <img src={image} className="w-28" />
+        <img src={main_image} className="w-28" />
       </div>
 
       {/* controls */}
@@ -54,7 +54,7 @@ const CartItem = ({ product }) => {
             href={`/product-details/${product.id}`}
             onClick={() => dispatch(setSidebarOpen(false))}
           >
-            {title}
+            {name}
           </Link>
           <FontAwesomeIcon
             className="text-xl text-gray-600 cursor-pointer hover:text-red-400"

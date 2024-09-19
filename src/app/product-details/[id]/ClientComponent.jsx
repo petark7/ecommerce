@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, selectIsUpdating } from "../../../redux/slices/cartSlice";
 import { selectUser } from "../../../redux/slices/userSlice";
@@ -15,7 +14,7 @@ const ClientComponent = ({ product }) => {
   return (
     <div className="flex flex-col gap-4 max-w-[700px]">
       <div className="text-2xl font-semibold text-center lg:text-left">
-        {product?.title}
+        {product?.name}
       </div>
       <div className="text-red-400 text-2xl">${product?.price}</div>
       <div className="text-xl">{product?.description}</div>
