@@ -15,7 +15,7 @@ const customResponsive = {
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
-    items: 2,
+    items: 1,
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
@@ -23,9 +23,38 @@ const customResponsive = {
   },
 };
 
+const CustomButtonGroup = ({ next, previous }) => {
+  return (
+    <div className="relative top-1/2 w-full flex justify-between -translate-y-1/2">
+      <button
+        className="absolute -top-52 md:-left-14 bg-gray-300 font-bold text-xl w-10 
+        h-10 flex items-center justify-center rounded-full hover:bg-gray-400"
+        onClick={previous}
+      >
+        {"<"}
+      </button>
+      <button
+        className="absolute -top-52 right-0 md:-right-14 bg-gray-300 font-bold 
+        text-xl w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-400"
+        onClick={next}
+      >
+        {">"}
+      </button>
+    </div>
+  );
+};
+
 const ProductList = ({ products }) => {
   return (
-    <Carousel infinite showDots={false} responsive={customResponsive}>
+    <Carousel
+      arrows={false}
+      customButtonGroup={<CustomButtonGroup />}
+      renderArrowsWhenDisabled={false}
+      renderButtonGroupOutside
+      infinite
+      showDots={false}
+      responsive={customResponsive}
+    >
       {products.map((product) => (
         <div key={product.id} className="mx-2">
           {" "}
