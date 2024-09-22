@@ -15,6 +15,7 @@ import {
   getFirestore,
   addDoc,
   collection,
+  limit,
 } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { firebaseConfig } from "../firebaseConfig";
@@ -28,6 +29,8 @@ import { getStorage, ref, getDownloadURL } from "firebase/storage";
 export const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
+const productsCollection = collection(db, "products");
+const storage = getStorage();
 
 export const loginUser = async (email, password) => {
   try {
@@ -83,10 +86,7 @@ export const getCartFirestore = async (userID) => {
 };
 
 export const fetchProducts = async () => {
-  const storage = getStorage();
-
   try {
-    const productsCollection = collection(db, "products");
     const q = query(productsCollection);
     const querySnapshot = await getDocs(q);
     const products = [];
@@ -106,7 +106,6 @@ export const fetchProducts = async () => {
 
       const filteredProduct = {
         id: doc.id,
-        available: data.available,
         name: data.name,
         price: data.price,
         images: data.images,
@@ -114,6 +113,7 @@ export const fetchProducts = async () => {
         related_products: relatedProductIds, // Use IDs instead of DocumentReferences (fixes non-serializable error)
         main_image: mainImageUrl,
         description: data.description,
+        featured: data.featured,
       };
 
       products.push(filteredProduct);
@@ -122,6 +122,48 @@ export const fetchProducts = async () => {
     return products;
   } catch (error) {
     console.error("Error fetching products: ", error);
+    throw error;
+  }
+};
+
+export const fetchFeaturedProducts = async (limitBy = 8) => {
+  const q = query(
+    productsCollection,
+    where("featured", "==", true),
+    limit(limitBy)
+  );
+
+  try {
+    const querySnapshot = await getDocs(q);
+    const products = [];
+    for (const doc of querySnapshot.docs) {
+      const data = doc.data();
+
+      let mainImageUrl = null;
+
+      // Get the main image URL
+      if (data.main_image) {
+        const imageRef = ref(storage, data.main_image);
+        mainImageUrl = await getDownloadURL(imageRef);
+      }
+
+      const filteredProduct = {
+        id: doc.id,
+        name: data.name,
+        price: data.price,
+        images: data.images,
+        brand: data.brand,
+        main_image: mainImageUrl,
+        description: data.description,
+        featured: data.featured,
+      };
+
+      products.push(filteredProduct);
+    }
+
+    return products;
+  } catch (error) {
+    console.error("Error fetching featured products: ", error);
     throw error;
   }
 };

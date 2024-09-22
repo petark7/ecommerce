@@ -1,45 +1,39 @@
 "use client";
 
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Product from "../components/Product";
-import { getProducts } from "../redux/slices/productSlice";
-import Section from "./Section";
-import HomeCarousel from "./HomeCarousel/HomeCarousel";
+import Product from "./Product";
+import Carousel from "react-multi-carousel";
 
-const ProductList = () => {
-  const dispatch = useDispatch();
+const customResponsive = {
+  superLargeDesktop: {
+    // the naming can be any
+    breakpoint: { max: 4000, min: 3000 },
+    items: 4,
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 4,
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2,
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+  },
+};
 
-  // Dispatch the getProducts action when the component mounts
-  useEffect(() => {
-    dispatch(getProducts());
-  }, [dispatch]);
-
-  // Select the products from the state
-  const products = useSelector((state) => state.product);
+const ProductList = ({ products }) => {
   return (
-    <div className="py-16 md:mx-10">
-      <div className="container mx-auto ">
-        <div className="flex flex-col gap-10">
-          <HomeCarousel />
-          <Section title={"Featured Products"}>
-            <div
-              className="grid grid-cols-1 md:grid-cols-2
-				lg:grid-cols-4 xl:grid-cols-5 gap-[30px] max-w-sm mx-auto
-				md:max-w-none"
-            >
-              {products && products.length > 0 ? (
-                products.map((product) => (
-                  <Product key={product.id} product={product} />
-                ))
-              ) : (
-                <p>Loading products...</p>
-              )}
-            </div>
-          </Section>
+    <Carousel infinite showDots={false} responsive={customResponsive}>
+      {products.map((product) => (
+        <div key={product.id} className="mx-2">
+          {" "}
+          {/* Add margin between items */}
+          <Product product={product} />
         </div>
-      </div>
-    </div>
+      ))}
+    </Carousel>
   );
 };
 

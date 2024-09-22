@@ -2,7 +2,12 @@ import PropTypes from "prop-types";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
-const CustomCarousel = ({ children, className }) => {
+const CustomCarousel = ({
+  children,
+  className,
+  customResponsive,
+  showDots,
+}) => {
   const responsive = {
     superLargeDesktop: {
       // the naming can be any
@@ -24,7 +29,11 @@ const CustomCarousel = ({ children, className }) => {
   };
 
   return (
-    <Carousel className={className} responsive={responsive} showDots>
+    <Carousel
+      className={className}
+      responsive={customResponsive ? customResponsive : responsive}
+      showDots={showDots}
+    >
       {children}
     </Carousel>
   );
