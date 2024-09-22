@@ -23,6 +23,7 @@
     "react-dom": "^18.2.0",
     "react-firebase-hooks": "^5.1.1",
     "react-fullscreen-loading": "^0.0.4",
+    "react-multi-carousel": "^2.8.5",
     "react-redux": "^8.1.2",
     "react-toastify": "^9.1.3"
   },
