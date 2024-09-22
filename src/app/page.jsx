@@ -1,7 +1,8 @@
-import HomeCarousel from "../components/HomeCarousel/HomeCarousel";
+import HomeCarousel from "../components/HomeCarousel";
 import Section from "../components/Section";
 import { fetchFeaturedProducts } from "../firebase/utils";
 import ProductList from "../components/ProductList";
+import SponsorsCarousel from "../components/SponsorsCarousel";
 
 export const dynamicParams = true;
 export const revalidate = 60;
@@ -18,6 +19,7 @@ export default async function Page() {
       <div className="container mx-auto ">
         <div className="flex flex-col gap-10">
           <HomeCarousel />
+          <SponsorsCarousel />
           <Section title={"Featured Products"}>
             <ProductList products={products} />
           </Section>
