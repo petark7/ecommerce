@@ -28,7 +28,7 @@ const Sidebar = () => {
       className={`${
         sidebarIsOpen ? "right-0" : "-right-full"
       } p-5 w-full fixed top-0 h-full
-        bg-white z-20 md:w-[450px] md:min-w-[350px] xl:max-w-[26vw] transition-all duration-300 shadow-2xl`}
+        bg-white md:w-[450px] md:min-w-[350px] xl:max-w-[26vw] transition-all duration-300 shadow-2xl z-[1001]`}
     >
       <div className="flex justify-between py-4 border-b">
         <div className="uppercase font-semibold">
