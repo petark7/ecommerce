@@ -232,6 +232,3 @@ export const updatePasswordFirebase = async (newPassword) => {
     });
   }
 };
-
-// TODO: create user
-// const createUser = async (email, password) => {};

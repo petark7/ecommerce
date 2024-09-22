@@ -35,7 +35,7 @@ export default function RootLayout({ children }) {
           <Navbar />
           <Sidebar />
           <div className="min-h-screen">
-            <AuthWrapper>{children}</AuthWrapper>{" "}
+            <AuthWrapper>{children}</AuthWrapper>
           </div>
           <Footer />
         </StoreProvider>
