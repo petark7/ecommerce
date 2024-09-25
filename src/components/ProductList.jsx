@@ -23,8 +23,6 @@ const FeaturedProducts = ({ products }) => {
       >
         {products.map((product) => (
           <div key={product.id} className="mx-2">
-            {" "}
-            {/* Add margin between items */}
             <Product product={product} />
           </div>
         ))}

@@ -3,6 +3,7 @@ import Section from "../components/Section";
 import { fetchFeaturedProducts } from "../firebase/utils";
 import FeaturedProducts from "../components/ProductList";
 import SponsorsCarousel from "../components/SponsorsCarousel";
+import CategoryPicker from "../components/CategoryPicker";
 
 export const dynamicParams = true;
 export const revalidate = 60;
@@ -22,6 +23,11 @@ export default async function Page() {
           <SponsorsCarousel />
           <Section title={"Featured Products"}>
             <FeaturedProducts products={products} />
+          </Section>
+
+          <Section title={"Choose your category"}>
+            {/* <FeaturedProducts products={products} /> */}
+            <CategoryPicker />
           </Section>
         </div>
       </div>
