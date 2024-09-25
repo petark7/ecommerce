@@ -29,7 +29,8 @@ const FeaturedProducts = ({ products }) => {
       </Carousel>
       <div className="flex justify-center">
         <Button
-          className={"w-72"}
+          width="md:w-72 w-full"
+          className="bg-red-400"
           label="View All Featured Products"
           handleClick={() => {
             router.push("/products/featured");
