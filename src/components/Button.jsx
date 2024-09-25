@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 const Button = ({
+  className,
   width = "w-full",
   label,
   handleClick,
@@ -13,7 +14,7 @@ const Button = ({
   return (
     <button
       type={type}
-      className={`${width} p-5 px-8 mt-5 bg-${color} font-bold text-white active:scale-[0.98] rounded-md`}
+      className={`${className} ${width} p-5 px-8 mt-5 bg-${color} font-bold text-white active:scale-[0.98] rounded-md`}
       {...eventHandler}
     >
       {label}
@@ -24,6 +25,7 @@ const Button = ({
 
 Button.propTypes = {
   children: PropTypes.node,
+  className: PropTypes.string,
   color: PropTypes.string,
   handleClick: PropTypes.func,
   label: PropTypes.string,

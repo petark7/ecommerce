@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import Button from "./Button";
 import Product from "./Product";
 import Carousel from "react-multi-carousel";
 
@@ -14,11 +16,11 @@ const customResponsive = {
     items: 4,
   },
   tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 1,
+    breakpoint: { max: 768, min: 481 },
+    items: 2,
   },
   mobile: {
-    breakpoint: { max: 464, min: 0 },
+    breakpoint: { max: 480, min: 0 },
     items: 1,
   },
 };
@@ -44,26 +46,39 @@ const CustomButtonGroup = ({ next, previous }) => {
   );
 };
 
-const ProductList = ({ products }) => {
+const FeaturedProducts = ({ products }) => {
+  const router = useRouter();
+
   return (
-    <Carousel
-      arrows={false}
-      customButtonGroup={<CustomButtonGroup />}
-      renderArrowsWhenDisabled={false}
-      renderButtonGroupOutside
-      infinite
-      showDots={false}
-      responsive={customResponsive}
-    >
-      {products.map((product) => (
-        <div key={product.id} className="mx-2">
-          {" "}
-          {/* Add margin between items */}
-          <Product product={product} />
-        </div>
-      ))}
-    </Carousel>
+    <div className="flex flex-col gap-30">
+      <Carousel
+        arrows={false}
+        customButtonGroup={<CustomButtonGroup />}
+        renderArrowsWhenDisabled={false}
+        renderButtonGroupOutside
+        infinite
+        showDots={false}
+        responsive={customResponsive}
+      >
+        {products.map((product) => (
+          <div key={product.id} className="mx-2">
+            {" "}
+            {/* Add margin between items */}
+            <Product product={product} />
+          </div>
+        ))}
+      </Carousel>
+      <div className="flex justify-center">
+        <Button
+          className={"w-72"}
+          label="View All Featured Products"
+          handleClick={() => {
+            router.push("/products/featured");
+          }}
+        />
+      </div>
+    </div>
   );
 };
 
-export default ProductList;
+export default FeaturedProducts;

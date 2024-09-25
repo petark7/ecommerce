@@ -1,7 +1,7 @@
 import HomeCarousel from "../components/HomeCarousel";
 import Section from "../components/Section";
 import { fetchFeaturedProducts } from "../firebase/utils";
-import ProductList from "../components/ProductList";
+import FeaturedProducts from "../components/ProductList";
 import SponsorsCarousel from "../components/SponsorsCarousel";
 
 export const dynamicParams = true;
@@ -21,7 +21,7 @@ export default async function Page() {
           <HomeCarousel />
           <SponsorsCarousel />
           <Section title={"Featured Products"}>
-            <ProductList products={products} />
+            <FeaturedProducts products={products} />
           </Section>
         </div>
       </div>
