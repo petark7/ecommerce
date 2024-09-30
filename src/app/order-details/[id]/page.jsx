@@ -24,6 +24,7 @@ const Page = () => {
   const dispatch = useDispatch();
   const [dateFormatted, setDateFormatted] = useState();
 
+  console.log(order);
   // Get orders if not already set in store
   useEffect(() => {
     if (orders?.length === 0 && user?.uid) {
