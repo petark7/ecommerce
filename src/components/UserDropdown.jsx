@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch } from "react-redux";
-import { clearCartAction, logUserOut } from "../redux/slices/userSlice";
+import { signOut } from "../redux/slices/userSlice";
 import { useRouter } from "next/navigation";
 
 const UserDropdown = () => {
@@ -40,8 +40,7 @@ const UserDropdown = () => {
         <li>
           <a
             onClick={() => {
-              dispatch(logUserOut());
-              dispatch(clearCartAction());
+              dispatch(signOut());
               router.push("/");
             }}
           >
