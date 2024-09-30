@@ -1,11 +1,10 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import notFoundImage from "../assets/notfound.svg";
 import Image from "next/image";
 
 const Page = () => {
-  const router = useRouter();
   return (
     <section
       className="flex flex-col md:flex-row md:items-center
@@ -21,14 +20,15 @@ const Page = () => {
             have permissions to visit. Sorry!
           </div>
 
-          <button
-            type="button"
-            className="md:max-w[100px] mt-5 md:w-[250px] border bg-red-500 text-xl
+          <Link href={"/"}>
+            <button
+              type="button"
+              className="md:max-w[100px] mt-5 md:w-[250px] border bg-red-500 text-xl
             text-white py-4 font-semibold rounded-md"
-            onClick={() => router.push("/")}
-          >
-            Go to home
-          </button>
+            >
+              Go to home
+            </button>
+          </Link>
         </div>
       </div>
     </section>
