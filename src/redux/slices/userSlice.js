@@ -3,6 +3,7 @@ import {
   fetchAccountSettingsFirestore,
   loginUser,
   logout,
+  registerUser,
   updatePersonalInfoFirestore,
 } from "../../firebase/utils";
 
@@ -11,6 +12,24 @@ export const login = createAsyncThunk(
   async (credentials, { rejectWithValue }) => {
     try {
       const result = await loginUser(credentials.email, credentials.password);
+      if (result === "auth/invalid-email") {
+        return rejectWithValue(result);
+      }
+      return result;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const register = createAsyncThunk(
+  "auth/register",
+  async (credentials, { rejectWithValue }) => {
+    try {
+      const result = await registerUser(
+        credentials.email,
+        credentials.password
+      );
       if (result === "auth/invalid-email") {
         return rejectWithValue(result);
       }

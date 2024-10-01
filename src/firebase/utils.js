@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import {
+  createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
   signOut,
@@ -49,6 +50,27 @@ export const loginUser = async (email, password) => {
     showToast("You entered incorrect credentials.", { success: false });
     // TODO: implement better handling
     return "error";
+  }
+};
+
+export const registerUser = async (email, password) => {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const user = userCredential.user;
+    showToast("Created user successfully.", { success: true });
+    return {
+      uid: user.uid,
+      accessToken: user.accessToken,
+    };
+  } catch (error) {
+    const errorMessage = error.message;
+
+    showToast(`${errorMessage} ${error.code}`, { success: false });
+    return error;
   }
 };
 

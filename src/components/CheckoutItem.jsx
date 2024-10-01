@@ -40,7 +40,7 @@ const CheckoutItem = ({ product }) => {
       <td>
         <div className="flex items-center space-x-3">
           <img
-            className="max-w-[70px] object-cover object-center mr-15"
+            className="w-[70px] h-[60px] object-cover object-center mr-15"
             src={product.main_image}
           />
 
@@ -49,7 +49,7 @@ const CheckoutItem = ({ product }) => {
               className="font-bold mr-18 cursor-pointer  hover:text-red-400"
               href={`/product-details/${product.id}`}
             >
-              {product.name}
+              <div className="max-w-6xl">{product.name}</div>
             </Link>
           </div>
         </div>

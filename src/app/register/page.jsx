@@ -4,14 +4,16 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
-import { login } from "../../redux/slices/userSlice";
+import { register } from "../../redux/slices/userSlice";
 import { auth } from "../../firebase/utils";
 import Button from "../../components/Button";
+import { toast } from "react-toastify";
 
 const Page = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const dispatch = useDispatch();
 
   onAuthStateChanged(auth, (user) => {
@@ -20,30 +22,29 @@ const Page = () => {
     }
   });
 
-  const handleLogin = () => {
-    dispatch(login({ email, password }));
+  const handleRegister = () => {
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match.");
+      return;
+    }
+    dispatch(register({ email, password }));
   };
 
   return (
     <section className="flex items-center justify-center min-h-screen">
       <div className="flex flex-col gap-7 items-center md:shadow-lg p-8 md:p-14 m-3 md:m-10">
         {/* descriptive text at top */}
-        <div className="font-light text-4xl">Welcome!</div>
+        <div className="font-light text-4xl">Register</div>
         <div className="text-lg text-center">
-          Glad to see you here! Enter your credentials to login:
-        </div>
-        <div className="w-full">
-          <div>TEST ACCOUNT:</div>
-          <div>email: testuser@gmail.com</div>
-          <div>password: 123456</div>
+          Enter your information below to register.
         </div>
 
-        {/* email, password and forgot password */}
+        {/* email, password */}
         <form
           className="flex flex-col w-full gap-3"
           onSubmit={(event) => {
             event.preventDefault();
-            handleLogin();
+            handleRegister();
           }}
         >
           <input
@@ -64,11 +65,20 @@ const Page = () => {
               setPassword(event.target.value);
             }}
           />
-          {/* TODO: forgot password not yet implemented */}
-          {/* <div className="w-full text-end underline text-red-500 cursor-pointer">Forgot password?</div> */}
+
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            className="input input-bordered w-full"
+            value={confirmPassword}
+            onChange={(event) => {
+              setConfirmPassword(event.target.value);
+            }}
+          />
+
           {/* login buttons */}
-          <Button type="submit" color="red-500">
-            LOGIN
+          <Button className={"uppercase"} type="submit" color="red-500">
+            Register
           </Button>
         </form>
       </div>
