@@ -22,17 +22,15 @@ export const login = createAsyncThunk(
   }
 );
 
-export const register = createAsyncThunk(
-  "auth/register",
+export const createAccount = createAsyncThunk(
+  "auth/createAccount",
   async (credentials, { rejectWithValue }) => {
     try {
       const result = await registerUser(
         credentials.email,
         credentials.password
       );
-      if (result === "auth/invalid-email") {
-        return rejectWithValue(result);
-      }
+
       return result;
     } catch (error) {
       return rejectWithValue(error.message);

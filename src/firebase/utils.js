@@ -22,6 +22,7 @@ import { toast } from "react-toastify";
 import { firebaseConfig } from "../firebaseConfig";
 import showToast, { ShowToast } from "../utils/toast";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { handleAuthError } from "./authErrorHandler";
 
 // Follow this pattern to import other Firebase services
 // import { } from 'firebase/<service>';
@@ -67,9 +68,9 @@ export const registerUser = async (email, password) => {
       accessToken: user.accessToken,
     };
   } catch (error) {
-    const errorMessage = error.message;
+    const errorCode = error.code;
 
-    showToast(`${errorMessage} ${error.code}`, { success: false });
+    showToast(handleAuthError(errorCode), { success: false });
     return error;
   }
 };
