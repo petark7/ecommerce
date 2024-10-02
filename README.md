@@ -23,7 +23,7 @@ A simple e-commerce web application developed using modern technologies:
 
 ## Screenshots
 
-<img src="https://i.imgur.com/CrESEa5.png" width="1000">
-<img src="https://i.imgur.com/lIg0gLO.png" width="1000">
-<img src="https://i.imgur.com/zOVEc4v.png" width="1000">
+<img src="https://i.imgur.com/CrESEa5.png" width="760">
+<img src="https://i.imgur.com/lIg0gLO.png" width="760">
+<img src="https://i.imgur.com/zOVEc4v_d.webp?maxwidth=760&fidelity=grand" width="760">
 
