@@ -45,7 +45,6 @@ const Navbar = () => {
                 >
                   Login
                 </Link>
-                {/* TODO: add register page */}
                 or
                 <Link
                   className="font-semibold hover:text-red-500 cursor-pointer"
