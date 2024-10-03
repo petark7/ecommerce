@@ -4,12 +4,14 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
+import mobile from "is-mobile";
 import { login } from "../../redux/slices/userSlice";
-import { auth } from "../../firebase/utils";
+import { auth, loginWithGoogle } from "../../firebase/utils";
 import Button from "../../components/Button";
 import EmailField from "../../components/reusable-components/EmailField";
 import PasswordField from "../../components/reusable-components/PasswordField";
-
+import ShowToast from "../../utils/toast";
+import GoogleIcon from "../../assets/google-brands-solid.svg";
 const Page = () => {
   const {
     register,
@@ -25,6 +27,16 @@ const Page = () => {
       router.push("/");
     }
   });
+
+  const googleLogin = async () => {
+    try {
+      const user = await loginWithGoogle({ isMobile: mobile() });
+      ShowToast("User logged in successfully.", { success: true });
+    } catch (error) {
+      // Handle the error in the UI
+      ShowToast(error.message, { success: false });
+    }
+  };
 
   const handleLogin = ({ email, password }) => {
     dispatch(login({ email, password }));
@@ -54,9 +66,23 @@ const Page = () => {
           {/* TODO: forgot password not yet implemented */}
 
           {/* login buttons */}
-          <Button type="submit" color="red-500">
-            LOGIN
-          </Button>
+          <div>
+            <Button type="submit" color="red-500">
+              LOGIN
+            </Button>
+
+            <Button
+              className={"flex gap-3 items-center justify-center bg-blue-500"}
+              type={"button"}
+              handleClick={() => {
+                googleLogin({ isMobile: mobile });
+              }}
+              color="red-500"
+            >
+              LOGIN WITH GOOGLE
+              <GoogleIcon className="text-white ml-2" height={25} width={25} />
+            </Button>
+          </div>
         </form>
       </div>
     </section>

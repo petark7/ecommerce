@@ -5,7 +5,7 @@ const Button = ({
   label,
   handleClick,
   children,
-  type,
+  type = "button",
   color = "gray-700",
 }) => {
   const eventHandler =

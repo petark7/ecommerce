@@ -14,6 +14,8 @@ export function handleAuthError(errorCode) {
       return "Access to this account has been temporarily disabled due to many failed login attempts. Please try again later.";
     case "auth/weak-password":
       return "The password is too weak. Use a mix of letters, numbers, and special characters. Length should be minimum 6 characters.";
+    case "auth/popup-closed-by-user":
+      return "You have closed the popup window.";
     default:
       return "An unexpected error occurred. Please try again.";
   }

@@ -1,5 +1,10 @@
 import { initializeApp } from "firebase/app";
 import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithRedirect,
+} from "firebase/auth";
+import {
   createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
@@ -34,6 +39,23 @@ export const db = getFirestore(app);
 const productsCollection = collection(db, "products");
 const storage = getStorage();
 
+export const loginWithGoogle = async ({ isMobile }) => {
+  try {
+    const provider = new GoogleAuthProvider();
+    const userCredential = isMobile
+      ? await signInWithRedirect(auth, provider)
+      : await signInWithPopup(auth, provider);
+
+    const user = userCredential.user;
+    return {
+      uid: user.uid,
+      accessToken: user.accessToken,
+    };
+  } catch (error) {
+    // Pass the error upwards instead of handling it here
+    throw new Error(handleAuthError(error.code));
+  }
+};
 export const loginUser = async (email, password) => {
   try {
     const userCredential = await signInWithEmailAndPassword(
