@@ -22,7 +22,7 @@ const OrderHistory = () => {
 
   useEffect(() => {
     dispatch(fetchOrders(user?.uid));
-  }, [user]);
+  }, [user, dispatch]);
 
   useEffect(() => {
     if (orders.length > 0) {
@@ -55,7 +55,7 @@ const OrderHistory = () => {
         </div>
       );
     }
-  }, [orders, sortBy]);
+  }, [orders, sortBy, ordersStatus, router]);
 
   return (
     <div className="flex flex-col">

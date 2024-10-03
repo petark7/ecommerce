@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 const PasswordField = ({ register, errors }) => {
   return (
     <>
@@ -10,6 +11,7 @@ const PasswordField = ({ register, errors }) => {
           },
           pattern: {
             value:
+              // eslint-disable-next-line no-useless-escape
               /^(?=.*[A-Z])(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>\/?`~])[^\s]{2,}$/,
             message:
               "Password must contain at least one uppercase letter and one special character",
@@ -24,6 +26,15 @@ const PasswordField = ({ register, errors }) => {
       )}
     </>
   );
+};
+
+PasswordField.propTypes = {
+  errors: PropTypes.shape({
+    password: PropTypes.shape({
+      message: PropTypes.string,
+    }),
+  }),
+  register: PropTypes.func,
 };
 
 export default PasswordField;
