@@ -77,10 +77,9 @@ const Page = () => {
               handleClick={() => {
                 googleLogin({ isMobile: mobile });
               }}
-              color="red-500"
             >
-              LOGIN WITH GOOGLE
               <GoogleIcon className="text-white ml-2" height={25} width={25} />
+              LOGIN WITH GOOGLE
             </Button>
           </div>
         </form>

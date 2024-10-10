@@ -6,7 +6,7 @@ const Button = ({
   handleClick,
   children,
   type = "button",
-  color = "gray-700",
+  color,
 }) => {
   const eventHandler =
     type === "submit" ? { onSubmit: handleClick } : { onClick: handleClick };

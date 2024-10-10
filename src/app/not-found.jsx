@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import notFoundImage from "../assets/notfound.svg";
 import Image from "next/image";
 
 const Page = () => {
@@ -11,7 +10,12 @@ const Page = () => {
       gap-4 justify-center p-10 h-screen"
     >
       <div className="flex flex-col md:flex-row md:items-center md:w-[1000px]">
-        <Image src={notFoundImage} alt="404 not found" width={400} />
+        <Image
+          src="/notfound.svg"
+          alt="404 not found"
+          width={400}
+          height={400}
+        />
         <div className="flex flex-col gap-4">
           <div className="text-4xl">Page not found :(</div>
 
