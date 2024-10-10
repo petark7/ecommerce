@@ -30,7 +30,7 @@ const Page = () => {
 
   const googleLogin = async () => {
     try {
-      const user = await loginWithGoogle({ isMobile: mobile() });
+      await loginWithGoogle({ isMobile: mobile() });
       ShowToast("User logged in successfully.", { success: true });
     } catch (error) {
       // Handle the error in the UI
