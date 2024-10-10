@@ -6,8 +6,8 @@ import Link from "next/link";
 
 const colorMap = {
   blue: {
-    bg: "bg-blue-500",
-    hover: "hover:bg-blue-700",
+    bg: "bg-blue-400",
+    hover: "hover:bg-blue-600",
   },
   pink: {
     bg: "bg-pink-400",

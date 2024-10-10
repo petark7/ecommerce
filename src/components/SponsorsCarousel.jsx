@@ -1,12 +1,8 @@
 "use client";
 import Image from "next/image";
-import CustomCarousel from "./CustomCarousel";
-import { useClickWithoutDrag } from "../hooks/useClickWithoutDrag";
 import Carousel from "react-multi-carousel";
 
 const SponsorsCarousel = () => {
-  const { handleMouseDown, handleMouseUp } = useClickWithoutDrag();
-
   const images = [
     "/sponsor-images/adidas.png",
     "/sponsor-images/armani.png",

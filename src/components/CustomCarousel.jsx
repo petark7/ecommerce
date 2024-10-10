@@ -42,6 +42,8 @@ const CustomCarousel = ({
 CustomCarousel.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
+  customResponsive: PropTypes.object,
+  showDots: PropTypes.bool,
 };
 
 export default CustomCarousel;

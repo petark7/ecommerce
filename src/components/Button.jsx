@@ -5,8 +5,8 @@ const Button = ({
   label,
   handleClick,
   children,
-  type,
-  color = "gray-700",
+  type = "button",
+  color,
 }) => {
   const eventHandler =
     type === "submit" ? { onSubmit: handleClick } : { onClick: handleClick };

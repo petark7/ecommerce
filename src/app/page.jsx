@@ -1,27 +1,35 @@
-import HomeCarousel from "../components/HomeCarousel";
+import dynamic from "next/dynamic";
+import { Suspense } from "react";
 import Section from "../components/Section";
 import { fetchFeaturedProducts } from "../firebase/utils";
 import FeaturedProducts from "../components/FeaturedProducts";
-import SponsorsCarousel from "../components/SponsorsCarousel";
 import CategoryPicker from "../components/CategoryPicker";
+
+const HomeCarousel = dynamic(() => import("../components/Home/HomeCarousel"), {
+  loading: () => <p>Loading...</p>,
+});
+const SponsorsCarousel = dynamic(
+  () => import("../components/SponsorsCarousel"),
+  { loading: () => <p>Loading...</p> }
+);
 
 export const dynamicParams = true;
 export const revalidate = 60;
 
 export default async function Page() {
-  async function getProducts() {
-    const products = await fetchFeaturedProducts(8);
-    return products;
-  }
+  const products = await fetchFeaturedProducts(8);
 
-  const products = await getProducts();
   return (
     <div className="py-16 md:mx-10">
       <div className="container mx-auto ">
         <div className="flex flex-col gap-[50px] md:gap-[100px]">
           <div className="flex flex-col gap-5">
-            <HomeCarousel />
-            <SponsorsCarousel />
+            <Suspense fallback={<p>Loading carousel...</p>}>
+              <HomeCarousel />
+            </Suspense>
+            <Suspense fallback={<p>Loading sponsors...</p>}>
+              <SponsorsCarousel />
+            </Suspense>
           </div>
 
           <Section title={"Featured Products"}>

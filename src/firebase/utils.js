@@ -1,5 +1,11 @@
 import { initializeApp } from "firebase/app";
 import {
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithRedirect,
+} from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
   getAuth,
   signInWithEmailAndPassword,
   signOut,
@@ -21,6 +27,7 @@ import { toast } from "react-toastify";
 import { firebaseConfig } from "../firebaseConfig";
 import showToast, { ShowToast } from "../utils/toast";
 import { getStorage, ref, getDownloadURL } from "firebase/storage";
+import { handleAuthError } from "./authErrorHandler";
 
 // Follow this pattern to import other Firebase services
 // import { } from 'firebase/<service>';
@@ -32,6 +39,23 @@ export const db = getFirestore(app);
 const productsCollection = collection(db, "products");
 const storage = getStorage();
 
+export const loginWithGoogle = async ({ isMobile }) => {
+  try {
+    const provider = new GoogleAuthProvider();
+    const userCredential = isMobile
+      ? await signInWithRedirect(auth, provider)
+      : await signInWithPopup(auth, provider);
+
+    const user = userCredential.user;
+    return {
+      uid: user.uid,
+      accessToken: user.accessToken,
+    };
+  } catch (error) {
+    // Pass the error upwards instead of handling it here
+    throw new Error(handleAuthError(error.code));
+  }
+};
 export const loginUser = async (email, password) => {
   try {
     const userCredential = await signInWithEmailAndPassword(
@@ -49,6 +73,27 @@ export const loginUser = async (email, password) => {
     showToast("You entered incorrect credentials.", { success: false });
     // TODO: implement better handling
     return "error";
+  }
+};
+
+export const registerUser = async (email, password) => {
+  try {
+    const userCredential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    const user = userCredential.user;
+    showToast("Created user successfully.", { success: true });
+    return {
+      uid: user.uid,
+      accessToken: user.accessToken,
+    };
+  } catch (error) {
+    const errorCode = error.code;
+
+    showToast(handleAuthError(errorCode), { success: false });
+    return error;
   }
 };
 
