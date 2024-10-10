@@ -1,5 +1,5 @@
 # Bluzify - a web shop for clothes
-See demo: https://bit.ly/ecommerceappfikt
+See demo: https://fanciful-khapse-8927c0.netlify.app/
 
 A simple e-commerce web application developed using modern technologies: 
 
